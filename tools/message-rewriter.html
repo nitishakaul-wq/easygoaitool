@@ -1,50 +1,240 @@
 <!DOCTYPE html>
-<html>
 
+<html>
 <head>
-<title>Message Rewriter | EasyGoAITool</title>
+<meta charset="UTF-8">
+<title>AI Message Rewriter</title>
+
+<style>
+
+*{
+box-sizing:border-box;
+}
+
+body{
+margin:0;
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+background:linear-gradient(135deg,#eef2ff,#f8fafc);
+min-height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+padding:30px;
+}
+
+.container{
+background:white;
+max-width:720px;
+width:100%;
+padding:35px;
+border-radius:14px;
+box-shadow:0 20px 40px rgba(0,0,0,0.08);
+}
+
+h1{
+margin:0 0 8px 0;
+font-size:30px;
+}
+
+.subtitle{
+color:#666;
+margin-bottom:25px;
+}
+
+textarea{
+width:100%;
+height:150px;
+border-radius:10px;
+border:1px solid #e5e7eb;
+padding:14px;
+font-size:15px;
+resize:none;
+outline:none;
+}
+
+textarea:focus{
+border-color:#6366f1;
+}
+
+.controls{
+display:flex;
+gap:12px;
+margin-top:18px;
+flex-wrap:wrap;
+}
+
+select{
+padding:10px;
+border-radius:8px;
+border:1px solid #e5e7eb;
+font-size:14px;
+}
+
+button{
+background:#6366f1;
+color:white;
+border:none;
+padding:11px 18px;
+border-radius:8px;
+cursor:pointer;
+font-weight:600;
+}
+
+button:hover{
+background:#4f46e5;
+}
+
+.result-container{
+margin-top:28px;
+}
+
+.result-box{
+background:#f9fafb;
+border:1px solid #eee;
+border-radius:10px;
+padding:16px;
+min-height:70px;
+font-size:15px;
+line-height:1.6;
+}
+
+.result-actions{
+margin-top:10px;
+display:flex;
+gap:10px;
+}
+
+.copy-btn{
+background:#10b981;
+}
+
+.copy-btn:hover{
+background:#059669;
+}
+
+.loading{
+color:#888;
+font-style:italic;
+}
+
+.examples{
+margin-top:15px;
+font-size:13px;
+color:#666;
+}
+
+.example{
+cursor:pointer;
+color:#6366f1;
+}
+
+.example:hover{
+text-decoration:underline;
+}
+
+</style>
+
 </head>
 
 <body>
 
+<div class="container">
+
 <h1>AI Message Rewriter</h1>
+<p class="subtitle">Turn rude or unclear messages into polite, professional communication.</p>
 
-<p>Rewrite your message in a better tone.</p>
+<textarea id="input" placeholder="Type or paste your message here..."></textarea>
 
-<textarea id="input" rows="6" cols="60" placeholder="Paste your message here"></textarea>
+<div class="examples">
+Try example:
+<span class="example" onclick="fillExample()">"Why haven't you replied yet?"</span>
+</div>
 
-<br><br>
+<div class="controls">
 
 <select id="tone">
 <option value="professional">Professional</option>
-<option value="friendly">Friendly</option>
 <option value="polite">Polite</option>
-<option value="short">Short</option>
+<option value="friendly">Friendly</option>
+<option value="formal">Formal</option>
 </select>
 
-<br><br>
+<button onclick="rewriteMessage()">Rewrite Message</button>
 
-<button onclick="rewrite()">Rewrite Message</button>
+</div>
+
+<div class="result-container">
 
 <h3>Result</h3>
 
-<p id="result"></p>
+<div id="result" class="result-box">
+Your rewritten message will appear here.
+</div>
+
+<div class="result-actions">
+
+<button class="copy-btn" onclick="copyText()">Copy</button>
+
+</div>
+
+</div>
+
+</div>
 
 <script>
 
-function rewrite(){
+function fillExample(){
+document.getElementById("input").value="Why haven't you replied yet?";
+}
 
-let message=document.getElementById("input").value;
-let tone=document.getElementById("tone").value;
+async function rewriteMessage(){
 
-let rewritten="["+tone+" version]: "+message;
+const message=document.getElementById("input").value;
+const tone=document.getElementById("tone").value;
 
-document.getElementById("result").innerText=rewritten;
+if(!message){
+document.getElementById("result").innerText="Please enter a message.";
+return;
+}
+
+document.getElementById("result").innerHTML="<span class='loading'>Rewriting...</span>";
+
+try{
+
+const response=await fetch("/api/rewrite",{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify({
+message:message,
+tone:tone
+})
+});
+
+const data=await response.json();
+
+document.getElementById("result").innerText=data.result;
+
+}catch(error){
+
+document.getElementById("result").innerText="Error contacting AI service.";
+
+}
+
+}
+
+function copyText(){
+
+const text=document.getElementById("result").innerText;
+
+navigator.clipboard.writeText(text);
+
+alert("Copied!");
 
 }
 
 </script>
 
 </body>
-
 </html>
