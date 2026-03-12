@@ -1,32 +1,184 @@
 <!DOCTYPE html>
+
 <html>
 
 <head>
-<title>Screenshot Explainer | EasyGoAITool</title>
+<meta charset="UTF-8">
+<title>Screenshot Explainer</title>
+
+<style>
+
+*{box-sizing:border-box;}
+
+body{
+margin:0;
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+background:linear-gradient(135deg,#eef2ff,#f8fafc);
+min-height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+padding:30px;
+}
+
+.container{
+background:white;
+max-width:720px;
+width:100%;
+padding:35px;
+border-radius:14px;
+box-shadow:0 20px 40px rgba(0,0,0,0.08);
+}
+
+h1{
+margin:0 0 8px 0;
+font-size:30px;
+}
+
+.subtitle{
+color:#666;
+margin-bottom:25px;
+}
+
+textarea{
+width:100%;
+height:150px;
+border-radius:10px;
+border:1px solid #e5e7eb;
+padding:14px;
+font-size:15px;
+resize:none;
+outline:none;
+}
+
+textarea:focus{
+border-color:#6366f1;
+}
+
+button{
+background:#6366f1;
+color:white;
+border:none;
+padding:11px 18px;
+border-radius:8px;
+cursor:pointer;
+font-weight:600;
+margin-top:15px;
+}
+
+button:hover{
+background:#4f46e5;
+}
+
+.result{
+margin-top:25px;
+background:#f9fafb;
+border:1px solid #eee;
+border-radius:10px;
+padding:16px;
+min-height:70px;
+line-height:1.6;
+}
+
+.copy-btn{
+background:#10b981;
+margin-top:10px;
+}
+
+.copy-btn:hover{
+background:#059669;
+}
+
+.examples{
+margin-top:12px;
+font-size:13px;
+color:#666;
+}
+
+.example{
+cursor:pointer;
+color:#6366f1;
+}
+
+.example:hover{
+text-decoration:underline;
+}
+
+</style>
+
 </head>
 
 <body>
 
+<div class="container">
+
 <h1>Screenshot Explainer</h1>
 
-<p>Upload a screenshot and AI will explain it.</p>
+<p class="subtitle">
+Paste text from a screenshot or describe an error and AI will explain it.
+</p>
 
-<input type="file" id="image">
+<textarea id="input" placeholder="Paste screenshot text or error message..."></textarea>
 
-<br><br>
+<div class="examples">
+Example:
+<span class="example" onclick="fillExample()">
+"Error 403 Forbidden while accessing website"
+</span>
+</div>
 
-<button onclick="explain()">Explain Screenshot</button>
+<button onclick="explain()">Explain</button>
 
-<h3>Result</h3>
+<div id="result" class="result">
+Explanation will appear here.
+</div>
 
-<p id="result"></p>
+<button class="copy-btn" onclick="copyResult()">Copy</button>
+
+</div>
 
 <script>
 
-function explain(){
+function fillExample(){
+document.getElementById("input").value="Error 403 Forbidden while accessing website";
+}
 
-document.getElementById("result").innerText =
-"Screenshot explanation feature coming soon.";
+async function explain(){
+
+const text=document.getElementById("input").value;
+
+if(!text){
+document.getElementById("result").innerText="Please enter text.";
+return;
+}
+
+document.getElementById("result").innerText="Analyzing...";
+
+try{
+
+const res=await fetch("/api/explain",{
+method:"POST",
+headers:{"Content-Type":"application/json"},
+body:JSON.stringify({message:text})
+});
+
+const data=await res.json();
+
+document.getElementById("result").innerText=data.result || "No explanation returned.";
+
+}catch(err){
+
+document.getElementById("result").innerText="Error contacting AI service.";
+
+}
+
+}
+
+function copyResult(){
+
+const text=document.getElementById("result").innerText;
+navigator.clipboard.writeText(text);
+alert("Copied");
 
 }
 
