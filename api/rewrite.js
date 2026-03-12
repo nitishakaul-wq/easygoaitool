@@ -25,7 +25,7 @@ model: "llama3-8b-8192",
 messages: [
 {
 role: "system",
-content: "Rewrite messages to be polite, clear, and professional."
+content: "Rewrite messages to be polite and professional."
 },
 {
 role: "user",
@@ -39,25 +39,25 @@ content: `Rewrite this message in a ${tone} tone: ${message}`
 const data = await response.json();
 
 const result =
-data?.choices &&
-data.choices[0] &&
-data.choices[0].message &&
-data.choices[0].message.content;
+data?.choices?.[0]?.message?.content;
 
 if (!result) {
+
 console.log("Groq response:", data);
+
 return res.status(500).json({
 error: "AI returned empty result"
 });
+
 }
 
 return res.status(200).json({
 result: result
 });
 
-} catch (err) {
+} catch (error) {
 
-console.error(err);
+console.error(error);
 
 return res.status(500).json({
 error: "Server error"
