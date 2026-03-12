@@ -1,62 +1,71 @@
 export default async function handler(req, res) {
 
-  if (req.method !== "POST") {
-    return res.status(405).json({ error: "Method not allowed" });
-  }
+if(req.method !== "POST"){
+return res.status(405).json({error:"Method not allowed"});
+}
 
-  try {
+try{
 
-    const { message, tone } = req.body;
+const { message, tone } = req.body;
 
-    if (!message) {
-      return res.status(400).json({ error: "No message provided" });
-    }
+if(!message){
+return res.status(400).json({error:"Message missing"});
+}
 
-    const response = await fetch("https://api.openai.com/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${process.env.OPENAI_API_KEY}`
-      },
-      body: JSON.stringify({
-        model: "gpt-4o-mini",
-        messages: [
-          {
-            role: "system",
-            content: "Rewrite messages to be polite and professional."
-          },
-          {
-            role: "user",
-            content: `Rewrite this message in a ${tone} tone: ${message}`
-          }
-        ]
-      })
-    });
+const response = await fetch("https://api.groq.com/openai/v1/chat/completions",{
 
-    const data = await response.json();
+method:"POST",
 
-    console.log("OpenAI response:", data);
+headers:{
+"Content-Type":"application/json",
+"Authorization":`Bearer ${process.env.GROQ_API_KEY}`
+},
 
-    const result = data?.choices?.[0]?.message?.content;
+body:JSON.stringify({
 
-    if (!result) {
-      return res.status(500).json({
-        error: "OpenAI returned empty content"
-      });
-    }
+model:"llama3-70b-8192",
 
-    res.status(200).json({
-      result: result
-    });
+messages:[
+{
+role:"system",
+content:"Rewrite messages to be polite, clear, and professional."
+},
+{
+role:"user",
+content:`Rewrite this message in a ${tone} tone: ${message}`
+}
+]
 
-  } catch (error) {
+})
 
-    console.error(error);
+});
 
-    res.status(500).json({
-      error: "Server error contacting OpenAI"
-    });
+const data = await response.json();
 
-  }
+const result = data?.choices?.[0]?.message?.content;
+
+if(!result){
+
+console.log(data);
+
+return res.status(500).json({
+error:"AI returned empty result"
+});
+
+}
+
+res.status(200).json({
+result:result
+});
+
+}catch(error){
+
+console.error(error);
+
+res.status(500).json({
+error:"Server error contacting AI"
+});
+
+}
 
 }
