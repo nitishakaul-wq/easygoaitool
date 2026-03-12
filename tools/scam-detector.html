@@ -1,47 +1,185 @@
 <!DOCTYPE html>
+
 <html>
 
 <head>
-<title>Scam Detector | EasyGoAITool</title>
+<meta charset="UTF-8">
+<title>AI Scam Detector</title>
+
+<style>
+
+*{box-sizing:border-box;}
+
+body{
+margin:0;
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+background:linear-gradient(135deg,#eef2ff,#f8fafc);
+min-height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+padding:30px;
+}
+
+.container{
+background:white;
+max-width:720px;
+width:100%;
+padding:35px;
+border-radius:14px;
+box-shadow:0 20px 40px rgba(0,0,0,0.08);
+}
+
+h1{
+margin:0 0 8px 0;
+font-size:30px;
+}
+
+.subtitle{
+color:#666;
+margin-bottom:25px;
+}
+
+textarea{
+width:100%;
+height:150px;
+border-radius:10px;
+border:1px solid #e5e7eb;
+padding:14px;
+font-size:15px;
+resize:none;
+outline:none;
+}
+
+textarea:focus{
+border-color:#6366f1;
+}
+
+button{
+background:#6366f1;
+color:white;
+border:none;
+padding:11px 18px;
+border-radius:8px;
+cursor:pointer;
+font-weight:600;
+margin-top:15px;
+}
+
+button:hover{
+background:#4f46e5;
+}
+
+.result{
+margin-top:25px;
+background:#f9fafb;
+border:1px solid #eee;
+border-radius:10px;
+padding:16px;
+min-height:70px;
+line-height:1.6;
+}
+
+.copy-btn{
+background:#10b981;
+margin-top:10px;
+}
+
+.copy-btn:hover{
+background:#059669;
+}
+
+.examples{
+margin-top:12px;
+font-size:13px;
+color:#666;
+}
+
+.example{
+cursor:pointer;
+color:#6366f1;
+}
+
+.example:hover{
+text-decoration:underline;
+}
+
+</style>
+
 </head>
 
 <body>
 
-<h1>Scam Detector</h1>
+<div class="container">
 
-<p>Paste a message and check if it might be a scam.</p>
+<h1>AI Scam Detector</h1>
 
-<textarea id="input" rows="6" cols="60"
-placeholder="Paste suspicious message here">
-</textarea>
+<p class="subtitle">
+Paste a suspicious message or email and detect if it could be a scam.
+</p>
 
-<br><br>
+<textarea id="input" placeholder="Paste suspicious message here..."></textarea>
 
-<button onclick="checkScam()">Analyze</button>
+<div class="examples">
+Example:
+<span class="example" onclick="fillExample()">
+"Your bank account will be blocked. Click this link now to verify."
+</span>
+</div>
 
-<h3>Result</h3>
+<button onclick="checkScam()">Analyze Message</button>
 
-<p id="result"></p>
+<div id="result" class="result">
+AI analysis will appear here.
+</div>
+
+<button class="copy-btn" onclick="copyResult()">Copy</button>
+
+</div>
 
 <script>
 
-function checkScam(){
-
-let text=document.getElementById("input").value;
-
-if(
-text.includes("urgent") ||
-text.includes("payment") ||
-text.includes("bank") ||
-text.includes("otp")
-){
-document.getElementById("result").innerText=
-"⚠️ This message might be suspicious.";
+function fillExample(){
+document.getElementById("input").value =
+"Your bank account will be blocked. Click this link immediately to verify.";
 }
-else{
-document.getElementById("result").innerText=
-"No obvious scam signals detected.";
+
+async function checkScam(){
+
+const text=document.getElementById("input").value;
+
+if(!text){
+document.getElementById("result").innerText="Please paste a message first.";
+return;
 }
+
+document.getElementById("result").innerText="Analyzing...";
+
+try{
+
+const res=await fetch("/api/scam",{
+method:"POST",
+headers:{"Content-Type":"application/json"},
+body:JSON.stringify({message:text})
+});
+
+const data=await res.json();
+
+document.getElementById("result").innerText=data.result || "No analysis returned.";
+
+}catch(err){
+
+document.getElementById("result").innerText="Error contacting AI service.";
+
+}
+
+}
+
+function copyResult(){
+
+const text=document.getElementById("result").innerText;
+navigator.clipboard.writeText(text);
+alert("Copied");
 
 }
 
