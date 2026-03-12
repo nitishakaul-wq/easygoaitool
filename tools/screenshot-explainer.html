@@ -1,18 +1,16 @@
 <!DOCTYPE html>
 
 <html>
-
 <head>
+
 <meta charset="UTF-8">
 <title>Screenshot Explainer</title>
 
 <style>
 
-*{box-sizing:border-box;}
-
 body{
 margin:0;
-font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial;
 background:linear-gradient(135deg,#eef2ff,#f8fafc);
 min-height:100vh;
 display:flex;
@@ -23,47 +21,64 @@ padding:30px;
 
 .container{
 background:white;
-max-width:720px;
+max-width:760px;
 width:100%;
-padding:35px;
+padding:40px;
 border-radius:14px;
 box-shadow:0 20px 40px rgba(0,0,0,0.08);
 }
 
 h1{
-margin:0 0 8px 0;
-font-size:30px;
+margin:0;
+font-size:32px;
 }
 
 .subtitle{
 color:#666;
-margin-bottom:25px;
+margin-top:8px;
+margin-bottom:30px;
 }
 
-textarea{
-width:100%;
-height:150px;
-border-radius:10px;
-border:1px solid #e5e7eb;
-padding:14px;
-font-size:15px;
-resize:none;
-outline:none;
+.upload-box{
+
+border:2px dashed #d1d5db;
+border-radius:12px;
+padding:40px;
+text-align:center;
+cursor:pointer;
+transition:0.2s;
 }
 
-textarea:focus{
+.upload-box:hover{
 border-color:#6366f1;
+background:#fafaff;
+}
+
+.upload-box p{
+margin:10px 0;
+color:#555;
+}
+
+.upload-icon{
+font-size:40px;
+}
+
+.preview{
+margin-top:20px;
+max-width:100%;
+border-radius:8px;
+display:none;
 }
 
 button{
+margin-top:20px;
 background:#6366f1;
 color:white;
 border:none;
-padding:11px 18px;
+padding:12px 22px;
 border-radius:8px;
 cursor:pointer;
 font-weight:600;
-margin-top:15px;
 }
 
 button:hover{
@@ -71,37 +86,22 @@ background:#4f46e5;
 }
 
 .result{
-margin-top:25px;
+margin-top:30px;
 background:#f9fafb;
 border:1px solid #eee;
 border-radius:10px;
-padding:16px;
-min-height:70px;
+padding:18px;
+min-height:80px;
 line-height:1.6;
 }
 
-.copy-btn{
+.copy{
 background:#10b981;
-margin-top:10px;
-}
-
-.copy-btn:hover{
-background:#059669;
-}
-
-.examples{
 margin-top:12px;
-font-size:13px;
-color:#666;
 }
 
-.example{
-cursor:pointer;
-color:#6366f1;
-}
-
-.example:hover{
-text-decoration:underline;
+.copy:hover{
+background:#059669;
 }
 
 </style>
@@ -115,52 +115,62 @@ text-decoration:underline;
 <h1>Screenshot Explainer</h1>
 
 <p class="subtitle">
-Paste text from a screenshot or describe an error and AI will explain it.
+Upload a screenshot of an error, message, or UI problem and get an explanation instantly.
 </p>
 
-<textarea id="input" placeholder="Paste screenshot text or error message..."></textarea>
+<label class="upload-box">
 
-<div class="examples">
-Example:
-<span class="example" onclick="fillExample()">
-"Error 403 Forbidden while accessing website"
-</span>
-</div>
+<div class="upload-icon">📷</div>
 
-<button onclick="explain()">Explain</button>
+<p>Click to upload screenshot</p>
+
+<p style="font-size:13px;color:#888;">
+PNG, JPG supported
+</p>
+
+<input type="file" id="imageUpload" hidden>
+
+</label>
+
+<img id="preview" class="preview">
+
+<button onclick="explainScreenshot()">Explain Screenshot</button>
 
 <div id="result" class="result">
-Explanation will appear here.
+AI explanation will appear here.
 </div>
 
-<button class="copy-btn" onclick="copyResult()">Copy</button>
+<button class="copy" onclick="copyResult()">Copy</button>
 
 </div>
 
 <script>
 
-function fillExample(){
-document.getElementById("input").value="Error 403 Forbidden while accessing website";
-}
+const upload=document.getElementById("imageUpload");
+const preview=document.getElementById("preview");
 
-async function explain(){
+document.querySelector(".upload-box").onclick=()=>{
+upload.click();
+};
 
-const text=document.getElementById("input").value;
+upload.onchange=e=>{
 
-if(!text){
-document.getElementById("result").innerText="Please enter text.";
-return;
-}
+const file=e.target.files[0];
 
-document.getElementById("result").innerText="Analyzing...";
+if(!file)return;
+
+preview.src=URL.createObjectURL(file);
+preview.style.display="block";
+
+};
+
+async function explainScreenshot(){
+
+document.getElementById("result").innerText="Analyzing screenshot...";
 
 try{
 
-const res=await fetch("/api/explain",{
-method:"POST",
-headers:{"Content-Type":"application/json"},
-body:JSON.stringify({message:text})
-});
+const res=await fetch("/api/explain-image",{method:"POST"});
 
 const data=await res.json();
 
@@ -177,7 +187,9 @@ document.getElementById("result").innerText="Error contacting AI service.";
 function copyResult(){
 
 const text=document.getElementById("result").innerText;
+
 navigator.clipboard.writeText(text);
+
 alert("Copied");
 
 }
@@ -185,5 +197,4 @@ alert("Copied");
 </script>
 
 </body>
-
 </html>
