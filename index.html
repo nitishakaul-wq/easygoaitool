@@ -1,23 +1,269 @@
-<h2>Our Tools</h2>
+<!DOCTYPE html>
 
-<ul>
+<html>
 
-<li>
+<head>
+<meta charset="UTF-8">
+<title>EasyGoAITool — Simple AI Tools</title>
+
+<style>
+
+*{
+box-sizing:border-box;
+}
+
+body{
+margin:0;
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+background:#f7f9fc;
+color:#111;
+}
+
+/* HERO */
+
+.hero{
+text-align:center;
+padding:80px 20px 50px;
+background:linear-gradient(135deg,#eef2ff,#f8fafc);
+}
+
+.hero h1{
+font-size:44px;
+margin-bottom:15px;
+}
+
+.hero p{
+color:#555;
+font-size:18px;
+max-width:700px;
+margin:auto;
+}
+
+/* TOOL SECTION */
+
+.tools{
+max-width:1000px;
+margin:60px auto;
+padding:0 20px;
+}
+
+.tools h2{
+text-align:center;
+margin-bottom:40px;
+font-size:28px;
+}
+
+.tool-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:20px;
+}
+
+.tool-card{
+background:white;
+padding:25px;
+border-radius:12px;
+box-shadow:0 10px 20px rgba(0,0,0,0.05);
+transition:0.2s;
+text-align:center;
+}
+
+.tool-card:hover{
+transform:translateY(-4px);
+box-shadow:0 14px 30px rgba(0,0,0,0.08);
+}
+
+.tool-card h3{
+margin-top:10px;
+margin-bottom:10px;
+}
+
+.tool-card p{
+font-size:14px;
+color:#666;
+}
+
+.tool-card a{
+display:inline-block;
+margin-top:15px;
+padding:10px 18px;
+background:#6366f1;
+color:white;
+border-radius:8px;
+text-decoration:none;
+font-weight:600;
+}
+
+.tool-card a:hover{
+background:#4f46e5;
+}
+
+/* INFOGRAPHIC */
+
+.how{
+background:white;
+padding:60px 20px;
+margin-top:60px;
+}
+
+.how h2{
+text-align:center;
+margin-bottom:40px;
+}
+
+.steps{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:30px;
+max-width:900px;
+margin:auto;
+}
+
+.step{
+max-width:220px;
+text-align:center;
+}
+
+.step-number{
+width:50px;
+height:50px;
+border-radius:50%;
+background:#6366f1;
+color:white;
+display:flex;
+align-items:center;
+justify-content:center;
+margin:auto;
+font-weight:bold;
+margin-bottom:10px;
+}
+
+.step p{
+font-size:14px;
+color:#555;
+}
+
+/* FOOTER */
+
+footer{
+text-align:center;
+padding:40px;
+font-size:14px;
+color:#777;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<section class="hero">
+
+<h1>EasyGoAITool</h1>
+
+<p>
+Free simple AI tools that help you rewrite messages, detect scams,
+and understand screenshots instantly.
+</p>
+
+</section>
+
+<section class="tools">
+
+<h2>Our AI Tools</h2>
+
+<div class="tool-grid">
+
+<div class="tool-card">
+
+<h3>✍️ Message Rewriter</h3>
+
+<p>
+Turn rude or unclear messages into polite and professional communication.
+</p>
+
 <a href="/tools/message-rewriter.html">
-Message Rewriter
+Use Tool
 </a>
-</li>
 
-<li>
+</div>
+
+<div class="tool-card">
+
+<h3>🛡 Scam Detector</h3>
+
+<p>
+Paste suspicious messages or emails and detect potential scams instantly.
+</p>
+
 <a href="/tools/scam-detector.html">
-Scam Detector
+Use Tool
 </a>
-</li>
 
-<li>
+</div>
+
+<div class="tool-card">
+
+<h3>🖼 Screenshot Explainer</h3>
+
+<p>
+Upload screenshots and get instant explanations of errors or confusing text.
+</p>
+
 <a href="/tools/screenshot-explainer.html">
-Screenshot Explainer
+Use Tool
 </a>
-</li>
 
-</ul>
+</div>
+
+</div>
+
+</section>
+
+<section class="how">
+
+<h2>How It Works</h2>
+
+<div class="steps">
+
+<div class="step">
+
+<div class="step-number">1</div>
+
+<p>Paste your message, screenshot, or suspicious text.</p>
+
+</div>
+
+<div class="step">
+
+<div class="step-number">2</div>
+
+<p>Our AI analyzes the content instantly.</p>
+
+</div>
+
+<div class="step">
+
+<div class="step-number">3</div>
+
+<p>Get a clear rewritten message or explanation.</p>
+
+</div>
+
+</div>
+
+</section>
+
+<footer>
+
+<p>
+© 2026 EasyGoAITool — Simple AI Tools for Everyday Problems
+</p>
+
+</footer>
+
+</body>
+
+</html>
