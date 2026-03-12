@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<meta charset="UTF-8">
+<title>ATS Resume Optimizer</title>
+
+<style>
+
+body{
+margin:0;
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial;
+background:linear-gradient(135deg,#eef2ff,#f8fafc);
+min-height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+padding:30px;
+}
+
+.container{
+background:white;
+max-width:850px;
+width:100%;
+padding:40px;
+border-radius:14px;
+box-shadow:0 20px 40px rgba(0,0,0,0.08);
+}
+
+h1{
+margin:0;
+font-size:32px;
+}
+
+.subtitle{
+color:#666;
+margin-top:8px;
+margin-bottom:30px;
+}
+
+textarea{
+width:100%;
+height:150px;
+border-radius:10px;
+border:1px solid #e5e7eb;
+padding:14px;
+font-size:15px;
+resize:none;
+outline:none;
+margin-bottom:15px;
+}
+
+textarea:focus{
+border-color:#6366f1;
+}
+
+button{
+background:#6366f1;
+color:white;
+border:none;
+padding:12px 22px;
+border-radius:8px;
+cursor:pointer;
+font-weight:600;
+margin-top:10px;
+}
+
+button:hover{
+background:#4f46e5;
+}
+
+.result{
+margin-top:30px;
+background:#f9fafb;
+border:1px solid #eee;
+border-radius:10px;
+padding:18px;
+line-height:1.6;
+white-space:pre-wrap;
+}
+
+.copy{
+background:#10b981;
+margin-top:12px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>ATS Resume Optimizer</h1>
+
+<p class="subtitle">
+Paste your resume and job description to generate an ATS optimized resume and cover letter.
+</p>
+
+<h3>Job Description</h3>
+<textarea id="jd" placeholder="Paste job description here..."></textarea>
+
+<h3>Your Current Resume</h3>
+<textarea id="resume" placeholder="Paste your current resume text..."></textarea>
+
+<button onclick="optimizeResume()">Generate ATS Resume</button>
+
+<div id="result" class="result">
+Results will appear here.
+</div>
+
+<button class="copy" onclick="copyResult()">Copy</button>
+
+</div>
+
+<script>
+
+async function optimizeResume(){
+
+const jd=document.getElementById("jd").value;
+const resume=document.getElementById("resume").value;
+
+if(!jd || !resume){
+
+document.getElementById("result").innerText="Please paste both JD and resume.";
+
+return;
+
+}
+
+document.getElementById("result").innerText="Analyzing and generating optimized resume...";
+
+try{
+
+const res=await fetch("/api/resume",{
+
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify({
+jd:jd,
+resume:resume
+})
+
+});
+
+const data=await res.json();
+
+document.getElementById("result").innerText=data.result;
+
+}catch(err){
+
+document.getElementById("result").innerText="Error generating resume.";
+
+}
+
+}
+
+function copyResult(){
+
+const text=document.getElementById("result").innerText;
+
+navigator.clipboard.writeText(text);
+
+alert("Copied");
+
+}
+
+</script>
+
+</body>
+
+</html>
