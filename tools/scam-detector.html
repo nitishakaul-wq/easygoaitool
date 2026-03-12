@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>Scam Detector | EasyGoAITool</title>
+</head>
+
+<body>
+
+<h1>Scam Detector</h1>
+
+<p>Paste a message and check if it might be a scam.</p>
+
+<textarea id="input" rows="6" cols="60"
+placeholder="Paste suspicious message here">
+</textarea>
+
+<br><br>
+
+<button onclick="checkScam()">Analyze</button>
+
+<h3>Result</h3>
+
+<p id="result"></p>
+
+<script>
+
+function checkScam(){
+
+let text=document.getElementById("input").value;
+
+if(
+text.includes("urgent") ||
+text.includes("payment") ||
+text.includes("bank") ||
+text.includes("otp")
+){
+document.getElementById("result").innerText=
+"⚠️ This message might be suspicious.";
+}
+else{
+document.getElementById("result").innerText=
+"No obvious scam signals detected.";
+}
+
+}
+
+</script>
+
+</body>
+
+</html>
