@@ -7,9 +7,7 @@
 
 <style>
 
-*{
-box-sizing:border-box;
-}
+*{box-sizing:border-box;}
 
 body{
 margin:0;
@@ -31,15 +29,9 @@ border-radius:14px;
 box-shadow:0 20px 40px rgba(0,0,0,0.08);
 }
 
-h1{
-margin:0 0 8px 0;
-font-size:30px;
-}
+h1{margin:0 0 8px 0;font-size:30px;}
 
-.subtitle{
-color:#666;
-margin-bottom:25px;
-}
+.subtitle{color:#666;margin-bottom:25px;}
 
 textarea{
 width:100%;
@@ -52,9 +44,7 @@ resize:none;
 outline:none;
 }
 
-textarea:focus{
-border-color:#6366f1;
-}
+textarea:focus{border-color:#6366f1;}
 
 .controls{
 display:flex;
@@ -80,13 +70,9 @@ cursor:pointer;
 font-weight:600;
 }
 
-button:hover{
-background:#4f46e5;
-}
+button:hover{background:#4f46e5;}
 
-.result-container{
-margin-top:28px;
-}
+.result-container{margin-top:28px;}
 
 .result-box{
 background:#f9fafb;
@@ -98,39 +84,19 @@ font-size:15px;
 line-height:1.6;
 }
 
-.result-actions{
-margin-top:10px;
-display:flex;
-gap:10px;
-}
+.result-actions{margin-top:10px;display:flex;gap:10px;}
 
-.copy-btn{
-background:#10b981;
-}
+.copy-btn{background:#10b981;}
 
-.copy-btn:hover{
-background:#059669;
-}
+.copy-btn:hover{background:#059669;}
 
-.loading{
-color:#888;
-font-style:italic;
-}
+.loading{color:#888;font-style:italic;}
 
-.examples{
-margin-top:15px;
-font-size:13px;
-color:#666;
-}
+.examples{margin-top:15px;font-size:13px;color:#666;}
 
-.example{
-cursor:pointer;
-color:#6366f1;
-}
+.example{cursor:pointer;color:#6366f1;}
 
-.example:hover{
-text-decoration:underline;
-}
+.example:hover{text-decoration:underline;}
 
 </style>
 
@@ -172,9 +138,7 @@ Your rewritten message will appear here.
 </div>
 
 <div class="result-actions">
-
 <button class="copy-btn" onclick="copyText()">Copy</button>
-
 </div>
 
 </div>
@@ -189,7 +153,7 @@ document.getElementById("input").value="Why haven't you replied yet?";
 
 async function rewriteMessage(){
 
-const message=document.getElementById("input").value;
+const message=document.getElementById("input").value.trim();
 const tone=document.getElementById("tone").value;
 
 if(!message){
@@ -214,9 +178,19 @@ tone:tone
 
 const data=await response.json();
 
+console.log("API response:",data);
+
+if(data.result){
 document.getElementById("result").innerText=data.result;
+}else if(data.error){
+document.getElementById("result").innerText=data.error;
+}else{
+document.getElementById("result").innerText="Unexpected response from AI.";
+}
 
 }catch(error){
+
+console.error(error);
 
 document.getElementById("result").innerText="Error contacting AI service.";
 
@@ -227,6 +201,8 @@ document.getElementById("result").innerText="Error contacting AI service.";
 function copyText(){
 
 const text=document.getElementById("result").innerText;
+
+if(!text || text==="Your rewritten message will appear here.") return;
 
 navigator.clipboard.writeText(text);
 
