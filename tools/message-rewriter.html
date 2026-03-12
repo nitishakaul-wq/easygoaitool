@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>Message Rewriter | EasyGoAITool</title>
+</head>
+
+<body>
+
+<h1>AI Message Rewriter</h1>
+
+<p>Rewrite your message in a better tone.</p>
+
+<textarea id="input" rows="6" cols="60" placeholder="Paste your message here"></textarea>
+
+<br><br>
+
+<select id="tone">
+<option value="professional">Professional</option>
+<option value="friendly">Friendly</option>
+<option value="polite">Polite</option>
+<option value="short">Short</option>
+</select>
+
+<br><br>
+
+<button onclick="rewrite()">Rewrite Message</button>
+
+<h3>Result</h3>
+
+<p id="result"></p>
+
+<script>
+
+function rewrite(){
+
+let message=document.getElementById("input").value;
+let tone=document.getElementById("tone").value;
+
+let rewritten="["+tone+" version]: "+message;
+
+document.getElementById("result").innerText=rewritten;
+
+}
+
+</script>
+
+</body>
+
+</html>
