@@ -1,0 +1,29 @@
+{
+  "source": "Approximate cost-of-living indices (100 = US national average). Replace with BLS RPP or full dataset for production.",
+  "locations": [
+    { "id": "national", "label": "National (US average)", "index": 100 },
+    { "id": "nyc", "label": "New York, NY", "index": 152 },
+    { "id": "sf", "label": "San Francisco, CA", "index": 165 },
+    { "id": "san-jose", "label": "San Jose, CA", "index": 158 },
+    { "id": "boston", "label": "Boston, MA", "index": 132 },
+    { "id": "la", "label": "Los Angeles, CA", "index": 138 },
+    { "id": "seattle", "label": "Seattle, WA", "index": 128 },
+    { "id": "washington-dc", "label": "Washington, DC", "index": 135 },
+    { "id": "denver", "label": "Denver, CO", "index": 112 },
+    { "id": "chicago", "label": "Chicago, IL", "index": 108 },
+    { "id": "phoenix", "label": "Phoenix, AZ", "index": 98 },
+    { "id": "atlanta", "label": "Atlanta, GA", "index": 95 },
+    { "id": "dallas", "label": "Dallas, TX", "index": 92 },
+    { "id": "houston", "label": "Houston, TX", "index": 88 },
+    { "id": "austin", "label": "Austin, TX", "index": 102 },
+    { "id": "miami", "label": "Miami, FL", "index": 105 },
+    { "id": "philadelphia", "label": "Philadelphia, PA", "index": 102 },
+    { "id": "minneapolis", "label": "Minneapolis, MN", "index": 98 },
+    { "id": "detroit", "label": "Detroit, MI", "index": 88 },
+    { "id": "cleveland", "label": "Cleveland, OH", "index": 82 },
+    { "id": "st-louis", "label": "St. Louis, MO", "index": 85 },
+    { "id": "indianapolis", "label": "Indianapolis, IN", "index": 86 },
+    { "id": "raleigh", "label": "Raleigh, NC", "index": 95 },
+    { "id": "remote-us", "label": "Remote (US)", "index": 100 }
+  ]
+}
