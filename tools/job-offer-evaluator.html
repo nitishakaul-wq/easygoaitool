@@ -38,12 +38,36 @@
       --danger: #ef4444;
       --radius: 16px;
       --radius-sm: 10px;
+      /* Input fields: light background + dark text for maximum readability */
+      --input-bg: #f4f4f5;
+      --input-text: #18181b;
+      --input-placeholder: #71717a;
+      --input-border: #d4d4d8;
     }
     body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; }
     .score-strong { color: #22c55e; }
     .score-mid { color: #eab308; }
     .score-weak { color: #ef4444; }
-    .input-block { @apply rounded-xl border border-white/10 bg-[var(--surface-2)] px-4 py-3 text-[var(--text)] placeholder-[var(--text-muted)] focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent)]/20 focus:outline-none w-full; }
+    .input-block {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      font-size: 1rem;
+      line-height: 1.5;
+      color: var(--input-text);
+      background-color: var(--input-bg);
+      border: 1px solid var(--input-border);
+      border-radius: var(--radius);
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .input-block::placeholder { color: var(--input-placeholder); opacity: 1; }
+    .input-block::-webkit-input-placeholder { color: var(--input-placeholder); }
+    .input-block::-moz-placeholder { color: var(--input-placeholder); opacity: 1; }
+    .input-block:focus { border-color: var(--accent); box-shadow: 0 0 0 2px rgba(168, 85, 247, 0.2); }
+    .input-block option { color: var(--input-text); background: var(--input-bg); }
+    .input-block:-webkit-autofill,
+    .input-block:-webkit-autofill:hover,
+    .input-block:-webkit-autofill:focus { -webkit-text-fill-color: var(--input-text); -webkit-box-shadow: 0 0 0 1000px var(--input-bg) inset; }
     .label { @apply block text-sm font-semibold uppercase tracking-wider text-[var(--text-muted)] mb-2; }
     .disclaimer-toggle { cursor: pointer; }
     .disclaimer-toggle:hover { text-decoration: underline; }
