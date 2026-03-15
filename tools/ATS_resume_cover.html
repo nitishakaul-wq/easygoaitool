@@ -3,8 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>ATS Resume & Cover Letter – Tailored to Job Description | EasyGo Tools</title>
-  <meta name="description" content="Paste the job description and your resume. Get an ATS-optimized resume, matching cover letter, and improvement tips. Free.">
+  <title>Free ATS Resume Optimizer & Cover Letter Generator – Beat Applicant Tracking Systems</title>
+  <meta name="description" content="Optimize your resume for ATS. Paste the job description + your resume → get a tailored, ATS-friendly resume & cover letter. Free, no sign-up. Pass applicant tracking systems and get more interviews.">
+  <meta name="keywords" content="ATS resume optimizer, ATS resume checker, free ATS resume, cover letter generator, resume for job description, pass ATS, applicant tracking system, resume keywords, ATS-friendly resume, cover letter tailored to job">
+  <meta name="author" content="EasyGo AI">
+  <link rel="canonical" href="https://easygoaitool.online/tools/ATS_resume_cover.html">
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://easygoaitool.online/tools/ATS_resume_cover.html">
+  <meta property="og:title" content="Free ATS Resume & Cover Letter Generator – Beat ATS">
+  <meta property="og:description" content="Paste job description + resume. Get an ATS-optimized resume and matching cover letter. Free, no sign-up.">
+  <meta property="og:locale" content="en_US">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Free ATS Resume & Cover Letter Generator">
+  <meta name="twitter:description" content="Paste job description + resume. Get ATS-optimized resume & cover letter. Free.">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap" rel="stylesheet">
@@ -242,23 +256,23 @@
   <div class="container">
     <header>
       <span class="badge">Tailored to the JD</span>
-      <h1>ATS Resume & Cover Letter</h1>
-      <p class="subtitle">Drop the job description + your resume. Get an ATS-friendly version, matching cover letter, and tips. Job apps on easy mode.</p>
+      <h1>Free ATS Resume Optimizer & Cover Letter Generator</h1>
+      <p class="subtitle">Beat applicant tracking systems (ATS). Paste the job description and your resume—get an ATS-optimized resume, matching cover letter, and keyword tips. No sign-up, free to use.</p>
     </header>
 
     <div class="form-section">
       <label for="jd">Job description</label>
-      <textarea id="jd" placeholder="Paste the full job description here..."></textarea>
+      <textarea id="jd" placeholder="Paste the full job description here so we can tailor your resume and cover letter to match..."></textarea>
     </div>
 
     <div class="form-section">
       <label for="resume">Your current resume</label>
-      <textarea id="resume" placeholder="Paste your resume text here..."></textarea>
+      <textarea id="resume" placeholder="Paste your resume text here. We'll optimize it for ATS and this job..."></textarea>
     </div>
 
     <div class="btn-row">
       <button type="button" class="btn-primary" id="btnGenerate" onclick="optimizeResume()">
-        <span id="btnText">Generate ATS Resume</span>
+        <span id="btnText">Optimize Resume for ATS & Generate Cover Letter</span>
       </button>
     </div>
 
@@ -273,6 +287,17 @@
     </div>
   </div>
 
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "ATS Resume Optimizer & Cover Letter Generator",
+    "url": "https://easygoaitool.online/tools/ATS_resume_cover.html",
+    "description": "Free tool to optimize your resume for applicant tracking systems (ATS) and generate a cover letter tailored to the job description.",
+    "applicationCategory": "BusinessApplication",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
   <script>
     function getResultEl() { return document.getElementById('result'); }
     function getBtnGenerate() { return document.getElementById('btnGenerate'); }
@@ -324,7 +349,7 @@
         setResultText('Error contacting the AI service. Check your connection and try again.', 'error');
       } finally {
         btn.disabled = false;
-        btnText.textContent = 'Generate ATS Resume';
+        btnText.textContent = 'Optimize Resume for ATS & Generate Cover Letter';
       }
     }
 
