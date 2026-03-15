@@ -4,15 +4,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Free ATS Resume Optimizer & Cover Letter Generator – Beat Applicant Tracking Systems</title>
-  <meta name="description" content="Optimize your resume for ATS. Paste the job description + your resume → get a tailored, ATS-friendly resume & cover letter. Free, no sign-up. Pass applicant tracking systems and get more interviews.">
-  <meta name="keywords" content="ATS resume optimizer, ATS resume checker, free ATS resume, cover letter generator, resume for job description, pass ATS, applicant tracking system, resume keywords, ATS-friendly resume, cover letter tailored to job">
+  <meta name="description" content="Optimize your resume for ATS. Paste job description and upload or paste your resume (PDF or Word). Get a tailored, ATS-friendly resume and cover letter. Free, no sign-up. Pass applicant tracking systems and get more interviews.">
+  <meta name="keywords" content="ATS resume optimizer, ATS resume checker, free ATS resume, cover letter generator, resume for job description, pass ATS, applicant tracking system, resume keywords, ATS-friendly resume, cover letter tailored to job, upload resume PDF, resume Word docx">
   <meta name="author" content="EasyGo AI">
+  <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://easygoaitool.online/tools/ATS_resume_cover.html">
 
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://easygoaitool.online/tools/ATS_resume_cover.html">
   <meta property="og:title" content="Free ATS Resume & Cover Letter Generator – Beat ATS">
-  <meta property="og:description" content="Paste job description + resume. Get an ATS-optimized resume and matching cover letter. Free, no sign-up.">
+  <meta property="og:description" content="Paste job description + resume (or upload PDF/Word). Get an ATS-optimized resume and matching cover letter. Free, no sign-up.">
   <meta property="og:locale" content="en_US">
 
   <meta name="twitter:card" content="summary_large_image">
@@ -21,7 +22,8 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap"></noscript>
   <style>
     :root {
       --bg: #0f0f12;
@@ -239,36 +241,86 @@
     .result-box.loading { color: var(--text-muted); }
     .result-box.error { border-color: rgba(239, 68, 68, 0.4); color: #fca5a5; }
 
+    .upload-zone {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px 16px;
+      margin-top: 10px;
+    }
+    .upload-zone .or { font-size: 0.8125rem; color: var(--text-muted); }
+    .btn-upload {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 44px;
+      padding: 10px 18px;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--text);
+      font-size: 0.9375rem;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s, color 0.2s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .btn-upload:hover { background: var(--surface); border-color: var(--accent); color: var(--accent-2); }
+    .btn-upload:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .btn-upload.disabled { opacity: 0.7; cursor: wait; pointer-events: none; }
+    .btn-upload svg { flex-shrink: 0; }
+    .file-input-hidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
+    .resume-file-status { font-size: 0.8125rem; color: var(--text-muted); min-height: 1.25em; }
+    .resume-file-status.loaded { color: var(--success); }
+    .resume-file-status.error { color: #fca5a5; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+
     @media (max-width: 600px) {
       .container { padding: 20px 16px 40px; }
       textarea { min-height: 120px; font-size: 16px; }
       .btn-primary { width: 100%; }
+      .btn-upload { width: 100%; }
     }
   </style>
 </head>
 <body>
+  <noscript>
+    <p style="margin:0; padding: 16px; background: #1e1e24; color: #a1a1aa; text-align: center; font-size: 0.9375rem;">This tool needs JavaScript to run. Please enable JavaScript and reload the page to optimize your resume for ATS and generate a cover letter.</p>
+  </noscript>
   <nav class="top-bar" aria-label="Navigation">
     <div class="top-bar-inner">
       <a href="/" class="back-link">← Back to tools</a>
     </div>
   </nav>
 
-  <div class="container">
+  <main class="container" id="main-content">
     <header>
       <span class="badge">Tailored to the JD</span>
       <h1>Free ATS Resume Optimizer & Cover Letter Generator</h1>
-      <p class="subtitle">Beat applicant tracking systems (ATS). Paste the job description and your resume—get an ATS-optimized resume, matching cover letter, and keyword tips. No sign-up, free to use.</p>
+      <p class="subtitle">Beat applicant tracking systems (ATS). Paste the job description and your resume—or upload a PDF or Word file—to get an ATS-optimized resume, matching cover letter, and keyword tips. No sign-up, free to use.</p>
     </header>
 
-    <div class="form-section">
-      <label for="jd">Job description</label>
-      <textarea id="jd" placeholder="Paste the full job description here so we can tailor your resume and cover letter to match..."></textarea>
-    </div>
+    <section class="form-section" aria-labelledby="jd-label">
+      <label id="jd-label" for="jd">Job description</label>
+      <textarea id="jd" placeholder="Paste the full job description here so we can tailor your resume and cover letter to match..." aria-describedby="jd-desc"></textarea>
+      <span id="jd-desc" class="sr-only">Required. Paste the full job posting text.</span>
+    </section>
 
-    <div class="form-section">
-      <label for="resume">Your current resume</label>
-      <textarea id="resume" placeholder="Paste your resume text here. We'll optimize it for ATS and this job..."></textarea>
-    </div>
+    <section class="form-section" aria-labelledby="resume-label">
+      <label id="resume-label" for="resume">Your current resume</label>
+      <textarea id="resume" placeholder="Paste your resume text here, or use the button below to upload a PDF or Word (.docx) file. We'll optimize it for ATS and this job." aria-describedby="resume-upload-desc"></textarea>
+      <div class="upload-zone" id="resume-upload-desc">
+        <span class="or">Or</span>
+        <label for="resume-file" class="btn-upload" id="btn-upload-label">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+          Upload PDF or Word
+        </label>
+        <input type="file" id="resume-file" class="file-input-hidden" accept=".pdf,.doc,.docx,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/msword" aria-label="Upload resume as PDF or Word document">
+        <span class="resume-file-status" id="resume-file-status" aria-live="polite"></span>
+      </div>
+    </section>
 
     <div class="btn-row">
       <button type="button" class="btn-primary" id="btnGenerate" onclick="optimizeResume()">
@@ -276,16 +328,16 @@
       </button>
     </div>
 
-    <div class="result-wrap">
+    <section class="result-wrap" aria-labelledby="result-label">
       <div class="result-head">
-        <label for="result">Result</label>
+        <label id="result-label" for="result">Result</label>
         <button type="button" class="btn-copy" id="btnCopy" onclick="copyResult()" disabled>Copy</button>
       </div>
       <div id="result" class="result-box placeholder" role="status" aria-live="polite">
         Results will appear here after you generate.
       </div>
-    </div>
-  </div>
+    </section>
+  </main>
 
   <script type="application/ld+json">
   {
@@ -293,9 +345,23 @@
     "@type": "WebApplication",
     "name": "ATS Resume Optimizer & Cover Letter Generator",
     "url": "https://easygoaitool.online/tools/ATS_resume_cover.html",
-    "description": "Free tool to optimize your resume for applicant tracking systems (ATS) and generate a cover letter tailored to the job description.",
+    "description": "Free tool to optimize your resume for applicant tracking systems (ATS) and generate a cover letter tailored to the job description. Upload PDF or Word resume or paste text.",
     "applicationCategory": "BusinessApplication",
-    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "browserRequirements": "Requires JavaScript. Supports PDF and Word (.docx) upload."
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "How to optimize your resume for ATS and get more interviews",
+    "description": "Use our free ATS resume optimizer: paste the job description, add your resume (paste text or upload PDF/Word), then generate an ATS-optimized resume and tailored cover letter.",
+    "step": [
+      { "@type": "HowToStep", "name": "Paste the job description", "text": "Copy the full job posting into the Job description field." },
+      { "@type": "HowToStep", "name": "Add your resume", "text": "Paste your resume text or upload your resume as a PDF or Word (.docx) file." },
+      { "@type": "HowToStep", "name": "Generate", "text": "Click Optimize Resume for ATS & Generate Cover Letter to get your tailored resume and cover letter." }
+    ]
   }
   </script>
   <script>
@@ -366,6 +432,146 @@
         }, 2000);
       });
     }
+
+    (function resumeUpload() {
+      var MAX_FILE_BYTES = 5 * 1024 * 1024;
+      var resumeTextarea = document.getElementById('resume');
+      var fileInput = document.getElementById('resume-file');
+      var statusEl = document.getElementById('resume-file-status');
+      var uploadLabel = document.getElementById('btn-upload-label');
+      var pdfJsLoaded = false;
+      var mammothLoaded = false;
+
+      function setStatus(msg, type) {
+        statusEl.textContent = msg || '';
+        statusEl.className = 'resume-file-status' + (type === 'loaded' ? ' loaded' : type === 'error' ? ' error' : '');
+      }
+
+      function loadScript(src) {
+        return new Promise(function(resolve, reject) {
+          var s = document.createElement('script');
+          s.src = src;
+          s.onload = resolve;
+          s.onerror = reject;
+          document.head.appendChild(s);
+        });
+      }
+
+      function ensurePdfJs() {
+        if (typeof pdfjsLib !== 'undefined') {
+          pdfJsLoaded = true;
+          if (!pdfjsLib.GlobalWorkerOptions.workerSrc) {
+            pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
+          }
+          return Promise.resolve();
+        }
+        return loadScript('https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js').then(function() {
+          pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
+          pdfJsLoaded = true;
+        });
+      }
+
+      function ensureMammoth() {
+        if (typeof mammoth !== 'undefined') { mammothLoaded = true; return Promise.resolve(); }
+        return loadScript('https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js').then(function() { mammothLoaded = true; });
+      }
+
+      function setResumeText(text, filename) {
+        var normalized = text.replace(/\n{3,}/g, '\n\n').trim();
+        resumeTextarea.value = normalized;
+        setStatus('Resume loaded from ' + (filename || 'file'), 'loaded');
+      }
+
+      fileInput.addEventListener('change', function() {
+        var file = fileInput.files && fileInput.files[0];
+        if (!file) return;
+        if (file.size > MAX_FILE_BYTES) {
+          setStatus('File too large. Use a file under 5 MB or paste text.', 'error');
+          fileInput.value = '';
+          return;
+        }
+        var name = file.name || 'file';
+        var isPdf = /\.pdf$/i.test(name) || file.type === 'application/pdf';
+        var isDocx = /\.(docx?|application\/vnd\.openxmlformats-officedocument\.wordprocessingml\.document|application\/msword)$/i.test(name) ||
+          file.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' || file.type === 'application/msword';
+
+        function onError(err) {
+          setStatus('Could not read file: ' + (err && err.message ? err.message : 'unsupported or corrupted'), 'error');
+          fileInput.value = '';
+        }
+
+        var reader = new FileReader();
+        reader.onload = function() {
+          var buffer = reader.result;
+          var arrayBuffer = buffer instanceof ArrayBuffer ? buffer : buffer.buffer;
+
+          if (isPdf) {
+            fileInput.disabled = true;
+            uploadLabel.classList.add('disabled');
+            setStatus('Reading PDF…', '');
+            ensurePdfJs().then(function() {
+              pdfjsLib.getDocument(arrayBuffer).promise.then(function(doc) {
+                var numPages = doc.numPages;
+                var parts = [];
+                function next(pageNum) {
+                  if (pageNum > numPages) {
+                    setResumeText(parts.join('\n'), name);
+                    fileInput.value = '';
+                    fileInput.disabled = false;
+                    uploadLabel.classList.remove('disabled');
+                    return;
+                  }
+                  doc.getPage(pageNum).then(function(page) { return page.getTextContent(); }).then(function(content) {
+                    parts.push(content.items.map(function(item) { return item.str; }).join(' '));
+                    next(pageNum + 1);
+                  }).catch(function(e) {
+                    onError(e);
+                    fileInput.disabled = false;
+                    uploadLabel.classList.remove('disabled');
+                  });
+                }
+                next(1);
+              }).catch(function(e) {
+                onError(e);
+                fileInput.disabled = false;
+                uploadLabel.classList.remove('disabled');
+              });
+            }).catch(function(e) {
+              onError(e);
+              fileInput.disabled = false;
+              uploadLabel.classList.remove('disabled');
+            });
+            return;
+          }
+
+          if (isDocx) {
+            fileInput.disabled = true;
+            uploadLabel.classList.add('disabled');
+            setStatus('Reading Word document…', '');
+            ensureMammoth().then(function() {
+              mammoth.extractRawText({ arrayBuffer: arrayBuffer }).then(function(result) {
+                setResumeText(result.value, name);
+                fileInput.value = '';
+              }).catch(function(e) {
+                onError(e);
+              }).finally(function() {
+                fileInput.disabled = false;
+                uploadLabel.classList.remove('disabled');
+              });
+            }).catch(function(e) {
+              onError(e);
+              fileInput.disabled = false;
+              uploadLabel.classList.remove('disabled');
+            });
+            return;
+          }
+
+          onError(new Error('Use PDF or Word (.docx)'));
+        };
+        reader.onerror = function() { onError(reader.error); };
+        reader.readAsArrayBuffer(file);
+      });
+    })();
   </script>
 </body>
 </html>
