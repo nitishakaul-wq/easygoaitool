@@ -4,20 +4,21 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Job Offer Evaluator – Compare Offers & Market Value | Free Tool</title>
-  <meta name="description" content="Compare up to two US job offers (USD). Enter role, US location, base, bonus %, equity, PTO. Get total comp, COL-adjusted value, offer score 0–100, market percentile, and recommendation. Free. India and other countries not supported.">
-  <meta name="keywords" content="job offer evaluation, compare job offers, salary comparison US, total compensation, cost of living adjustment, market value, offer calculator, US salary">
+  <meta name="description" content="Free job offer evaluator: compare up to two US offers (USD). Get total comp, cost-of-living adjustment, score 0–100, and Below market / Competitive / Strong recommendation. No sign-up.">
+  <meta name="keywords" content="job offer evaluation, compare job offers, job offer calculator, salary comparison US, total compensation, cost of living adjustment, market value, offer score, US salary">
   <meta name="author" content="EasyGo AI">
   <link rel="canonical" href="https://easygoaitool.online/tools/job-offer-evaluator.html">
 
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://easygoaitool.online/tools/job-offer-evaluator.html">
-  <meta property="og:title" content="Job Offer Evaluator – Compare Offers & Market Value">
-  <meta property="og:description" content="Compare up to two offers. Get total comp, COL-adjusted value, score 0–100, and Below market / Competitive / Strong offer recommendation. Free.">
+  <meta property="og:title" content="Job Offer Evaluator – Compare Offers & Market Value | Free">
+  <meta property="og:description" content="Compare up to two US job offers. Get total comp, COL-adjusted value, score 0–100, and a clear recommendation. Free, no sign-up.">
   <meta property="og:locale" content="en_US">
+  <meta property="og:site_name" content="EasyGo AI Tools">
 
-  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Job Offer Evaluator – Compare Offers & Market Value">
-  <meta name="twitter:description" content="Compare job offers. Score vs. market, COL-adjusted comp, clear recommendation. Free.">
+  <meta name="twitter:description" content="Compare job offers. Get score vs. market, COL-adjusted comp, and recommendation. Free.">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -99,7 +100,7 @@
           <p><strong class="text-[var(--text)]">What happens behind the scenes.</strong> The tool uses salary ranges and cost-of-living indices from <strong>publicly available US data</strong> (e.g. BLS Occupational Employment and Wage Statistics–style estimates). Data is loaded from static files deployed with the site. BLS also offers an API for organizations; if the site operator has access, live data may be used. Otherwise you see the same static, public-source data—still useful for ballpark comparison.</p>
           <p><strong class="text-[var(--text)]">Data sources.</strong> The bundled data is derived from publicly available US sources (e.g. BLS Occupational Employment and Wage Statistics–style estimates). Cost-of-living indices are approximate and from public sources. That underlying public data <strong>can change</strong>; we do not guarantee the tool’s copy is current or complete.</p>
           <p><strong class="text-[var(--text)]">Estimates only.</strong> Scores, percentiles, and market comparisons are <strong>estimates for general guidance only</strong>. They are not a guarantee of accuracy and should not be relied on as the sole basis for career, negotiation, or financial decisions. For important decisions, verify with official sources (e.g. bls.gov) or a qualified compensation or career professional.</p>
-          <p><strong class="text-[var(--text)]">Not advice.</strong> This tool does not provide career, legal, tax, or financial advice. Use at your own risk. By using this tool you agree that the operator is not liable for any decisions you make or outcomes resulting from use of these estimates.</p>
+          <p><strong class="text-[var(--text)]">Not advice.</strong> This tool is provided as-is and does not provide career, legal, tax, or financial advice. Use at your own risk. By using this tool you agree that the operator is not liable for any decisions you make or outcomes resulting from use of these estimates.</p>
         </div>
       </details>
       <p id="data-source-note" class="mt-3 text-xs text-[var(--text-muted)] hidden" aria-live="polite"></p>
@@ -165,7 +166,7 @@
         <section id="offer2-section" class="border-t border-white/10 pt-6 hidden" aria-labelledby="offer2-heading">
           <div class="flex items-center justify-between mb-4">
             <h2 id="offer2-heading" class="text-lg font-semibold text-[var(--text)]">Offer 2</h2>
-            <button type="button" id="btn-remove-offer2" class="text-sm text-[var(--text-muted)] hover:text-[var(--danger)] transition">Remove offer 2</button>
+            <button type="button" id="btn-remove-offer2" class="text-sm text-[var(--text-muted)] hover:text-[var(--danger)] transition" aria-label="Remove second offer and hide Offer 2 fields">Remove offer 2</button>
           </div>
           <div class="space-y-4">
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -216,7 +217,7 @@
     </div>
 
     <!-- Results -->
-    <div id="results" class="mt-8 space-y-6 hidden">
+    <div id="results" class="mt-8 space-y-6 hidden" role="region" aria-live="polite" aria-label="Evaluation results" tabindex="-1">
       <div id="result-cards" class="space-y-6"></div>
       <section id="comparison-section" class="rounded-2xl border border-white/10 bg-[var(--surface)] p-6 hidden" aria-labelledby="comparison-heading">
         <h2 id="comparison-heading" class="text-lg font-semibold text-[var(--text)] mb-4">Side-by-side comparison</h2>
@@ -224,9 +225,9 @@
           <table id="comparison-table" class="w-full text-sm text-left">
             <thead>
               <tr class="border-b border-white/10">
-                <th class="py-3 pr-4 font-semibold text-[var(--text-muted)]">Metric</th>
-                <th id="comp-offer1-label" class="py-3 px-4 font-semibold text-[var(--text)]"></th>
-                <th id="comp-offer2-label" class="py-3 px-4 font-semibold text-[var(--text)]"></th>
+                <th scope="col" class="py-3 pr-4 font-semibold text-[var(--text-muted)]">Metric</th>
+                <th scope="col" id="comp-offer1-label" class="py-3 px-4 font-semibold text-[var(--text)]">Offer 1</th>
+                <th scope="col" id="comp-offer2-label" class="py-3 px-4 font-semibold text-[var(--text)]">Offer 2</th>
               </tr>
             </thead>
             <tbody id="comparison-tbody"></tbody>
@@ -234,7 +235,7 @@
         </div>
       </section>
       <div class="rounded-xl border border-white/10 bg-[var(--surface)]/50 px-4 py-3 text-xs text-[var(--text-muted)]">
-        <p><strong class="text-[var(--text)]">Disclaimer:</strong> All scores, percentiles, and market figures are <strong>estimates</strong> from publicly available US data and may change. Not guaranteed accurate. For guidance only—not career, legal, or financial advice. Verify with official sources (e.g. <a href="https://www.bls.gov/oes/" target="_blank" rel="noopener" class="text-[var(--accent-2)] hover:underline">bls.gov/oes</a>) or a compensation professional for important decisions. Use at your own risk.</p>
+        <p><strong class="text-[var(--text)]">Disclaimer:</strong> All scores, percentiles, and market figures are <strong>estimates</strong> from publicly available US data and may change. Not guaranteed accurate. For guidance only—not career, legal, or financial advice. Verify with official sources (e.g. <a href="https://www.bls.gov/oes/" target="_blank" rel="noopener noreferrer" class="text-[var(--accent-2)] hover:underline">bls.gov/oes</a>) or a compensation professional for important decisions. Use at your own risk.</p>
       </div>
     </div>
 
@@ -242,7 +243,12 @@
   </main>
 
   <footer class="border-t border-white/10 py-6 text-center text-sm text-[var(--text-muted)]">
-    <p>© EasyGo AI Tools · Estimates from public data; not guaranteed. Not career, legal, or financial advice. Use at your own risk. No liability. US only (USD, US locations).</p>
+    <p>© EasyGo AI Tools · Estimates from public data; not guaranteed. Not career, legal, or financial advice. Consult a qualified professional for binding decisions. Use at your own risk. No liability. US only (USD, US locations).</p>
+    <nav class="mt-3 flex flex-wrap justify-center gap-x-4 gap-y-1" aria-label="Footer links">
+      <a href="/privacy-policy.html" class="hover:text-[var(--accent-2)] transition">Privacy</a>
+      <a href="/terms.html" class="hover:text-[var(--accent-2)] transition">Terms</a>
+      <a href="/" class="hover:text-[var(--accent-2)] transition">All tools</a>
+    </nav>
   </footer>
 
   <script>
@@ -451,7 +457,7 @@
         '<div class="flex flex-wrap items-center gap-4 mb-4">' +
           '<div class="flex h-20 w-20 items-center justify-center rounded-2xl border-2 text-2xl font-bold ' + borderCls + ' ' + recCls + '" title="' + escapeHtml(tooltipScore) + '">' + score + '</div>' +
           '<div>' +
-            '<p class="font-medium text-[var(--text-muted)]" data-tooltip="' + escapeHtml(tooltipScore) + '">Offer score (0–100) <span class="text-[var(--text-muted)] opacity-70" aria-hidden="true">ⓘ</span></p>' +
+            '<p class="font-medium text-[var(--text-muted)]" data-tooltip="' + escapeHtml(tooltipScore) + '">Offer score (0–100) <span class="text-[var(--text-muted)] opacity-70" role="img" aria-label="More information">ⓘ</span></p>' +
             '<p class="text-sm font-semibold ' + recCls + '">' + escapeHtml(rec.label) + '</p>' +
           '</div>' +
           '<div class="w-full max-w-xs h-2 rounded-full bg-[var(--surface-2)] overflow-hidden flex">' +
@@ -461,8 +467,8 @@
         '<dl class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">' +
           '<div><dt class="text-[var(--text-muted)]">Total yearly comp</dt><dd class="font-semibold text-[var(--text)]">$' + Math.round(totalComp).toLocaleString() + '</dd></div>' +
           '<div><dt class="text-[var(--text-muted)]">COL-adjusted comp</dt><dd class="font-semibold text-[var(--text)]">$' + Math.round(adjustedComp).toLocaleString() + ' <span class="text-[var(--text-muted)] font-normal">(national equivalent)</span></dd></div>' +
-          '<div><dt class="text-[var(--text-muted)]" data-tooltip="' + escapeHtml(tooltipPct) + '">Market percentile <span class="opacity-70" aria-hidden="true">ⓘ</span></dt><dd class="font-semibold text-[var(--text)]">~' + percentile + 'th</dd></div>' +
-          '<div><dt class="text-[var(--text-muted)]" data-tooltip="' + escapeHtml(tooltipMed) + '">Est. market median (role) <span class="opacity-70" aria-hidden="true">ⓘ</span></dt><dd class="font-semibold text-[var(--text)]">$' + (med != null ? med.toLocaleString() : '—') + '</dd></div>' +
+          '<div><dt class="text-[var(--text-muted)]" data-tooltip="' + escapeHtml(tooltipPct) + '">Market percentile <span class="opacity-70" role="img" aria-label="More information">ⓘ</span></dt><dd class="font-semibold text-[var(--text)]">~' + percentile + 'th</dd></div>' +
+          '<div><dt class="text-[var(--text-muted)]" data-tooltip="' + escapeHtml(tooltipMed) + '">Est. market median (role) <span class="opacity-70" role="img" aria-label="More information">ⓘ</span></dt><dd class="font-semibold text-[var(--text)]">$' + (med != null ? med.toLocaleString() : '—') + '</dd></div>' +
         '</dl>' +
         relocationLine +
         '<p class="mt-3 text-sm text-[var(--text-muted)]">' + escapeHtml(rec.label) + ': ' +
@@ -567,6 +573,8 @@
       results.classList.remove('hidden');
       btnEvaluate.disabled = false;
       btnText.textContent = 'Evaluate offers';
+      results.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      results.focus({ preventScroll: true });
     }
 
     form.addEventListener('submit', function(e) {
@@ -596,9 +604,12 @@
     "@type": "WebApplication",
     "name": "Job Offer Evaluator",
     "url": "https://easygoaitool.online/tools/job-offer-evaluator.html",
-    "description": "Compare up to two job offers. Total comp, COL-adjusted value, offer score 0–100, market percentile, and Below market / Competitive / Strong offer recommendation. Free.",
+    "description": "Free tool to compare up to two US job offers. Get total compensation, cost-of-living–adjusted value, offer score 0–100, market percentile, and a clear recommendation (Below market / Competitive / Strong offer).",
     "applicationCategory": "FinanceApplication",
-    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires JavaScript. Works in all modern browsers.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "publisher": { "@type": "Organization", "name": "EasyGo AI" }
   }
   </script>
 </body>
