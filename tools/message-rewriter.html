@@ -1,216 +1,413 @@
 <!DOCTYPE html>
-
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>AI Message Rewriter</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Free AI Message Rewriter – Polite & Professional in Seconds</title>
+  <meta name="description" content="Turn rude or unclear messages into polite, professional text. Free AI message rewriter. Choose tone: professional, polite, friendly, formal. No sign-up.">
+  <meta name="keywords" content="AI message rewriter, rewrite message, polite message, professional email, tone rewriter, free AI writing">
+  <meta name="author" content="EasyGo AI">
+  <link rel="canonical" href="https://easygoaitool.online/tools/message-rewriter.html">
 
-<style>
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://easygoaitool.online/tools/message-rewriter.html">
+  <meta property="og:title" content="Free AI Message Rewriter">
+  <meta property="og:description" content="Turn rude or unclear messages into polite, professional text. Free, no sign-up.">
+  <meta property="og:locale" content="en_US">
 
-*{box-sizing:border-box;}
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Free AI Message Rewriter">
+  <meta name="twitter:description" content="Turn rude or unclear messages into polite, professional text. Free.">
 
-body{
-margin:0;
-font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
-background:linear-gradient(135deg,#eef2ff,#f8fafc);
-min-height:100vh;
-display:flex;
-align-items:center;
-justify-content:center;
-padding:30px;
-}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0f0f12;
+      --bg-soft: #18181c;
+      --surface: #1e1e24;
+      --surface-2: #26262c;
+      --border: rgba(255,255,255,0.08);
+      --text: #fafafa;
+      --text-muted: #a1a1aa;
+      --accent: #a855f7;
+      --accent-2: #c084fc;
+      --pop: #22d3ee;
+      --success: #22c55e;
+      --radius: 16px;
+      --radius-sm: 10px;
+      --radius-full: 9999px;
+      --space: 8px;
+      --space-md: 16px;
+      --space-lg: 24px;
+      --space-xl: 32px;
+      --ease: cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    * { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; }
+    body {
+      margin: 0;
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      min-height: 100vh;
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+      padding-left: env(safe-area-inset-left);
+      padding-right: env(safe-area-inset-right);
+    }
 
-.container{
-background:white;
-max-width:720px;
-width:100%;
-padding:35px;
-border-radius:14px;
-box-shadow:0 20px 40px rgba(0,0,0,0.08);
-}
+    .top-bar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(15, 15, 18, 0.9);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 12px max(var(--space-md), env(safe-area-inset-left)) 12px max(var(--space-md), env(safe-area-inset-right));
+    }
+    .top-bar-inner {
+      max-width: 800px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .back-link {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.9375rem;
+      font-weight: 500;
+      padding: 8px 14px;
+      border-radius: var(--radius-full);
+      transition: color 0.2s, background 0.2s;
+    }
+    .back-link:hover { color: var(--accent-2); background: var(--surface); }
+    .back-link:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
-h1{margin:0 0 8px 0;font-size:30px;}
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: var(--space-xl) var(--space-md) 48px;
+      padding-left: max(var(--space-md), env(safe-area-inset-left));
+      padding-right: max(var(--space-md), env(safe-area-inset-right));
+    }
 
-.subtitle{color:#666;margin-bottom:25px;}
+    header { margin-bottom: var(--space-xl); }
+    .badge {
+      display: inline-block;
+      padding: 6px 14px;
+      background: linear-gradient(135deg, rgba(168, 85, 247, 0.2), rgba(34, 211, 238, 0.15));
+      border: 1px solid rgba(168, 85, 247, 0.3);
+      border-radius: var(--radius-full);
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: var(--accent-2);
+      margin-bottom: var(--space-md);
+    }
+    h1 {
+      font-size: clamp(1.75rem, 4vw, 2.25rem);
+      font-weight: 700;
+      margin: 0 0 8px;
+      letter-spacing: -0.02em;
+      color: var(--text);
+    }
+    .subtitle {
+      color: var(--text-muted);
+      font-size: 1.0625rem;
+      margin: 0;
+      max-width: 520px;
+      line-height: 1.6;
+    }
 
-textarea{
-width:100%;
-height:150px;
-border-radius:10px;
-border:1px solid #e5e7eb;
-padding:14px;
-font-size:15px;
-resize:none;
-outline:none;
-}
+    .form-section {
+      margin-bottom: var(--space-lg);
+    }
+    .form-section label {
+      display: block;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+    textarea {
+      width: 100%;
+      min-height: 140px;
+      padding: 14px 18px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--text);
+      font-size: 0.9375rem;
+      font-family: inherit;
+      line-height: 1.6;
+      resize: vertical;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    textarea::placeholder { color: var(--text-muted); }
+    textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 2px rgba(168, 85, 247, 0.2);
+    }
 
-textarea:focus{border-color:#6366f1;}
+    .examples {
+      margin-top: 8px;
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+    }
+    .example {
+      cursor: pointer;
+      color: var(--accent-2);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .example:hover { color: var(--pop); text-decoration: underline; }
 
-.controls{
-display:flex;
-gap:12px;
-margin-top:18px;
-flex-wrap:wrap;
-}
+    select {
+      padding: 12px 16px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--text);
+      font-size: 0.9375rem;
+      font-family: inherit;
+      cursor: pointer;
+      min-height: 48px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    select:focus { border-color: var(--accent); }
+    select option { background: var(--surface-2); color: var(--text); }
 
-select{
-padding:10px;
-border-radius:8px;
-border:1px solid #e5e7eb;
-font-size:14px;
-}
+    .btn-row { margin-top: var(--space-lg); }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 28px;
+      background: linear-gradient(135deg, var(--accent), #7c3aed);
+      color: white;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-weight: 600;
+      font-size: 1rem;
+      font-family: inherit;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.1s;
+      min-height: 48px;
+    }
+    .btn-primary:hover { opacity: 0.95; transform: scale(1.02); }
+    .btn-primary:active { transform: scale(0.98); }
+    .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+    .btn-primary .spinner {
+      width: 20px;
+      height: 20px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      margin-right: 10px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
 
-button{
-background:#6366f1;
-color:white;
-border:none;
-padding:11px 18px;
-border-radius:8px;
-cursor:pointer;
-font-weight:600;
-}
+    .result-wrap {
+      margin-top: var(--space-xl);
+      padding-top: var(--space-lg);
+      border-top: 1px solid var(--border);
+    }
+    .result-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .result-head label {
+      font-size: 0.8125rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+    }
+    .btn-copy {
+      padding: 8px 16px;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--text);
+      font-size: 0.875rem;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s;
+      min-height: 44px;
+    }
+    .btn-copy:hover { background: var(--surface); border-color: var(--accent); color: var(--accent-2); }
+    .btn-copy:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .btn-copy.copied { background: rgba(34, 197, 94, 0.15); border-color: var(--success); color: var(--success); }
+    .btn-copy:disabled { opacity: 0.5; cursor: not-allowed; }
 
-button:hover{background:#4f46e5;}
+    .result-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: var(--space-lg);
+      min-height: 120px;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      font-size: 0.9375rem;
+      line-height: 1.65;
+      color: var(--text);
+    }
+    .result-box.placeholder { color: var(--text-muted); font-style: italic; }
+    .result-box.loading { color: var(--text-muted); }
+    .result-box.error { border-color: rgba(239, 68, 68, 0.4); color: #fca5a5; }
 
-.result-container{margin-top:28px;}
-
-.result-box{
-background:#f9fafb;
-border:1px solid #eee;
-border-radius:10px;
-padding:16px;
-min-height:70px;
-font-size:15px;
-line-height:1.6;
-}
-
-.result-actions{margin-top:10px;display:flex;gap:10px;}
-
-.copy-btn{background:#10b981;}
-
-.copy-btn:hover{background:#059669;}
-
-.loading{color:#888;font-style:italic;}
-
-.examples{margin-top:15px;font-size:13px;color:#666;}
-
-.example{cursor:pointer;color:#6366f1;}
-
-.example:hover{text-decoration:underline;}
-
-</style>
-
+    @media (max-width: 600px) {
+      .container { padding: 20px 16px 40px; }
+      textarea { min-height: 120px; font-size: 16px; }
+      .btn-primary { width: 100%; }
+      select { width: 100%; }
+    }
+  </style>
 </head>
-
 <body>
+  <nav class="top-bar" aria-label="Navigation">
+    <div class="top-bar-inner">
+      <a href="/" class="back-link">← Back to tools</a>
+    </div>
+  </nav>
 
-<div class="container">
+  <div class="container">
+    <header>
+      <span class="badge">Free · No sign-up</span>
+      <h1>AI Message Rewriter</h1>
+      <p class="subtitle">Turn rude or unclear messages into polite, professional communication. Pick a tone and hit rewrite.</p>
+    </header>
 
-<h1>AI Message Rewriter</h1>
-<p class="subtitle">Turn rude or unclear messages into polite, professional communication.</p>
+    <div class="form-section">
+      <label for="input">Your message</label>
+      <textarea id="input" placeholder="Type or paste your message here..."></textarea>
+      <p class="examples">Try example: <span class="example" onclick="fillExample()" role="button" tabindex="0">"Why haven't you replied yet?"</span></p>
+    </div>
 
-<textarea id="input" placeholder="Type or paste your message here..."></textarea>
+    <div class="form-section">
+      <label for="tone">Tone</label>
+      <select id="tone">
+        <option value="professional">Professional</option>
+        <option value="polite">Polite</option>
+        <option value="friendly">Friendly</option>
+        <option value="formal">Formal</option>
+      </select>
+    </div>
 
-<div class="examples">
-Try example:
-<span class="example" onclick="fillExample()">"Why haven't you replied yet?"</span>
-</div>
+    <div class="btn-row">
+      <button type="button" class="btn-primary" id="btnRewrite" onclick="rewriteMessage()">
+        <span id="btnText">Rewrite message</span>
+      </button>
+    </div>
 
-<div class="controls">
+    <div class="result-wrap">
+      <div class="result-head">
+        <label for="result">Result</label>
+        <button type="button" class="btn-copy" id="btnCopy" onclick="copyResult()" disabled>Copy</button>
+      </div>
+      <div id="result" class="result-box placeholder" role="status" aria-live="polite">
+        Your rewritten message will appear here.
+      </div>
+    </div>
+  </div>
 
-<select id="tone">
-<option value="professional">Professional</option>
-<option value="polite">Polite</option>
-<option value="friendly">Friendly</option>
-<option value="formal">Formal</option>
-</select>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "AI Message Rewriter",
+    "url": "https://easygoaitool.online/tools/message-rewriter.html",
+    "description": "Free tool to rewrite messages into polite, professional text. Choose tone: professional, polite, friendly, formal.",
+    "applicationCategory": "UtilitiesApplication",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
+  <script>
+    function getResultEl() { return document.getElementById('result'); }
+    function getBtnRewrite() { return document.getElementById('btnRewrite'); }
+    function getBtnCopy() { return document.getElementById('btnCopy'); }
 
-<button onclick="rewriteMessage()">Rewrite Message</button>
+    function setResult(html, className) {
+      var el = getResultEl();
+      el.innerHTML = html;
+      el.className = 'result-box' + (className ? ' ' + className : '');
+    }
 
-</div>
+    function setResultText(text, className) {
+      setResult(document.createTextNode(text).textContent, className);
+    }
 
-<div class="result-container">
+    function fillExample() {
+      document.getElementById('input').value = "Why haven't you replied yet?";
+    }
 
-<h3>Result</h3>
+    async function rewriteMessage() {
+      var message = document.getElementById('input').value.trim();
+      var tone = document.getElementById('tone').value;
 
-<div id="result" class="result-box">
-Your rewritten message will appear here.
-</div>
+      if (!message) {
+        setResultText('Please enter a message.', 'error');
+        return;
+      }
 
-<div class="result-actions">
-<button class="copy-btn" onclick="copyText()">Copy</button>
-</div>
+      var btn = getBtnRewrite();
+      var btnText = document.getElementById('btnText');
+      btn.disabled = true;
+      btnText.innerHTML = '<span class="spinner"></span> Rewriting...';
+      setResult('Rewriting your message…', 'loading');
+      getBtnCopy().disabled = true;
 
-</div>
+      try {
+        var res = await fetch('/api/rewrite', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message: message, tone: tone })
+        });
+        var data = await res.json();
 
-</div>
+        if (data.error) {
+          setResultText(data.error, 'error');
+          return;
+        }
 
-<script>
+        var text = data.result || '';
+        setResultText(text || 'Unexpected response from AI.');
+        getBtnCopy().disabled = !text;
+      } catch (err) {
+        setResultText('Error contacting AI service. Check your connection and try again.', 'error');
+      } finally {
+        btn.disabled = false;
+        btnText.textContent = 'Rewrite message';
+      }
+    }
 
-function fillExample(){
-document.getElementById("input").value="Why haven't you replied yet?";
-}
-
-async function rewriteMessage(){
-
-const message=document.getElementById("input").value.trim();
-const tone=document.getElementById("tone").value;
-
-if(!message){
-document.getElementById("result").innerText="Please enter a message.";
-return;
-}
-
-document.getElementById("result").innerHTML="<span class='loading'>Rewriting...</span>";
-
-try{
-
-const response=await fetch("/api/rewrite",{
-method:"POST",
-headers:{
-"Content-Type":"application/json"
-},
-body:JSON.stringify({
-message:message,
-tone:tone
-})
-});
-
-const data=await response.json();
-
-console.log("API response:",data);
-
-if(data.result){
-document.getElementById("result").innerText=data.result;
-}else if(data.error){
-document.getElementById("result").innerText=data.error;
-}else{
-document.getElementById("result").innerText="Unexpected response from AI.";
-}
-
-}catch(error){
-
-console.error(error);
-
-document.getElementById("result").innerText="Error contacting AI service.";
-
-}
-
-}
-
-function copyText(){
-
-const text=document.getElementById("result").innerText;
-
-if(!text || text==="Your rewritten message will appear here.") return;
-
-navigator.clipboard.writeText(text);
-
-alert("Copied!");
-
-}
-
-</script>
-
+    function copyResult() {
+      var text = getResultEl().textContent;
+      var placeholder = 'Your rewritten message will appear here.';
+      if (!text || text === placeholder || getResultEl().classList.contains('placeholder') || getResultEl().classList.contains('loading')) return;
+      navigator.clipboard.writeText(text).then(function() {
+        var btn = getBtnCopy();
+        btn.textContent = 'Copied!';
+        btn.classList.add('copied');
+        setTimeout(function() {
+          btn.textContent = 'Copy';
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    }
+  </script>
 </body>
 </html>
