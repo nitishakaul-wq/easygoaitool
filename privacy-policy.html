@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Privacy Policy – EasyGo AI Tools</title>
+  <meta name="description" content="Privacy policy for EasyGo AI Tools. How we handle cookies, analytics, and data.">
+  <meta name="author" content="EasyGo AI">
+  <link rel="canonical" href="https://easygoaitool.online/privacy-policy.html">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #0f0f12;
+      --surface: #1e1e24;
+      --surface-2: #26262c;
+      --border: rgba(255,255,255,0.08);
+      --text: #fafafa;
+      --text-muted: #a1a1aa;
+      --accent: #a855f7;
+      --accent-2: #c084fc;
+      --pop: #22d3ee;
+      --pop-2: #67e8f9;
+      --radius: 16px;
+      --radius-sm: 10px;
+      --radius-full: 9999px;
+      --space: 8px;
+      --space-md: 16px;
+      --space-lg: 24px;
+      --space-xl: 32px;
+      --space-2xl: 48px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body {
+      margin: 0;
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+      padding-left: env(safe-area-inset-left);
+      padding-right: env(safe-area-inset-right);
+    }
+
+    .top-nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(15, 15, 18, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 12px max(var(--space-md), env(safe-area-inset-left)) 12px max(var(--space-md), env(safe-area-inset-right));
+    }
+    .nav-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md);
+      flex-wrap: wrap;
+    }
+    .logo {
+      font-weight: 700;
+      font-size: 1.25rem;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      text-decoration: none;
+    }
+    .logo span { color: var(--accent-2); }
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      align-items: center;
+    }
+    .nav-links a {
+      padding: 8px 14px;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.9375rem;
+      font-weight: 500;
+      border-radius: var(--radius-full);
+      transition: color 0.2s, background 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); background: var(--surface); }
+    .nav-links a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .nav-links a.nav-services {
+      color: var(--accent-2);
+      background: rgba(168, 85, 247, 0.12);
+    }
+    .nav-links a.nav-services:hover { color: var(--pop-2); background: rgba(168, 85, 247, 0.2); }
+    .nav-links a.nav-services::after {
+      content: '';
+      width: 12px;
+      height: 12px;
+      margin-left: 6px;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14'/%3E%3C/svg%3E") no-repeat center;
+      background-size: contain;
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: var(--space-2xl) var(--space-md);
+      padding-left: max(var(--space-md), env(safe-area-inset-left));
+      padding-right: max(var(--space-md), env(safe-area-inset-right));
+    }
+    .page-header {
+      margin-bottom: var(--space-xl);
+    }
+    .page-header h1 {
+      font-size: clamp(1.75rem, 4vw, 2.25rem);
+      font-weight: 700;
+      margin: 0 0 8px;
+      letter-spacing: -0.02em;
+      color: var(--text);
+    }
+    .page-header p {
+      color: var(--text-muted);
+      font-size: 1rem;
+      margin: 0;
+    }
+    .page-content {
+      color: var(--text-muted);
+      font-size: 0.9375rem;
+      line-height: 1.7;
+    }
+    .page-content p { margin: 0 0 var(--space-md); }
+    .page-content h2 {
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: var(--text);
+      margin: var(--space-lg) 0 var(--space-md);
+    }
+    .page-content h2:first-of-type { margin-top: 0; }
+    .page-content a {
+      color: var(--accent-2);
+      text-decoration: none;
+    }
+    .page-content a:hover { text-decoration: underline; }
+    .page-content a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+    footer {
+      margin-top: var(--space-2xl);
+      padding: var(--space-lg) var(--space-md);
+      padding-bottom: max(var(--space-lg), env(safe-area-inset-bottom));
+      border-top: 1px solid var(--border);
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.875rem;
+    }
+    footer p { margin: 0 0 8px; }
+    footer p:last-child { margin-bottom: 0; }
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px 16px;
+      margin-top: 12px;
+    }
+    .footer-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+    }
+    .footer-links a:hover { color: var(--accent-2); }
+    .footer-links a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+    @media (max-width: 600px) {
+      .top-nav { padding: 10px 16px; }
+      .nav-inner { justify-content: center; }
+      .nav-links { justify-content: center; }
+      .nav-links a { padding: 10px 16px; min-height: 44px; display: inline-flex; align-items: center; }
+      .container { padding: var(--space-xl) 16px; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="top-nav" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="index.html" class="logo">EasyGo<span>.</span>Tools</a>
+      <div class="nav-links">
+        <a href="index.html#ai-tools">AI tools</a>
+        <a href="index.html#utility">Utility</a>
+        <a href="https://services.easygoaitool.online/" target="_blank" rel="noopener noreferrer" class="nav-services" aria-label="Open Services &amp; more in a new tab">Services &amp; more</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container">
+    <header class="page-header">
+      <h1>Privacy Policy</h1>
+      <p>How we handle your information.</p>
+    </header>
+    <div class="page-content">
+      <p>This privacy policy applies to EasyGo AI Tools (easygoaitool.online) and describes how we may collect, use, and share information when you use our website and free tools.</p>
+
+      <h2>Cookies</h2>
+      <p>We may use cookies and similar technologies to improve your experience, remember preferences, and understand how the site is used. You can control cookies through your browser settings.</p>
+
+      <h2>Analytics</h2>
+      <p>We may use analytics services to collect anonymous usage data (e.g. pages visited, device type, general location). This helps us improve the site and does not personally identify you.</p>
+
+      <h2>Advertising</h2>
+      <p>We may work with advertising partners such as Google AdSense to show ads on this site. These partners may use cookies and similar technologies to deliver relevant ads and measure ad performance. You can learn about their practices and opt out through their policies (e.g. Google’s Ad Settings).</p>
+
+      <h2>Changes</h2>
+      <p>We may update this policy from time to time. The latest version will always be available on this page. Continued use of the site after changes means you accept the updated policy.</p>
+
+      <p>If you have questions, please use our <a href="contact.html">Contact</a> page.</p>
+    </div>
+  </main>
+
+  <footer>
+    <p>Built with chaos and caffeine • Free forever, fr</p>
+    <nav class="footer-links" aria-label="Footer links">
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="privacy-policy.html">Privacy Policy</a>
+      <a href="terms.html">Terms</a>
+    </nav>
+  </footer>
+</body>
+</html>
