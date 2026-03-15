@@ -21,94 +21,255 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --bg: #fafafa;
-      --surface: #ffffff;
-      --surface-2: #f4f4f5;
-      --border: #e4e4e7;
-      --text: #18181b;
-      --text-muted: #71717a;
-      --accent: #6366f1;
-      --accent-hover: #4f46e5;
-      --accent-dim: rgba(99, 102, 241, 0.1);
-      --radius: 12px;
-      --radius-sm: 8px;
+      --bg: #0f0f12;
+      --bg-soft: #18181c;
+      --surface: #1e1e24;
+      --surface-2: #26262c;
+      --border: rgba(255,255,255,0.08);
+      --text: #fafafa;
+      --text-muted: #a1a1aa;
+      --accent: #a855f7;
+      --accent-2: #c084fc;
+      --pop: #22d3ee;
+      --pop-2: #67e8f9;
+      --radius: 16px;
+      --radius-sm: 10px;
+      --radius-full: 9999px;
       --space: 8px;
       --space-md: 16px;
       --space-lg: 24px;
       --space-xl: 32px;
-      --shadow: 0 1px 3px rgba(0,0,0,0.06);
-      --shadow-hover: 0 4px 12px rgba(0,0,0,0.08);
+      --space-2xl: 48px;
+      --ease: cubic-bezier(0.22, 1, 0.36, 1);
     }
     * { box-sizing: border-box; }
-    html { -webkit-text-size-adjust: 100%; }
+    html {
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+    }
     body {
       margin: 0;
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
       background: var(--bg);
       color: var(--text);
       line-height: 1.5;
       min-height: 100vh;
       font-size: 16px;
       -webkit-font-smoothing: antialiased;
+      padding-left: env(safe-area-inset-left);
+      padding-right: env(safe-area-inset-right);
     }
 
+    /* ---- Nav ---- */
+    .top-nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(15, 15, 18, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 12px max(var(--space-md), env(safe-area-inset-left)) 12px max(var(--space-md), env(safe-area-inset-right));
+    }
+    .nav-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md);
+      flex-wrap: wrap;
+    }
+    .logo {
+      font-weight: 700;
+      font-size: 1.25rem;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      text-decoration: none;
+    }
+    .logo span { color: var(--accent-2); }
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      align-items: center;
+    }
+    .nav-links a {
+      padding: 8px 14px;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.9375rem;
+      font-weight: 500;
+      border-radius: var(--radius-full);
+      transition: color 0.2s, background 0.2s;
+    }
+    .nav-links a:hover {
+      color: var(--text);
+      background: var(--surface);
+    }
+    .nav-links a:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    /* ---- Hero ---- */
+    .hero {
+      padding: var(--space-2xl) var(--space-md) var(--space-xl);
+      max-width: 1000px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .hero-badge {
+      display: inline-block;
+      padding: 6px 14px;
+      background: linear-gradient(135deg, rgba(168, 85, 247, 0.2), rgba(34, 211, 238, 0.15));
+      border: 1px solid rgba(168, 85, 247, 0.3);
+      border-radius: var(--radius-full);
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: var(--accent-2);
+      margin-bottom: var(--space-md);
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 700;
+      margin: 0 0 12px;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      background: linear-gradient(135deg, #fff 0%, var(--text-muted) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero h1 .highlight { background: linear-gradient(135deg, var(--accent-2), var(--pop)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .hero .subtitle {
+      color: var(--text-muted);
+      font-size: 1.125rem;
+      margin: 0 auto;
+      max-width: 480px;
+      line-height: 1.6;
+    }
+
+    /* ---- Main ---- */
     .container {
       max-width: 1000px;
       margin: 0 auto;
-      padding: var(--space-xl) var(--space-md) 48px;
+      padding: 0 var(--space-md) var(--space-2xl);
       padding-left: max(var(--space-md), env(safe-area-inset-left));
       padding-right: max(var(--space-md), env(safe-area-inset-right));
     }
 
-    header {
-      margin-bottom: var(--space-xl);
+    .section {
+      margin-bottom: var(--space-2xl);
+      scroll-margin-top: 80px;
     }
-    h1 {
-      font-size: clamp(1.75rem, 4vw, 2.25rem);
+    .section:last-of-type { margin-bottom: 0; }
+    .section-head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: var(--space-lg);
+    }
+    .section-head .emoji { font-size: 1.5rem; }
+    .section-title {
+      font-size: 1.25rem;
       font-weight: 700;
-      margin: 0 0 8px;
+      margin: 0;
       letter-spacing: -0.02em;
       color: var(--text);
     }
-    .subtitle {
+    .section-desc {
       color: var(--text-muted);
-      font-size: 1.0625rem;
-      margin: 0;
-      max-width: 560px;
-      line-height: 1.6;
+      font-size: 0.9375rem;
+      margin: 4px 0 0;
+      line-height: 1.5;
     }
 
-    .section-title {
-      font-size: 0.8125rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      color: var(--text-muted);
-      margin: 0 0 var(--space-md);
-      padding-bottom: 6px;
-    }
     .tools-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
       gap: var(--space-md);
+    }
+    .top-picks {
+      margin-bottom: var(--space-lg);
+    }
+    .top-picks-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent-2);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .top-picks-label::before {
+      content: '';
+      width: 20px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--pop));
+      border-radius: 2px;
+    }
+    .top-picks-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-md);
+    }
+    @media (max-width: 640px) {
+      .top-picks-grid { grid-template-columns: 1fr; }
+    }
+    .card.card-featured {
+      border-color: rgba(168, 85, 247, 0.35);
+      background: linear-gradient(180deg, rgba(168, 85, 247, 0.06) 0%, var(--surface) 100%);
+      position: relative;
+    }
+    .card.card-featured::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--pop));
+      border-radius: var(--radius) var(--radius) 0 0;
+    }
+    .card.card-featured .card-badge {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      font-size: 0.6875rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--pop);
+      background: rgba(34, 211, 238, 0.15);
+      padding: 4px 10px;
+      border-radius: var(--radius-full);
+    }
+    .card.card-featured h2 { font-size: 1.2rem; padding-right: 72px; }
+    .card.card-featured:hover {
+      border-color: rgba(168, 85, 247, 0.6);
+      box-shadow: 0 16px 48px rgba(168, 85, 247, 0.15);
     }
     .card {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--radius);
       padding: var(--space-lg);
-      transition: box-shadow 0.2s, transform 0.2s, border-color 0.2s;
+      transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease), border-color 0.2s;
       display: flex;
       flex-direction: column;
+      min-width: 0;
     }
     .card:hover {
-      border-color: var(--accent);
-      box-shadow: var(--shadow-hover);
-      transform: translateY(-2px);
+      border-color: rgba(168, 85, 247, 0.4);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
     }
     .card h2 {
       font-size: 1.125rem;
@@ -129,117 +290,160 @@
       align-items: center;
       justify-content: center;
       margin-top: auto;
-      padding: 10px 18px;
-      background: var(--accent);
+      padding: 12px 20px;
+      background: linear-gradient(135deg, var(--accent), #7c3aed);
       color: white;
       text-decoration: none;
       border-radius: var(--radius-sm);
       font-weight: 600;
       font-size: 0.9375rem;
-      transition: background 0.2s;
+      transition: opacity 0.2s, transform 0.1s;
       min-height: 44px;
     }
-    .card a:hover { background: var(--accent-hover); }
-    .card a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .card a:hover { opacity: 0.95; transform: scale(1.02); }
+    .card a:active { transform: scale(0.98); }
+    .card a:focus-visible { outline: 2px solid var(--accent-2); outline-offset: 2px; }
     .card.card-external a::after {
       content: '';
       width: 14px;
       height: 14px;
-      margin-left: 6px;
+      margin-left: 8px;
       background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14'/%3E%3C/svg%3E") no-repeat center;
       background-size: contain;
       opacity: 0.9;
     }
 
-    .two-columns {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: var(--space-xl);
-      align-items: start;
-    }
-    @media (max-width: 720px) {
-      .two-columns { grid-template-columns: 1fr; }
-    }
-    .column {
-      min-width: 0;
-    }
     .utility-placeholder {
       background: var(--surface-2);
-      border: 1px dashed var(--border);
+      border: 1px dashed rgba(255,255,255,0.12);
       border-radius: var(--radius);
-      padding: var(--space-lg);
+      padding: var(--space-xl);
       text-align: center;
       color: var(--text-muted);
       font-size: 0.9375rem;
-      line-height: 1.5;
+      line-height: 1.6;
     }
     .utility-placeholder strong { color: var(--text); }
+    .utility-placeholder .soon { font-size: 0.875rem; margin-top: 8px; opacity: 0.85; }
 
     footer {
-      margin-top: 48px;
-      padding-top: var(--space-lg);
+      margin-top: var(--space-2xl);
+      padding: var(--space-lg) var(--space-md);
+      padding-bottom: max(var(--space-lg), env(safe-area-inset-bottom));
       border-top: 1px solid var(--border);
+      text-align: center;
       color: var(--text-muted);
       font-size: 0.875rem;
     }
     footer p { margin: 0; }
 
+    /* ---- Mobile ---- */
     @media (max-width: 600px) {
-      .container { padding: 20px 16px 40px; }
-      .tools-grid { grid-template-columns: 1fr; }
+      .top-nav { padding: 10px 16px; }
+      .nav-inner { justify-content: center; }
+      .nav-links { justify-content: center; }
+      .nav-links a { padding: 10px 16px; min-height: 44px; display: inline-flex; align-items: center; }
+      .hero {
+        padding: var(--space-xl) 16px var(--space-lg);
+      }
+      .hero-badge { font-size: 0.75rem; padding: 6px 12px; }
+      .hero .subtitle { font-size: 1rem; }
+      .container { padding: 0 16px var(--space-xl); }
+      .section { scroll-margin-top: 60px; margin-bottom: var(--space-xl); }
+      .section-head { margin-bottom: var(--space-md); }
+      .tools-grid { grid-template-columns: 1fr; gap: 12px; }
       .card { padding: var(--space-md); }
+      .utility-placeholder { padding: var(--space-lg); }
+    }
+    @media (max-width: 380px) {
+      .hero h1 { font-size: 1.75rem; }
+      .nav-links a { font-size: 0.875rem; padding: 8px 12px; }
+      .card.card-featured .card-badge { top: 10px; right: 10px; font-size: 0.625rem; padding: 3px 8px; }
+      .card.card-featured h2 { padding-right: 60px; font-size: 1.1rem; }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <header>
-      <h1>EasyGo AI Tools</h1>
-      <p class="subtitle">Free AI tools for communication, security, and productivity. No sign-up required.</p>
-    </header>
+  <nav class="top-nav" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="#" class="logo">EasyGo<span>.</span>Tools</a>
+      <div class="nav-links">
+        <a href="#ai-tools">AI tools</a>
+        <a href="#utility">Utility</a>
+      </div>
+    </div>
+  </nav>
 
-    <div class="two-columns">
-      <section class="column" aria-labelledby="ai-tools-heading">
-        <h2 id="ai-tools-heading" class="section-title">AI & productivity tools</h2>
-        <div class="tools-grid">
-          <div class="card">
-            <h2>AI Message Rewriter</h2>
-            <p>Rewrite rude, unclear, or awkward messages into polite and professional communication instantly.</p>
-            <a href="/tools/message-rewriter.html">Open tool</a>
-          </div>
-          <div class="card">
-            <h2>Scam Detector</h2>
-            <p>Paste suspicious emails or messages and check whether they are likely scams.</p>
-            <a href="/tools/scam-detector.html">Open tool</a>
-          </div>
-          <div class="card">
-            <h2>ATS Resume Generator</h2>
-            <p>Upload a job description and your resume to get an ATS-optimized resume, cover letter, and suggestions.</p>
+  <header class="hero">
+    <span class="hero-badge">No sign-up, no cap</span>
+    <h1>Tools that <span class="highlight">actually slap</span></h1>
+    <p class="subtitle">Free AI & SEO stuff for when you need to get it done. We got you.</p>
+  </header>
+
+  <main class="container">
+    <section id="ai-tools" class="section" aria-labelledby="ai-tools-heading">
+      <div class="section-head">
+        <span class="emoji" aria-hidden="true">✨</span>
+        <div>
+          <h2 id="ai-tools-heading" class="section-title">The main character tools</h2>
+          <p class="section-desc">AI + productivity. Pick one and go.</p>
+        </div>
+      </div>
+
+      <div class="top-picks" aria-label="Top picks">
+        <p class="top-picks-label">Start here — most loved</p>
+        <div class="top-picks-grid">
+          <div class="card card-featured">
+            <span class="card-badge">Top pick</span>
+            <h2>ATS Resume & Cover Letter</h2>
+            <p>Tailored to the job description. Drop the JD + your resume → get an ATS-optimized resume, matching cover letter, and improvement tips. Job apps on easy mode.</p>
             <a href="/tools/ATS_resume_cover.html">Open tool</a>
           </div>
-          <div class="card card-external">
+          <div class="card card-featured card-external">
+            <span class="card-badge">Top pick</span>
             <h2>SEO Website Audit</h2>
-            <p>Free, instant SEO analysis: structure, technical SEO, and content. Get a score and actionable recommendations.</p>
+            <p>Free instant SEO check: structure, technical SEO, content. Get a score out of 100 and a clear list of what to fix. No sign-up.</p>
             <a href="https://services.easygoaitool.online/audit-tool/" target="_blank" rel="noopener">Open tool</a>
           </div>
         </div>
-      </section>
+      </div>
 
-      <section class="column" aria-labelledby="utility-heading">
-        <h2 id="utility-heading" class="section-title">Utility tools</h2>
-        <div class="tools-grid">
-          <div class="utility-placeholder">
-            <strong>More tools coming soon</strong><br>
-            Utility tools will appear here. Check back later.
-          </div>
+      <p class="section-desc" style="margin-bottom: var(--space-md);">More tools</p>
+      <div class="tools-grid">
+        <div class="card">
+          <h2>AI Message Rewriter</h2>
+          <p>That rude or awkward message? Turn it into something professional in seconds. No drama.</p>
+          <a href="/tools/message-rewriter.html">Open tool</a>
         </div>
-      </section>
-    </div>
+        <div class="card">
+          <h2>Scam Detector</h2>
+          <p>Paste sus emails or DMs and see if they’re legit or straight-up scams. Trust your gut, but verify.</p>
+          <a href="/tools/scam-detector.html">Open tool</a>
+        </div>
+      </div>
+    </section>
 
-    <footer>
-      <p>Built with AI • Free tools for everyday productivity</p>
-    </footer>
-  </div>
+    <section id="utility" class="section" aria-labelledby="utility-heading">
+      <div class="section-head">
+        <span class="emoji" aria-hidden="true">🧰</span>
+        <div>
+          <h2 id="utility-heading" class="section-title">Utility tools</h2>
+          <p class="section-desc">Side quests. More goodies dropping soon.</p>
+        </div>
+      </div>
+      <div class="tools-grid">
+        <div class="utility-placeholder">
+          <strong>More tools coming soon</strong><br>
+          We’re cooking. Check back later for more random-but-useful stuff.
+          <p class="soon">Fr though, we’re adding more.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Built with chaos and caffeine • Free forever, fr</p>
+  </footer>
 
   <script type="application/ld+json">
   {
