@@ -1,0 +1,20 @@
+{
+  "source": "BLS OEWS May 2024 (national); simplified for tool. Replace with full BLS export for production.",
+  "roles": [
+    { "id": "software-developer", "label": "Software Developer", "low": 90000, "median": 133000, "high": 180000 },
+    { "id": "product-manager", "label": "Product Manager", "low": 85000, "median": 125000, "high": 175000 },
+    { "id": "data-scientist", "label": "Data Scientist / Analyst", "low": 75000, "median": 105000, "high": 150000 },
+    { "id": "project-manager", "label": "Project Manager", "low": 70000, "median": 98000, "high": 140000 },
+    { "id": "marketing-manager", "label": "Marketing Manager", "low": 70000, "median": 95000, "high": 135000 },
+    { "id": "hr-manager", "label": "HR Manager / People Ops", "low": 65000, "median": 92000, "high": 130000 },
+    { "id": "accountant", "label": "Accountant / Finance", "low": 55000, "median": 78000, "high": 115000 },
+    { "id": "sales-representative", "label": "Sales Representative", "low": 45000, "median": 65000, "high": 110000 },
+    { "id": "nurse", "label": "Registered Nurse", "low": 62000, "median": 82000, "high": 105000 },
+    { "id": "teacher", "label": "Teacher / Educator", "low": 42000, "median": 58000, "high": 85000 },
+    { "id": "engineer-mechanical", "label": "Mechanical / Civil Engineer", "low": 70000, "median": 95000, "high": 130000 },
+    { "id": "designer-ux", "label": "UX / Product Designer", "low": 70000, "median": 100000, "high": 145000 },
+    { "id": "customer-success", "label": "Customer Success / Support", "low": 45000, "median": 62000, "high": 90000 },
+    { "id": "operations-manager", "label": "Operations Manager", "low": 60000, "median": 85000, "high": 120000 },
+    { "id": "other", "label": "Other (use median as reference)", "low": 50000, "median": 75000, "high": 110000 }
+  ]
+}
