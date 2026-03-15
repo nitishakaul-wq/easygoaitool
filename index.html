@@ -217,8 +217,11 @@
     }
     .top-picks-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: repeat(3, 1fr);
       gap: var(--space-md);
+    }
+    @media (max-width: 900px) {
+      .top-picks-grid { grid-template-columns: 1fr 1fr; }
     }
     @media (max-width: 640px) {
       .top-picks-grid { grid-template-columns: 1fr; }
@@ -405,6 +408,12 @@
             <p>Check your site's SEO in seconds. Get a score out of 100, see what's wrong (title, meta, links, speed), and get a fix list. No sign-up.</p>
             <a href="https://services.easygoaitool.online/audit-tool/" target="_blank" rel="noopener">Open SEO checker</a>
           </div>
+          <div class="card card-featured">
+            <span class="card-badge">Top pick</span>
+            <h2>Contract Risk Checker</h2>
+            <p>Analyze contracts and detect risky clauses before signing. NDAs, freelance agreements, leases, and more. Free.</p>
+            <a href="/tools/contract-risk-checker.html">Open contract risk checker</a>
+          </div>
         </div>
       </div>
 
@@ -419,11 +428,6 @@
           <h2>Scam Detector – Email & Message Checker</h2>
           <p>Paste suspicious emails or messages. Free scam checker to see if they’re phishing or legit. Protect yourself.</p>
           <a href="/tools/scam-detector.html">Open scam detector</a>
-        </div>
-        <div class="card">
-          <h2>Contract Risk Checker</h2>
-          <p>Analyze contracts and detect risky clauses before signing. NDAs, freelance agreements, leases, and more.</p>
-          <a href="/tools/contract-risk-checker.html">Open contract risk checker</a>
         </div>
       </div>
     </section>
