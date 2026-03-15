@@ -96,11 +96,13 @@
       <details class="mt-4 rounded-xl border border-white/10 bg-[var(--surface)]/60 px-4 py-3 text-sm" id="disclaimer-details">
         <summary class="disclaimer-toggle font-semibold text-[var(--text-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)]/30 rounded">Data sources &amp; disclaimer</summary>
         <div class="mt-3 space-y-2 text-[var(--text-muted)] leading-relaxed">
-          <p><strong class="text-[var(--text)]">Data sources.</strong> Salary ranges are derived from publicly available US data (e.g. BLS Occupational Employment and Wage Statistics–style estimates). Cost-of-living indices are approximate and from public sources. This data is updated periodically and <strong>can change</strong>; we do not guarantee it is current or complete.</p>
+          <p><strong class="text-[var(--text)]">What happens behind the scenes.</strong> The tool uses salary ranges and cost-of-living indices from <strong>publicly available US data</strong> (e.g. BLS Occupational Employment and Wage Statistics–style estimates). Data is loaded from static files deployed with the site. BLS also offers an API for organizations; if the site operator has access, live data may be used. Otherwise you see the same static, public-source data—still useful for ballpark comparison.</p>
+          <p><strong class="text-[var(--text)]">Data sources.</strong> The bundled data is derived from publicly available US sources (e.g. BLS Occupational Employment and Wage Statistics–style estimates). Cost-of-living indices are approximate and from public sources. That underlying public data <strong>can change</strong>; we do not guarantee the tool’s copy is current or complete.</p>
           <p><strong class="text-[var(--text)]">Estimates only.</strong> Scores, percentiles, and market comparisons are <strong>estimates for general guidance only</strong>. They are not a guarantee of accuracy and should not be relied on as the sole basis for career, negotiation, or financial decisions. For important decisions, verify with official sources (e.g. bls.gov) or a qualified compensation or career professional.</p>
           <p><strong class="text-[var(--text)]">Not advice.</strong> This tool does not provide career, legal, tax, or financial advice. Use at your own risk. By using this tool you agree that the operator is not liable for any decisions you make or outcomes resulting from use of these estimates.</p>
         </div>
       </details>
+      <p id="data-source-note" class="mt-3 text-xs text-[var(--text-muted)] hidden" aria-live="polite"></p>
     </header>
 
     <!-- Input form -->
@@ -247,26 +249,37 @@
   (function() {
     'use strict';
 
-    // --- Data (modular: easy to swap for real APIs / datasets) ---
+    // --- Data: API first (BLS when key set), then static fallback ---
     var salaryBands = [];
     var colLocations = [];
+    var dataSource = 'static';
 
     function getDataBase() {
       return window.location.pathname.indexOf('/tools/') !== -1 ? '/data' : '../data';
     }
 
-    function loadSalaryBands() {
-      return fetch(getDataBase() + '/salary-bands.json').then(function(r) { return r.json(); }).then(function(data) {
-        salaryBands = data.roles || [];
-        return salaryBands;
-      });
-    }
-
-    function loadColIndex() {
-      return fetch(getDataBase() + '/col-index.json').then(function(r) { return r.json(); }).then(function(data) {
-        colLocations = data.locations || [];
-        return colLocations;
-      });
+    /** Load roles + locations from API (BLS-backed when BLS_API_KEY set) or static files. */
+    function loadMarketData() {
+      var apiUrl = window.location.pathname.indexOf('/tools/') !== -1 ? '/api/job-offer-data' : (window.location.origin + '/api/job-offer-data');
+      return fetch(apiUrl)
+        .then(function(r) { return r.ok ? r.json() : Promise.reject(new Error('API not available')); })
+        .then(function(data) {
+          salaryBands = data.roles || [];
+          colLocations = data.locations || [];
+          dataSource = data.source || 'static';
+          return { roles: salaryBands, locations: colLocations };
+        })
+        .catch(function() {
+          return Promise.all([
+            fetch(getDataBase() + '/salary-bands.json').then(function(r) { return r.json(); }),
+            fetch(getDataBase() + '/col-index.json').then(function(r) { return r.json(); })
+          ]).then(function(arr) {
+            salaryBands = (arr[0] && arr[0].roles) ? arr[0].roles : [];
+            colLocations = (arr[1] && arr[1].locations) ? arr[1].locations : [];
+            dataSource = 'static';
+            return { roles: salaryBands, locations: colLocations };
+          });
+        });
     }
 
     function getRole(id) {
@@ -562,10 +575,15 @@
     });
 
     // Load data and init
-    Promise.all([loadSalaryBands(), loadColIndex()]).then(function() {
+    loadMarketData().then(function() {
       initFormOptions();
       if (offer2Section.classList.contains('hidden')) {
         btnAddOffer2.classList.remove('hidden');
+      }
+      var sourceEl = document.getElementById('data-source-note');
+      if (sourceEl) {
+        sourceEl.textContent = dataSource === 'bls' ? 'Salary data: BLS (live).' : 'Salary data: from public sources (static).';
+        sourceEl.classList.remove('hidden');
       }
     }).catch(function() {
       showError('Could not load salary or location data. Check your connection.');
