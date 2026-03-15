@@ -3,21 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Contract Risk Checker | Analyze Agreements Before You Sign</title>
-  <meta name="description" content="Paste any contract, NDA, freelance agreement, or lease. Get a free risk score, detect risky clauses, and plain-English explanations before you sign. No sign-up.">
-  <meta name="keywords" content="contract risk checker, contract analyzer, NDA checker, freelance contract review, lease agreement checker, risky clauses">
+  <title>Contract Risk Checker for Freelancers, Brokers & Small Business | Free</title>
+  <meta name="description" content="Free contract risk checker for freelancers, brokers, small business owners, tenants, and job seekers. Paste or upload PDF/DOCX. Get a risk score, risky clause detection, and plain-English explanations before you sign. No sign-up.">
+  <meta name="keywords" content="contract risk checker, contract analyzer for freelancers, contract review for brokers, NDA checker, freelance contract review, lease agreement checker, small business contract review, tenant lease checker, employment contract review, risky clauses, contract clause detector">
   <meta name="author" content="EasyGo AI">
   <link rel="canonical" href="https://easygoaitool.online/tools/contract-risk-checker.html">
 
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://easygoaitool.online/tools/contract-risk-checker.html">
-  <meta property="og:title" content="Contract Risk Checker | Analyze Agreements Before You Sign">
-  <meta property="og:description" content="Paste any contract, NDA, or lease. Free risk score and risky clause detection with plain-English explanations. No sign-up.">
+  <meta property="og:title" content="Contract Risk Checker for Freelancers, Brokers & Small Business | Free">
+  <meta property="og:description" content="Free tool for freelancers, brokers, small business, and tenants. Paste or upload contracts—get a risk score and plain-English clause explanations. No sign-up.">
   <meta property="og:locale" content="en_US">
 
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Contract Risk Checker | Analyze Agreements Before You Sign">
-  <meta name="twitter:description" content="Free tool to detect risky clauses in contracts. Paste your agreement and get a risk score and plain-English explanations.">
+  <meta name="twitter:title" content="Contract Risk Checker for Freelancers, Brokers & Small Business | Free">
+  <meta name="twitter:description" content="Free contract risk checker. For freelancers, brokers, small business, tenants. Detect risky clauses and get plain-English explanations before you sign.">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -56,7 +56,7 @@
     <header class="mb-10">
       <p class="inline-block rounded-full border border-[var(--accent)]/30 bg-[var(--accent)]/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-[var(--accent-2)] mb-3">Free · No sign-up</p>
       <h1 class="text-3xl md:text-4xl font-bold tracking-tight text-[var(--text)]">Free Contract Risk Checker</h1>
-      <p class="mt-2 text-lg text-[var(--text-muted)]">Analyze any contract before you sign.</p>
+      <p class="mt-2 text-lg text-[var(--text-muted)]">For freelancers, brokers, small business owners, tenants, and job seekers. Analyze any contract before you sign.</p>
     </header>
 
     <div class="rounded-2xl border border-white/10 bg-[var(--surface)]/80 p-6 md:p-8 shadow-lg">
@@ -68,6 +68,15 @@
         maxlength="20000"
       ></textarea>
       <p class="mt-2 text-xs text-[var(--text-muted)]"><span id="char-count">0</span> / 20,000 characters · Contracts are not saved.</p>
+      <div class="mt-3 flex flex-wrap items-center gap-3">
+        <span class="text-xs text-[var(--text-muted)]">or</span>
+        <label class="inline-flex items-center gap-2 rounded-lg border border-white/20 bg-[var(--surface-2)] px-4 py-2.5 text-sm font-medium text-[var(--text)] cursor-pointer hover:bg-[var(--surface)] transition">
+          <svg class="w-4 h-4 text-[var(--accent-2)]" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/></svg>
+          Upload PDF or DOCX
+          <input type="file" id="contract-file" accept=".pdf,.docx,.doc" class="sr-only" aria-label="Upload contract as PDF or DOCX">
+        </label>
+        <span id="file-status" class="text-xs text-[var(--text-muted)]"></span>
+      </div>
       <div class="mt-4 flex justify-end">
         <button type="button" id="btn-analyze" class="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[var(--accent)] to-purple-700 px-6 py-3 font-semibold text-white shadow-lg hover:opacity-95 transition disabled:opacity-60 disabled:cursor-not-allowed min-h-[48px]">
           <span id="btn-text">Analyze Contract</span>
@@ -109,12 +118,35 @@
 
     <p class="mt-6 text-center text-xs text-[var(--text-muted)]">Contracts are not saved. Text is processed only in memory.</p>
 
+    <section class="mt-12 pt-10 border-t border-white/10" id="who-is-this-for" aria-labelledby="audience-heading">
+      <h2 id="audience-heading" class="text-xl font-semibold text-[var(--text)] mb-4">Who is this contract risk checker for?</h2>
+      <p class="text-sm text-[var(--text-muted)] mb-4">This free tool helps anyone reviewing a contract before signing—no legal background required. It’s built for:</p>
+      <ul class="grid gap-3 sm:grid-cols-2 text-sm text-[var(--text-muted)] list-disc list-inside space-y-1">
+        <li><strong class="text-[var(--text)]">Freelancers & contractors</strong> — NDAs, service agreements, gig and client contracts</li>
+        <li><strong class="text-[var(--text)]">Small business owners</strong> — vendor agreements, leases, service terms, MSAs</li>
+        <li><strong class="text-[var(--text)]">Brokers & agents</strong> — referral agreements, listing agreements, partnership contracts</li>
+        <li><strong class="text-[var(--text)]">Tenants & landlords</strong> — lease agreements, renewal terms, automatic renewal clauses</li>
+        <li><strong class="text-[var(--text)]">Job seekers & employees</strong> — employment contracts, non-competes, IP assignment, confidentiality</li>
+        <li><strong class="text-[var(--text)]">Consultants & advisors</strong> — consulting agreements, engagement letters, scope of work</li>
+        <li><strong class="text-[var(--text)]">Lawyers & paralegals</strong> — quick first-pass review or client triage (not a substitute for legal advice)</li>
+      </ul>
+      <p class="mt-3 text-xs text-[var(--text-muted)]">Use it to spot common risky clauses and prepare questions for a lawyer. It does not replace professional legal advice.</p>
+    </section>
+
     <section class="mt-16 pt-12 border-t border-white/10" id="faq" aria-labelledby="faq-heading">
       <h2 id="faq-heading" class="text-xl font-semibold text-[var(--text)] mb-6">Frequently asked questions</h2>
       <dl class="space-y-6">
         <div>
+          <dt class="font-medium text-[var(--text)]">Who can use the contract risk checker?</dt>
+          <dd class="mt-1 text-sm text-[var(--text-muted)]">Freelancers, small business owners, brokers, tenants, job seekers, consultants, and lawyers (for first-pass review) can all use it. No sign-up or legal background required. Paste or upload your contract and get a risk score plus plain-English explanations of detected clauses.</dd>
+        </div>
+        <div>
           <dt class="font-medium text-[var(--text)]">Can AI analyze contracts?</dt>
           <dd class="mt-1 text-sm text-[var(--text-muted)]">This tool uses rule-based detection to find common risky clauses (indemnification, non-compete, automatic renewal, etc.) and explains them in plain English. It is not a substitute for legal advice—use it to spot issues and prepare questions for a lawyer.</dd>
+        </div>
+        <div>
+          <dt class="font-medium text-[var(--text)]">Can I upload a PDF or Word contract?</dt>
+          <dd class="mt-1 text-sm text-[var(--text-muted)]">Yes. Use “Upload PDF or DOCX” to select a file; the text is extracted in your browser and then analyzed. The file is not sent to our server—only the extracted text is sent for clause detection, and we do not store it.</dd>
         </div>
         <div>
           <dt class="font-medium text-[var(--text)]">Is it safe to paste contracts online?</dt>
@@ -132,6 +164,8 @@
     <p>© EasyGo AI Tools · For informational use only. Not legal advice.</p>
   </footer>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
   <script>
     (function() {
       var textarea = document.getElementById('contract-text');
@@ -148,9 +182,100 @@
       var clausesList = document.getElementById('clauses-list');
       var recsSection = document.getElementById('recs-section');
       var recsList = document.getElementById('recs-list');
+      var fileInput = document.getElementById('contract-file');
+      var fileStatus = document.getElementById('file-status');
+
+      var MAX_TEXT = 20000;
+      var MAX_FILE_BYTES = 5 * 1024 * 1024;
+
+      if (typeof pdfjsLib !== 'undefined') {
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
+      }
 
       textarea.addEventListener('input', function() {
         charCount.textContent = textarea.value.length.toLocaleString();
+      });
+
+      function setExtractedText(text, sourceLabel) {
+        if (text.length > MAX_TEXT) {
+          text = text.slice(0, MAX_TEXT);
+          fileStatus.textContent = sourceLabel + ' (first ' + MAX_TEXT.toLocaleString() + ' characters used)';
+        } else {
+          fileStatus.textContent = 'Extracted ' + text.length.toLocaleString() + ' characters from ' + sourceLabel;
+        }
+        textarea.value = text;
+        charCount.textContent = textarea.value.length.toLocaleString();
+        hideError();
+      }
+
+      fileInput.addEventListener('change', function() {
+        var file = fileInput.files && fileInput.files[0];
+        if (!file) return;
+        fileStatus.textContent = 'Reading…';
+        if (file.size > MAX_FILE_BYTES) {
+          fileStatus.textContent = '';
+          showError('File is too large. Use a file under 5 MB or paste text instead.');
+          fileInput.value = '';
+          return;
+        }
+        var name = file.name || 'file';
+        var isPdf = /\.pdf$/i.test(name) || file.type === 'application/pdf';
+        var isDocx = /\.(docx?|application\/vnd\.openxmlformats-officedocument\.wordprocessingml\.document)$/i.test(name) || file.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' || file.type === 'application/msword';
+
+        function onExtractError(err) {
+          fileStatus.textContent = '';
+          showError('Could not read file: ' + (err && err.message ? err.message : 'unsupported or corrupted file'));
+          fileInput.value = '';
+        }
+
+        var reader = new FileReader();
+        reader.onload = function() {
+          var buffer = reader.result;
+          var arrayBuffer = buffer instanceof ArrayBuffer ? buffer : buffer.buffer;
+
+          if (isPdf) {
+            if (typeof pdfjsLib === 'undefined') {
+              onExtractError(new Error('PDF library not loaded'));
+              return;
+            }
+            pdfjsLib.getDocument(arrayBuffer).promise.then(function(doc) {
+              var numPages = doc.numPages;
+              var parts = [];
+              function next(pageNum) {
+                if (pageNum > numPages) {
+                  setExtractedText(parts.join('\n').replace(/\n{3,}/g, '\n\n').trim(), name);
+                  fileInput.value = '';
+                  return;
+                }
+                doc.getPage(pageNum).then(function(page) {
+                  return page.getTextContent();
+                }).then(function(content) {
+                  var pageText = content.items.map(function(item) { return item.str; }).join(' ');
+                  parts.push(pageText);
+                  next(pageNum + 1);
+                }).catch(onExtractError);
+              }
+              next(1);
+            }).catch(onExtractError);
+            return;
+          }
+
+          if (isDocx) {
+            if (typeof mammoth === 'undefined') {
+              onExtractError(new Error('DOCX library not loaded'));
+              return;
+            }
+            mammoth.extractRawText({ arrayBuffer: arrayBuffer }).then(function(result) {
+              setExtractedText(result.value, name);
+              fileInput.value = '';
+            }).catch(onExtractError);
+            return;
+          }
+
+          onExtractError(new Error('Unsupported format. Use PDF or DOCX.'));
+        };
+        reader.onerror = function() { onExtractError(reader.error); };
+        reader.readAsArrayBuffer(file);
       });
 
       function showError(msg) {
@@ -176,7 +301,7 @@
       btnAnalyze.addEventListener('click', async function() {
         var text = textarea.value.trim();
         if (!text) {
-          showError('Please paste your contract or agreement text.');
+          showError('Please paste your contract or upload a PDF or DOCX file.');
           return;
         }
         if (text.length > 20000) {
@@ -262,9 +387,14 @@
     "@type": "WebApplication",
     "name": "Contract Risk Checker",
     "url": "https://easygoaitool.online/tools/contract-risk-checker.html",
-    "description": "Free tool to analyze contracts and detect risky clauses before signing. Paste NDAs, freelance agreements, or leases and get a risk score with plain-English explanations.",
+    "description": "Free contract risk checker for freelancers, brokers, small business owners, tenants, and job seekers. Analyze contracts and detect risky clauses before signing. Paste or upload PDF/DOCX; get a risk score with plain-English explanations. No sign-up.",
     "applicationCategory": "UtilitiesApplication",
-    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "featureList": "Risk score, clause detection, plain-English explanations, PDF and DOCX upload",
+    "audience": {
+      "@type": "Audience",
+      "audienceType": "Freelancers, small business owners, brokers, tenants, job seekers, consultants, lawyers"
+    }
   }
   </script>
   <script type="application/ld+json">
@@ -274,10 +404,26 @@
     "mainEntity": [
       {
         "@type": "Question",
+        "name": "Who can use the contract risk checker?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Freelancers, small business owners, brokers, tenants, job seekers, consultants, and lawyers (for first-pass review) can all use it. No sign-up or legal background required. Paste or upload your contract and get a risk score plus plain-English explanations of detected clauses."
+        }
+      },
+      {
+        "@type": "Question",
         "name": "Can AI analyze contracts?",
         "acceptedAnswer": {
           "@type": "Answer",
           "text": "This tool uses rule-based detection to find common risky clauses (indemnification, non-compete, automatic renewal, etc.) and explains them in plain English. It is not a substitute for legal advice—use it to spot issues and prepare questions for a lawyer."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I upload a PDF or Word contract?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Use Upload PDF or DOCX to select a file; the text is extracted in your browser and then analyzed. The file is not sent to our server—only the extracted text is sent for clause detection, and we do not store it."
         }
       },
       {
