@@ -250,6 +250,104 @@
     .result-box.loading { color: var(--text-muted); }
     .result-box.error { border-color: rgba(239, 68, 68, 0.4); color: #fca5a5; }
 
+    .ats-score-card {
+      display: none;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: var(--space-lg);
+      margin-bottom: var(--space-md);
+    }
+    .ats-score-card.visible { display: block; }
+    .ats-score-head {
+      font-size: 0.8125rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+    .ats-score-body {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-lg);
+    }
+    .ats-score-pie-wrap {
+      flex-shrink: 0;
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      background: var(--surface-2);
+    }
+    .ats-score-pie {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      transition: background 0.4s ease;
+    }
+    .ats-score-meta {
+      flex: 1;
+      min-width: 180px;
+    }
+    .ats-score-value {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+    .ats-score-value.band-good { color: #22c55e; }
+    .ats-score-value.band-needs { color: #eab308; }
+    .ats-score-value.band-bad { color: #ef4444; }
+    .ats-score-band {
+      font-size: 0.9375rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+    .ats-score-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px 20px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+    }
+    .ats-score-legend li {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .ats-score-legend span {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+    .ats-score-legend .good { background: #22c55e; }
+    .ats-score-legend .needs { background: #eab308; }
+    .ats-score-legend .bad { background: #ef4444; }
+    .ats-score-note {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 10px;
+      opacity: 0.9;
+    }
+    .ats-result-text {
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      font-size: 0.9375rem;
+      line-height: 1.65;
+      color: var(--text);
+      margin: 0;
+    }
+
+    @media (max-width: 600px) {
+      .ats-score-body { flex-direction: column; align-items: flex-start; }
+      .ats-score-pie-wrap { width: 120px; height: 120px; }
+    }
+
     .upload-zone {
       display: flex;
       align-items: center;
@@ -363,6 +461,66 @@
       setResult(document.createTextNode(text).textContent, className);
     }
 
+    function computeATSScore(jd, resume) {
+      var jdLower = jd.toLowerCase();
+      var resumeLower = resume.toLowerCase();
+      var jdWords = jdLower.replace(/[^\w\s]/g, ' ').split(/\s+/).filter(function(w) { return w.length > 2; });
+      var resumeWords = resumeLower.replace(/[^\w\s]/g, ' ').split(/\s+/).filter(function(w) { return w.length > 2; });
+      var uniqueJd = [];
+      var seen = {};
+      for (var i = 0; i < jdWords.length; i++) {
+        if (!seen[jdWords[i]]) { seen[jdWords[i]] = true; uniqueJd.push(jdWords[i]); }
+      }
+      var matchCount = 0;
+      for (var j = 0; j < uniqueJd.length; j++) {
+        if (resumeLower.indexOf(uniqueJd[j]) !== -1) matchCount++;
+      }
+      var keywordScore = uniqueJd.length ? Math.min(100, Math.round((matchCount / uniqueJd.length) * 100)) : 50;
+      var wordCount = resumeWords.length;
+      var lengthScore = wordCount >= 300 && wordCount <= 800 ? 100 : wordCount >= 150 && wordCount <= 1200 ? 70 : wordCount < 100 ? 30 : 60;
+      var sections = ['experience', 'education', 'skills', 'work', 'summary', 'objective'];
+      var sectionCount = 0;
+      for (var s = 0; s < sections.length; s++) {
+        if (resumeLower.indexOf(sections[s]) !== -1) sectionCount++;
+      }
+      var structureScore = Math.min(100, sectionCount * 25);
+      var score = Math.round((keywordScore * 0.5) + (lengthScore * 0.25) + (structureScore * 0.25));
+      score = Math.max(0, Math.min(100, score));
+      var band = score >= 70 ? 'good' : score >= 40 ? 'needs_improvement' : 'bad';
+      var remainder = 100 - score;
+      var goodPct = score;
+      var needsPct = Math.round(remainder * 0.6);
+      var badPct = Math.round(remainder * 0.4);
+      if (goodPct + needsPct + badPct !== 100) badPct += 100 - goodPct - needsPct - badPct;
+      return { score: score, band: band, goodPct: goodPct, needsPct: needsPct, badPct: badPct };
+    }
+
+    function buildScoreCard(data) {
+      var bandLabels = { good: 'Good', needs_improvement: 'Needs improvement', bad: 'Needs work' };
+      var bandClass = 'band-' + data.band.replace('_', '');
+      var deg = 0;
+      var gradient = 'conic-gradient(' +
+        '#22c55e 0% ' + (deg += data.goodPct) + '%, ' +
+        '#eab308 ' + deg + '% ' + (deg += data.needsPct) + '%, ' +
+        '#ef4444 ' + deg + '% 100%)';
+      return '<div class="ats-score-card visible" role="img" aria-label="ATS score ' + data.score + ', ' + bandLabels[data.band] + '">' +
+        '<div class="ats-score-head">ATS match score</div>' +
+        '<div class="ats-score-body">' +
+          '<div class="ats-score-pie-wrap"><div class="ats-score-pie" style="background:' + gradient + '"></div></div>' +
+          '<div class="ats-score-meta">' +
+            '<div class="ats-score-value ' + bandClass + '">' + data.score + '<span style="font-size:0.5em; font-weight:500; color:var(--text-muted)">/100</span></div>' +
+            '<div class="ats-score-band">' + bandLabels[data.band] + '</div>' +
+            '<ul class="ats-score-legend">' +
+              '<li><span class="good"></span> Good</li>' +
+              '<li><span class="needs"></span> Needs improvement</li>' +
+              '<li><span class="bad"></span> Needs work</li>' +
+            '</ul>' +
+            '<p class="ats-score-note">Based on keyword match, length, and structure. Use the optimized resume below to improve.</p>' +
+          '</div>' +
+        '</div>' +
+        '</div>';
+    }
+
     async function optimizeResume() {
       var jd = document.getElementById('jd').value.trim();
       var resume = document.getElementById('resume').value.trim();
@@ -393,7 +551,11 @@
         }
 
         var text = data.result || '';
-        setResultText(text || 'No result returned.');
+        var scoreData = computeATSScore(jd, resume);
+        var scoreCard = buildScoreCard(scoreData);
+        var resultHtml = scoreCard + '<div class="ats-result-text" id="ats-result-text">' + escapeHtml(text || 'No result returned.') + '</div>';
+        setResult(resultHtml, '');
+        getResultEl().classList.remove('placeholder');
         getBtnCopy().disabled = !text;
       } catch (err) {
         setResultText('Error contacting the AI service. Check your connection and try again.', 'error');
@@ -403,8 +565,15 @@
       }
     }
 
+    function escapeHtml(s) {
+      var div = document.createElement('div');
+      div.textContent = s;
+      return div.innerHTML;
+    }
+
     function copyResult() {
-      var text = getResultEl().textContent;
+      var textEl = document.getElementById('ats-result-text');
+      var text = textEl ? textEl.textContent : getResultEl().textContent;
       if (!text || getResultEl().classList.contains('placeholder')) return;
       navigator.clipboard.writeText(text).then(function() {
         var btn = getBtnCopy();
