@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Job Offer Evaluator – Compare Offers & Market Value | Free Tool</title>
+  <meta name="description" content="Compare up to two job offers. Enter role, location, base, bonus %, equity, PTO. Get total comp, COL-adjusted value, offer score 0–100, market percentile, and a clear recommendation. Free.">
+  <meta name="keywords" content="job offer evaluation, compare job offers, salary comparison, total compensation, cost of living adjustment, market value, offer calculator">
+  <meta name="author" content="EasyGo AI">
+  <link rel="canonical" href="https://easygoaitool.online/tools/job-offer-evaluator.html">
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://easygoaitool.online/tools/job-offer-evaluator.html">
+  <meta property="og:title" content="Job Offer Evaluator – Compare Offers & Market Value">
+  <meta property="og:description" content="Compare up to two offers. Get total comp, COL-adjusted value, score 0–100, and Below market / Competitive / Strong offer recommendation. Free.">
+  <meta property="og:locale" content="en_US">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Job Offer Evaluator – Compare Offers & Market Value">
+  <meta name="twitter:description" content="Compare job offers. Score vs. market, COL-adjusted comp, clear recommendation. Free.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --bg: #0f0f12;
+      --surface: #1e1e24;
+      --surface-2: #26262c;
+      --border: rgba(255,255,255,0.08);
+      --text: #fafafa;
+      --text-muted: #a1a1aa;
+      --accent: #a855f7;
+      --accent-2: #c084fc;
+      --success: #22c55e;
+      --warning: #eab308;
+      --danger: #ef4444;
+      --radius: 16px;
+      --radius-sm: 10px;
+    }
+    body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; }
+    .score-strong { color: #22c55e; }
+    .score-mid { color: #eab308; }
+    .score-weak { color: #ef4444; }
+    .input-block { @apply rounded-xl border border-white/10 bg-[var(--surface-2)] px-4 py-3 text-[var(--text)] placeholder-[var(--text-muted)] focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent)]/20 focus:outline-none w-full; }
+    .label { @apply block text-sm font-semibold uppercase tracking-wider text-[var(--text-muted)] mb-2; }
+  </style>
+</head>
+<body class="min-h-screen">
+  <nav class="sticky top-0 z-50 border-b border-white/10 bg-[var(--bg)]/90 backdrop-blur-md px-4 py-3 md:px-6">
+    <div class="max-w-3xl mx-auto flex justify-between items-center">
+      <a href="/" class="text-sm font-medium text-[var(--text-muted)] hover:text-[var(--accent-2)] transition">← Back to tools</a>
+    </div>
+  </nav>
+
+  <main class="max-w-3xl mx-auto px-4 py-8 md:px-6 md:py-12">
+    <header class="mb-10">
+      <p class="inline-block rounded-full border border-[var(--accent)]/30 bg-[var(--accent)]/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-[var(--accent-2)] mb-3">Free · No sign-up</p>
+      <h1 class="text-3xl md:text-4xl font-bold tracking-tight text-[var(--text)]">Job Offer Evaluator</h1>
+      <p class="mt-2 text-lg text-[var(--text-muted)]">Compare up to two job offers. See total compensation, cost-of-living–adjusted value, and whether each offer is below market, competitive, or strong.</p>
+    </header>
+
+    <!-- Input form -->
+    <div class="rounded-2xl border border-white/10 bg-[var(--surface)]/80 p-6 md:p-8 shadow-lg">
+      <form id="offer-form" class="space-y-6">
+        <!-- Shared: YOE, optional relocation -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label for="yoe" class="label">Years of experience</label>
+            <input type="number" id="yoe" name="yoe" min="0" max="50" step="1" placeholder="e.g. 5" class="input-block">
+          </div>
+          <div>
+            <label for="relocation" class="label">Relocation city (optional)</label>
+            <select id="relocation" name="relocation" class="input-block">
+              <option value="">None</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Offer 1 -->
+        <section class="border-t border-white/10 pt-6" aria-labelledby="offer1-heading">
+          <h2 id="offer1-heading" class="text-lg font-semibold text-[var(--text)] mb-4">Offer 1</h2>
+          <div class="space-y-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label for="role1" class="label">Role title</label>
+                <select id="role1" name="role1" required class="input-block">
+                  <option value="">Loading…</option>
+                </select>
+              </div>
+              <div>
+                <label for="location1" class="label">Job location</label>
+                <select id="location1" name="location1" required class="input-block">
+                  <option value="">Loading…</option>
+                </select>
+              </div>
+            </div>
+            <div>
+              <label for="base1" class="label">Base salary (annual, USD) *</label>
+              <input type="number" id="base1" name="base1" required min="1" step="1000" placeholder="e.g. 120000" class="input-block">
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div>
+                <label for="bonusPct1" class="label">Annual bonus (%)</label>
+                <input type="number" id="bonusPct1" name="bonusPct1" min="0" max="100" step="0.5" placeholder="0" class="input-block">
+              </div>
+              <div>
+                <label for="equity1" class="label">Equity (value per year, USD)</label>
+                <input type="number" id="equity1" name="equity1" min="0" step="1000" placeholder="0" class="input-block">
+              </div>
+              <div>
+                <label for="pto1" class="label">PTO days</label>
+                <input type="number" id="pto1" name="pto1" min="0" max="365" step="1" placeholder="e.g. 15" class="input-block">
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Offer 2 (optional) -->
+        <section id="offer2-section" class="border-t border-white/10 pt-6 hidden" aria-labelledby="offer2-heading">
+          <div class="flex items-center justify-between mb-4">
+            <h2 id="offer2-heading" class="text-lg font-semibold text-[var(--text)]">Offer 2</h2>
+            <button type="button" id="btn-remove-offer2" class="text-sm text-[var(--text-muted)] hover:text-[var(--danger)] transition">Remove offer 2</button>
+          </div>
+          <div class="space-y-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label for="role2" class="label">Role title</label>
+                <select id="role2" name="role2" class="input-block">
+                  <option value="">Select role…</option>
+                </select>
+              </div>
+              <div>
+                <label for="location2" class="label">Job location</label>
+                <select id="location2" name="location2" class="input-block">
+                  <option value="">Select location…</option>
+                </select>
+              </div>
+            </div>
+            <div>
+              <label for="base2" class="label">Base salary (annual, USD)</label>
+              <input type="number" id="base2" name="base2" min="0" step="1000" placeholder="0" class="input-block">
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div>
+                <label for="bonusPct2" class="label">Annual bonus (%)</label>
+                <input type="number" id="bonusPct2" name="bonusPct2" min="0" max="100" step="0.5" placeholder="0" class="input-block">
+              </div>
+              <div>
+                <label for="equity2" class="label">Equity (value per year, USD)</label>
+                <input type="number" id="equity2" name="equity2" min="0" step="1000" placeholder="0" class="input-block">
+              </div>
+              <div>
+                <label for="pto2" class="label">PTO days</label>
+                <input type="number" id="pto2" name="pto2" min="0" max="365" step="1" placeholder="0" class="input-block">
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <div class="flex flex-wrap items-center gap-3 pt-2">
+          <button type="submit" id="btn-evaluate" class="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[var(--accent)] to-purple-700 px-6 py-3 font-semibold text-white shadow-lg hover:opacity-95 transition disabled:opacity-60 disabled:cursor-not-allowed min-h-[48px]">
+            <span id="btn-text">Evaluate offers</span>
+          </button>
+          <button type="button" id="btn-add-offer2" class="hidden rounded-xl border border-white/20 bg-[var(--surface-2)] px-5 py-3 font-medium text-[var(--text)] hover:bg-[var(--surface)] transition">
+            + Add second offer
+          </button>
+        </div>
+      </form>
+      <p id="error-msg" class="mt-3 text-sm text-[var(--danger)] hidden" role="alert"></p>
+    </div>
+
+    <!-- Results -->
+    <div id="results" class="mt-8 space-y-6 hidden">
+      <div id="result-cards" class="space-y-6"></div>
+      <section id="comparison-section" class="rounded-2xl border border-white/10 bg-[var(--surface)] p-6 hidden" aria-labelledby="comparison-heading">
+        <h2 id="comparison-heading" class="text-lg font-semibold text-[var(--text)] mb-4">Side-by-side comparison</h2>
+        <div class="overflow-x-auto">
+          <table id="comparison-table" class="w-full text-sm text-left">
+            <thead>
+              <tr class="border-b border-white/10">
+                <th class="py-3 pr-4 font-semibold text-[var(--text-muted)]">Metric</th>
+                <th id="comp-offer1-label" class="py-3 px-4 font-semibold text-[var(--text)]"></th>
+                <th id="comp-offer2-label" class="py-3 px-4 font-semibold text-[var(--text)]"></th>
+              </tr>
+            </thead>
+            <tbody id="comparison-tbody"></tbody>
+          </table>
+        </div>
+      </section>
+      <p class="text-center text-xs text-[var(--text-muted)]">Market data is approximate. Replace with real salary datasets (e.g. BLS) for production use.</p>
+    </div>
+
+    <p class="mt-6 text-center text-xs text-[var(--text-muted)]">Your inputs are not saved. All calculations run in your browser.</p>
+  </main>
+
+  <footer class="border-t border-white/10 py-6 text-center text-sm text-[var(--text-muted)]">
+    <p>© EasyGo AI Tools · For informational use only. Not career or legal advice.</p>
+  </footer>
+
+  <script>
+  (function() {
+    'use strict';
+
+    // --- Data (modular: easy to swap for real APIs / datasets) ---
+    var salaryBands = [];
+    var colLocations = [];
+
+    function getDataBase() {
+      return window.location.pathname.indexOf('/tools/') !== -1 ? '/data' : '../data';
+    }
+
+    function loadSalaryBands() {
+      return fetch(getDataBase() + '/salary-bands.json').then(function(r) { return r.json(); }).then(function(data) {
+        salaryBands = data.roles || [];
+        return salaryBands;
+      });
+    }
+
+    function loadColIndex() {
+      return fetch(getDataBase() + '/col-index.json').then(function(r) { return r.json(); }).then(function(data) {
+        colLocations = data.locations || [];
+        return colLocations;
+      });
+    }
+
+    function getRole(id) {
+      for (var i = 0; i < salaryBands.length; i++) if (salaryBands[i].id === id) return salaryBands[i];
+      return null;
+    }
+
+    function getLocation(id) {
+      for (var i = 0; i < colLocations.length; i++) if (colLocations[i].id === id) return colLocations[i];
+      return null;
+    }
+
+    /** Estimated market median for role (and optionally location in future). Extend with real dataset. */
+    function getMarketMedian(roleId, locationId) {
+      var role = getRole(roleId);
+      if (!role) return null;
+      return role.median;
+    }
+
+    /** Cost-of-living multiplier: multiply comp by this to get "national equivalent". */
+    function getColMultiplier(locationId) {
+      var loc = getLocation(locationId);
+      if (!loc || !loc.index) return 1;
+      return 100 / Math.max(1, loc.index);
+    }
+
+    // --- Compensation logic ---
+    /** Total yearly compensation = base + bonus (as % of base) + equity per year. */
+    function computeTotalComp(offer) {
+      var base = Number(offer.base) || 0;
+      var bonusPct = Number(offer.bonusPct) || 0;
+      var equity = Number(offer.equity) || 0;
+      var bonusAmount = base * (bonusPct / 100);
+      return base + bonusAmount + equity;
+    }
+
+    /** COL-adjusted compensation (normalized to national = 100). */
+    function adjustByCol(totalComp, locationId) {
+      return totalComp * getColMultiplier(locationId);
+    }
+
+    /** Score 0–100 and percentile from adjusted comp vs. role band. */
+    function scoreVsMarket(adjustedComp, roleId) {
+      var role = getRole(roleId);
+      if (!role) return { score: 50, percentile: 50 };
+      var low = role.low, med = role.median, high = role.high;
+      var range = high - low;
+      if (range <= 0) return { score: 50, percentile: 50 };
+      var percentile = Math.max(0, Math.min(100, 50 + ((adjustedComp - med) / range) * 50));
+      var score = Math.max(0, Math.min(100, 50 + ((adjustedComp - med) / range) * 45));
+      return { score: Math.round(score), percentile: Math.round(percentile) };
+    }
+
+    /** Recommendation label: Below market | Competitive | Strong offer */
+    function getRecommendation(score) {
+      if (score >= 70) return { key: 'strong', label: 'Strong offer' };
+      if (score >= 40) return { key: 'competitive', label: 'Competitive' };
+      return { key: 'below', label: 'Below market' };
+    }
+
+    function escapeHtml(s) {
+      if (s == null) return '';
+      var div = document.createElement('div');
+      div.textContent = String(s);
+      return div.innerHTML;
+    }
+
+    // --- UI state ---
+    var form = document.getElementById('offer-form');
+    var offer2Section = document.getElementById('offer2-section');
+    var btnAddOffer2 = document.getElementById('btn-add-offer2');
+    var btnRemoveOffer2 = document.getElementById('btn-remove-offer2');
+    var btnEvaluate = document.getElementById('btn-evaluate');
+    var btnText = document.getElementById('btn-text');
+    var errorMsg = document.getElementById('error-msg');
+    var results = document.getElementById('results');
+    var resultCards = document.getElementById('result-cards');
+    var comparisonSection = document.getElementById('comparison-section');
+    var comparisonTbody = document.getElementById('comparison-tbody');
+    var compOffer1Label = document.getElementById('comp-offer1-label');
+    var compOffer2Label = document.getElementById('comp-offer2-label');
+
+    function showError(msg) {
+      errorMsg.textContent = msg;
+      errorMsg.classList.remove('hidden');
+    }
+    function hideError() {
+      errorMsg.classList.add('hidden');
+    }
+
+    function fillSelect(selectId, options, placeholder) {
+      var sel = document.getElementById(selectId);
+      if (!sel) return;
+      var first = sel.querySelector('option');
+      var keepFirst = first && (first.value === '' || first.value === 'None') && selectId !== 'relocation';
+      sel.innerHTML = (keepFirst ? '<option value="">' + escapeHtml(placeholder || 'Select…') + '</option>' : '') +
+        options.map(function(o) {
+          var val = o.id || o.value;
+          var lab = o.label || o.text;
+          return '<option value="' + escapeHtml(val) + '">' + escapeHtml(lab) + '</option>';
+        }).join('');
+    }
+
+    function initFormOptions() {
+      var roleOpts = salaryBands.map(function(r) { return { id: r.id, label: r.label }; });
+      var locOpts = colLocations.map(function(l) { return { id: l.id, label: l.label }; });
+      fillSelect('role1', roleOpts, 'Select role…');
+      fillSelect('location1', locOpts, 'Select location…');
+      fillSelect('relocation', [{ id: '', label: 'None' }].concat(locOpts));
+      fillSelect('role2', roleOpts, 'Select role…');
+      fillSelect('location2', locOpts, 'Select location…');
+    }
+
+    btnAddOffer2.addEventListener('click', function() {
+      offer2Section.classList.remove('hidden');
+      btnAddOffer2.classList.add('hidden');
+    });
+    btnRemoveOffer2.addEventListener('click', function() {
+      offer2Section.classList.add('hidden');
+      btnAddOffer2.classList.remove('hidden');
+      document.getElementById('base2').value = '';
+      document.getElementById('bonusPct2').value = '';
+      document.getElementById('equity2').value = '';
+      document.getElementById('pto2').value = '';
+    });
+
+    function getOfferData(prefix) {
+      return {
+        roleId: document.getElementById('role' + prefix).value,
+        locationId: document.getElementById('location' + prefix).value,
+        base: document.getElementById('base' + prefix).value,
+        bonusPct: document.getElementById('bonusPct' + prefix).value,
+        equity: document.getElementById('equity' + prefix).value,
+        pto: document.getElementById('pto' + prefix).value
+      };
+    }
+
+    function renderResultCard(offerIndex, data, relocationInfo) {
+      var offer = data.offer;
+      var role = getRole(offer.roleId);
+      var loc = getLocation(offer.locationId);
+      var totalComp = data.totalComp;
+      var adjustedComp = data.adjustedComp;
+      var score = data.score;
+      var percentile = data.percentile;
+      var rec = data.recommendation;
+      var med = data.marketMedian;
+
+      var recCls = rec.key === 'strong' ? 'score-strong' : rec.key === 'competitive' ? 'score-mid' : 'score-weak';
+      var barCls = rec.key === 'strong' ? 'bg-[var(--success)]' : rec.key === 'competitive' ? 'bg-[var(--warning)]' : 'bg-[var(--danger)]';
+      var borderCls = rec.key === 'strong' ? 'border-[var(--success)] bg-[var(--success)]/10' : rec.key === 'competitive' ? 'border-[var(--warning)] bg-[var(--warning)]/10' : 'border-[var(--danger)] bg-[var(--danger)]/10';
+
+      var roleLabel = role ? role.label : 'Unknown role';
+      var locLabel = loc ? loc.label : 'Unknown location';
+
+      var relocationLine = '';
+      if (relocationInfo) {
+        relocationLine = '<div class="mt-2 text-sm text-[var(--text-muted)]">If you relocated to ' + escapeHtml(relocationInfo.label) + ', equivalent comp would be ~$' + Math.round(relocationInfo.equivalentComp).toLocaleString() + '/year.</div>';
+      }
+
+      var card = document.createElement('section');
+      card.className = 'rounded-2xl border border-white/10 bg-[var(--surface)] p-6';
+      card.setAttribute('aria-labelledby', 'result-heading-' + offerIndex);
+      card.innerHTML =
+        '<h2 id="result-heading-' + offerIndex + '" class="text-lg font-semibold text-[var(--text)] mb-4">Offer ' + offerIndex + ': ' + escapeHtml(roleLabel) + ' · ' + escapeHtml(locLabel) + '</h2>' +
+        '<div class="flex flex-wrap items-center gap-4 mb-4">' +
+          '<div class="flex h-20 w-20 items-center justify-center rounded-2xl border-2 text-2xl font-bold ' + borderCls + ' ' + recCls + '">' + score + '</div>' +
+          '<div>' +
+            '<p class="font-medium text-[var(--text-muted)]">Offer score (0–100)</p>' +
+            '<p class="text-sm font-semibold ' + recCls + '">' + escapeHtml(rec.label) + '</p>' +
+          '</div>' +
+          '<div class="w-full max-w-xs h-2 rounded-full bg-[var(--surface-2)] overflow-hidden flex">' +
+            '<div class="h-full transition-all duration-500 rounded-full ' + barCls + '" style="width:' + score + '%"></div>' +
+          '</div>' +
+        '</div>' +
+        '<dl class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">' +
+          '<div><dt class="text-[var(--text-muted)]">Total yearly comp</dt><dd class="font-semibold text-[var(--text)]">$' + Math.round(totalComp).toLocaleString() + '</dd></div>' +
+          '<div><dt class="text-[var(--text-muted)]">COL-adjusted comp</dt><dd class="font-semibold text-[var(--text)]">$' + Math.round(adjustedComp).toLocaleString() + ' <span class="text-[var(--text-muted)] font-normal">(national equivalent)</span></dd></div>' +
+          '<div><dt class="text-[var(--text-muted)]">Market percentile</dt><dd class="font-semibold text-[var(--text)]">~' + percentile + 'th</dd></div>' +
+          '<div><dt class="text-[var(--text-muted)]">Est. market median (role)</dt><dd class="font-semibold text-[var(--text)]">$' + (med != null ? med.toLocaleString() : '—') + '</dd></div>' +
+        '</dl>' +
+        relocationLine +
+        '<p class="mt-3 text-sm text-[var(--text-muted)]">' + escapeHtml(rec.label) + ': ' +
+          (rec.key === 'strong' ? 'This offer is above market for the role and location.' : rec.key === 'competitive' ? 'This offer is in line with market. Consider negotiating on non-salary items.' : 'This offer is below typical market. Use data to negotiate or weigh other factors.') + '</p>';
+      return card;
+    }
+
+    function renderComparisonTable(resultsData) {
+      var r1 = resultsData[0], r2 = resultsData[1];
+      var role1 = getRole(r1.offer.roleId), role2 = getRole(r2.offer.roleId);
+      var loc1 = getLocation(r1.offer.locationId), loc2 = getLocation(r2.offer.locationId);
+      compOffer1Label.textContent = 'Offer 1: ' + (role1 ? role1.label : '') + ', ' + (loc1 ? loc1.label : '');
+      compOffer2Label.textContent = 'Offer 2: ' + (role2 ? role2.label : '') + ', ' + (loc2 ? loc2.label : '');
+
+      var rows = [
+        { label: 'Base salary', v1: '$' + (Number(r1.offer.base) || 0).toLocaleString(), v2: '$' + (Number(r2.offer.base) || 0).toLocaleString() },
+        { label: 'Bonus %', v1: (r1.offer.bonusPct || '0') + '%', v2: (r2.offer.bonusPct || '0') + '%' },
+        { label: 'Equity (/year)', v1: '$' + (Number(r1.offer.equity) || 0).toLocaleString(), v2: '$' + (Number(r2.offer.equity) || 0).toLocaleString() },
+        { label: 'PTO days', v1: r1.offer.pto || '0', v2: r2.offer.pto || '0' },
+        { label: 'Total comp', v1: '$' + Math.round(r1.totalComp).toLocaleString(), v2: '$' + Math.round(r2.totalComp).toLocaleString() },
+        { label: 'COL-adjusted comp', v1: '$' + Math.round(r1.adjustedComp).toLocaleString(), v2: '$' + Math.round(r2.adjustedComp).toLocaleString() },
+        { label: 'Offer score', v1: r1.score + '/100', v2: r2.score + '/100' },
+        { label: 'Market percentile', v1: '~' + r1.percentile + 'th', v2: '~' + r2.percentile + 'th' },
+        { label: 'Recommendation', v1: r1.recommendation.label, v2: r2.recommendation.label }
+      ];
+      comparisonTbody.innerHTML = rows.map(function(row) {
+        return '<tr class="border-b border-white/10"><td class="py-3 pr-4 text-[var(--text-muted)]">' + escapeHtml(row.label) + '</td><td class="py-3 px-4 text-[var(--text)]">' + escapeHtml(row.v1) + '</td><td class="py-3 px-4 text-[var(--text)]">' + escapeHtml(row.v2) + '</td></tr>';
+      }).join('');
+      comparisonSection.classList.remove('hidden');
+    }
+
+    function evaluate() {
+      var role1 = document.getElementById('role1').value;
+      var location1 = document.getElementById('location1').value;
+      var base1 = Number(document.getElementById('base1').value) || 0;
+      if (!role1 || !location1 || base1 <= 0) {
+        showError('Please fill in Offer 1: role, location, and base salary.');
+        return;
+      }
+
+      var hasOffer2 = !offer2Section.classList.contains('hidden');
+      var base2 = hasOffer2 ? (Number(document.getElementById('base2').value) || 0) : 0;
+      if (hasOffer2 && base2 <= 0) {
+        showError('Offer 2 is enabled. Please enter a base salary for Offer 2, or remove it.');
+        return;
+      }
+
+      hideError();
+      results.classList.add('hidden');
+      btnEvaluate.disabled = true;
+      btnText.innerHTML = '<span class="inline-block w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></span> Evaluating…';
+
+      var offers = [getOfferData('1')];
+      if (hasOffer2) offers.push(getOfferData('2'));
+
+      var relocationId = document.getElementById('relocation').value;
+      var relocationLoc = relocationId ? getLocation(relocationId) : null;
+
+      var resultsData = [];
+      for (var i = 0; i < offers.length; i++) {
+        var o = offers[i];
+        var role = getRole(o.roleId);
+        var loc = getLocation(o.locationId);
+        if (!role || !loc) {
+          showError('Invalid role or location for offer ' + (i + 1) + '.');
+          btnEvaluate.disabled = false;
+          btnText.textContent = 'Evaluate offers';
+          return;
+        }
+        var totalComp = computeTotalComp(o);
+        var adjustedComp = adjustByCol(totalComp, o.locationId);
+        var marketMedian = getMarketMedian(o.roleId, o.locationId);
+        var scored = scoreVsMarket(adjustedComp, o.roleId);
+        var rec = getRecommendation(scored.score);
+        resultsData.push({
+          offer: o,
+          totalComp: totalComp,
+          adjustedComp: adjustedComp,
+          score: scored.score,
+          percentile: scored.percentile,
+          recommendation: rec,
+          marketMedian: marketMedian
+        });
+      }
+
+      resultCards.innerHTML = '';
+      resultsData.forEach(function(data, i) {
+        var relocationInfo = null;
+        if (relocationLoc) {
+          var equivComp = data.totalComp * getColMultiplier(relocationLoc.id);
+          relocationInfo = { label: relocationLoc.label, equivalentComp: equivComp };
+        }
+        resultCards.appendChild(renderResultCard(i + 1, data, relocationInfo));
+      });
+
+      if (resultsData.length === 2) {
+        renderComparisonTable(resultsData);
+      } else {
+        comparisonSection.classList.add('hidden');
+      }
+
+      results.classList.remove('hidden');
+      btnEvaluate.disabled = false;
+      btnText.textContent = 'Evaluate offers';
+    }
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      evaluate();
+    });
+
+    // Load data and init
+    Promise.all([loadSalaryBands(), loadColIndex()]).then(function() {
+      initFormOptions();
+      if (offer2Section.classList.contains('hidden')) {
+        btnAddOffer2.classList.remove('hidden');
+      }
+    }).catch(function() {
+      showError('Could not load salary or location data. Check your connection.');
+    });
+  })();
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Job Offer Evaluator",
+    "url": "https://easygoaitool.online/tools/job-offer-evaluator.html",
+    "description": "Compare up to two job offers. Total comp, COL-adjusted value, offer score 0–100, market percentile, and Below market / Competitive / Strong offer recommendation. Free.",
+    "applicationCategory": "FinanceApplication",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
+</body>
+</html>
