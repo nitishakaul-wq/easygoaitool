@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Job Offer Evaluator – Compare Offers & Market Value | Free Tool</title>
-  <meta name="description" content="Compare up to two job offers. Enter role, location, base, bonus %, equity, PTO. Get total comp, COL-adjusted value, offer score 0–100, market percentile, and a clear recommendation. Free.">
-  <meta name="keywords" content="job offer evaluation, compare job offers, salary comparison, total compensation, cost of living adjustment, market value, offer calculator">
+  <meta name="description" content="Compare up to two US job offers (USD). Enter role, US location, base, bonus %, equity, PTO. Get total comp, COL-adjusted value, offer score 0–100, market percentile, and recommendation. Free. India and other countries not supported.">
+  <meta name="keywords" content="job offer evaluation, compare job offers, salary comparison US, total compensation, cost of living adjustment, market value, offer calculator, US salary">
   <meta name="author" content="EasyGo AI">
   <link rel="canonical" href="https://easygoaitool.online/tools/job-offer-evaluator.html">
 
@@ -45,6 +45,10 @@
     .score-weak { color: #ef4444; }
     .input-block { @apply rounded-xl border border-white/10 bg-[var(--surface-2)] px-4 py-3 text-[var(--text)] placeholder-[var(--text-muted)] focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent)]/20 focus:outline-none w-full; }
     .label { @apply block text-sm font-semibold uppercase tracking-wider text-[var(--text-muted)] mb-2; }
+    .disclaimer-toggle { cursor: pointer; }
+    .disclaimer-toggle:hover { text-decoration: underline; }
+    [data-tooltip] { position: relative; }
+    [data-tooltip]:hover::after { content: attr(data-tooltip); position: absolute; left: 0; bottom: 100%; margin-bottom: 4px; padding: 6px 8px; background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 0.75rem; font-weight: normal; color: var(--text-muted); white-space: normal; max-width: 220px; z-index: 10; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
   </style>
 </head>
 <body class="min-h-screen">
@@ -59,6 +63,20 @@
       <p class="inline-block rounded-full border border-[var(--accent)]/30 bg-[var(--accent)]/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-[var(--accent-2)] mb-3">Free · No sign-up</p>
       <h1 class="text-3xl md:text-4xl font-bold tracking-tight text-[var(--text)]">Job Offer Evaluator</h1>
       <p class="mt-2 text-lg text-[var(--text-muted)]">Compare up to two job offers. See total compensation, cost-of-living–adjusted value, and whether each offer is below market, competitive, or strong.</p>
+      <p class="mt-1 text-sm text-[var(--text-muted)]">Estimates based on publicly available US data; for general guidance only. Not professional advice.</p>
+      <div class="mt-4 rounded-xl border border-[var(--warning)]/40 bg-[var(--warning)]/10 px-4 py-3 text-sm text-[var(--text)]" role="note">
+        <strong class="text-[var(--warning)]">US only.</strong> This tool uses US salary data and cost-of-living indices. Locations are specific US cities and “National (US average)”. All amounts are in <strong>USD</strong>. India and other countries are not supported—scores and market comparisons would not apply.
+      </div>
+
+      <!-- Data sources & disclaimer -->
+      <details class="mt-4 rounded-xl border border-white/10 bg-[var(--surface)]/60 px-4 py-3 text-sm" id="disclaimer-details">
+        <summary class="disclaimer-toggle font-semibold text-[var(--text-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)]/30 rounded">Data sources &amp; disclaimer</summary>
+        <div class="mt-3 space-y-2 text-[var(--text-muted)] leading-relaxed">
+          <p><strong class="text-[var(--text)]">Data sources.</strong> Salary ranges are derived from publicly available US data (e.g. BLS Occupational Employment and Wage Statistics–style estimates). Cost-of-living indices are approximate and from public sources. This data is updated periodically and <strong>can change</strong>; we do not guarantee it is current or complete.</p>
+          <p><strong class="text-[var(--text)]">Estimates only.</strong> Scores, percentiles, and market comparisons are <strong>estimates for general guidance only</strong>. They are not a guarantee of accuracy and should not be relied on as the sole basis for career, negotiation, or financial decisions. For important decisions, verify with official sources (e.g. bls.gov) or a qualified compensation or career professional.</p>
+          <p><strong class="text-[var(--text)]">Not advice.</strong> This tool does not provide career, legal, tax, or financial advice. Use at your own risk. By using this tool you agree that the operator is not liable for any decisions you make or outcomes resulting from use of these estimates.</p>
+        </div>
+      </details>
     </header>
 
     <!-- Input form -->
@@ -189,14 +207,16 @@
           </table>
         </div>
       </section>
-      <p class="text-center text-xs text-[var(--text-muted)]">Market data is approximate. Replace with real salary datasets (e.g. BLS) for production use.</p>
+      <div class="rounded-xl border border-white/10 bg-[var(--surface)]/50 px-4 py-3 text-xs text-[var(--text-muted)]">
+        <p><strong class="text-[var(--text)]">Disclaimer:</strong> All scores, percentiles, and market figures are <strong>estimates</strong> from publicly available US data and may change. Not guaranteed accurate. For guidance only—not career, legal, or financial advice. Verify with official sources (e.g. <a href="https://www.bls.gov/oes/" target="_blank" rel="noopener" class="text-[var(--accent-2)] hover:underline">bls.gov/oes</a>) or a compensation professional for important decisions. Use at your own risk.</p>
+      </div>
     </div>
 
-    <p class="mt-6 text-center text-xs text-[var(--text-muted)]">Your inputs are not saved. All calculations run in your browser.</p>
+    <p class="mt-6 text-center text-xs text-[var(--text-muted)]">Your inputs are not saved. All calculations run in your browser. US only (USD, US locations). See “Data sources &amp; disclaimer” above for full terms.</p>
   </main>
 
   <footer class="border-t border-white/10 py-6 text-center text-sm text-[var(--text-muted)]">
-    <p>© EasyGo AI Tools · For informational use only. Not career or legal advice.</p>
+    <p>© EasyGo AI Tools · Estimates from public data; not guaranteed. Not career, legal, or financial advice. Use at your own risk. No liability. US only (USD, US locations).</p>
   </footer>
 
   <script>
@@ -386,12 +406,15 @@
       var card = document.createElement('section');
       card.className = 'rounded-2xl border border-white/10 bg-[var(--surface)] p-6';
       card.setAttribute('aria-labelledby', 'result-heading-' + offerIndex);
+      var tooltipScore = 'Estimate based on public salary and cost-of-living data. For guidance only; not a guarantee.';
+      var tooltipPct = 'Approximate position vs. estimated market range for this role. Data can change.';
+      var tooltipMed = 'From publicly available US data (e.g. BLS-style). Estimate only; verify with bls.gov or a compensation professional for important decisions.';
       card.innerHTML =
         '<h2 id="result-heading-' + offerIndex + '" class="text-lg font-semibold text-[var(--text)] mb-4">Offer ' + offerIndex + ': ' + escapeHtml(roleLabel) + ' · ' + escapeHtml(locLabel) + '</h2>' +
         '<div class="flex flex-wrap items-center gap-4 mb-4">' +
-          '<div class="flex h-20 w-20 items-center justify-center rounded-2xl border-2 text-2xl font-bold ' + borderCls + ' ' + recCls + '">' + score + '</div>' +
+          '<div class="flex h-20 w-20 items-center justify-center rounded-2xl border-2 text-2xl font-bold ' + borderCls + ' ' + recCls + '" title="' + escapeHtml(tooltipScore) + '">' + score + '</div>' +
           '<div>' +
-            '<p class="font-medium text-[var(--text-muted)]">Offer score (0–100)</p>' +
+            '<p class="font-medium text-[var(--text-muted)]" data-tooltip="' + escapeHtml(tooltipScore) + '">Offer score (0–100) <span class="text-[var(--text-muted)] opacity-70" aria-hidden="true">ⓘ</span></p>' +
             '<p class="text-sm font-semibold ' + recCls + '">' + escapeHtml(rec.label) + '</p>' +
           '</div>' +
           '<div class="w-full max-w-xs h-2 rounded-full bg-[var(--surface-2)] overflow-hidden flex">' +
@@ -401,8 +424,8 @@
         '<dl class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">' +
           '<div><dt class="text-[var(--text-muted)]">Total yearly comp</dt><dd class="font-semibold text-[var(--text)]">$' + Math.round(totalComp).toLocaleString() + '</dd></div>' +
           '<div><dt class="text-[var(--text-muted)]">COL-adjusted comp</dt><dd class="font-semibold text-[var(--text)]">$' + Math.round(adjustedComp).toLocaleString() + ' <span class="text-[var(--text-muted)] font-normal">(national equivalent)</span></dd></div>' +
-          '<div><dt class="text-[var(--text-muted)]">Market percentile</dt><dd class="font-semibold text-[var(--text)]">~' + percentile + 'th</dd></div>' +
-          '<div><dt class="text-[var(--text-muted)]">Est. market median (role)</dt><dd class="font-semibold text-[var(--text)]">$' + (med != null ? med.toLocaleString() : '—') + '</dd></div>' +
+          '<div><dt class="text-[var(--text-muted)]" data-tooltip="' + escapeHtml(tooltipPct) + '">Market percentile <span class="opacity-70" aria-hidden="true">ⓘ</span></dt><dd class="font-semibold text-[var(--text)]">~' + percentile + 'th</dd></div>' +
+          '<div><dt class="text-[var(--text-muted)]" data-tooltip="' + escapeHtml(tooltipMed) + '">Est. market median (role) <span class="opacity-70" aria-hidden="true">ⓘ</span></dt><dd class="font-semibold text-[var(--text)]">$' + (med != null ? med.toLocaleString() : '—') + '</dd></div>' +
         '</dl>' +
         relocationLine +
         '<p class="mt-3 text-sm text-[var(--text-muted)]">' + escapeHtml(rec.label) + ': ' +
