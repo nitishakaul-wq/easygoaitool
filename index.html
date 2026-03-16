@@ -3,21 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Free AI Tools – ATS Resume Optimizer, SEO Checker, Scam Detector & More</title>
-  <meta name="description" content="Free AI tools: ATS resume & cover letter generator, SEO website audit, scam email checker, message rewriter. No sign-up. Optimize your resume for ATS, check your site's SEO, spot scams—all free.">
-  <meta name="keywords" content="free ATS resume optimizer, ATS resume checker, free SEO audit, website SEO checker, scam detector, email scam checker, AI message rewriter, free resume builder, cover letter generator, applicant tracking system">
+  <title>Free AI Tools &amp; Calculators – EMI Calculator, ATS Resume Optimizer, SEO Checker</title>
+  <meta name="description" content="Free AI tools and calculators: EMI calculator, ATS resume optimizer, SEO website audit. Get hired, rank higher, calculate smarter. No sign-up.">
+  <meta name="keywords" content="free EMI calculator, ATS resume optimizer, free SEO audit, website SEO checker, free AI tools, resume builder, applicant tracking system">
   <meta name="author" content="EasyGo AI">
   <link rel="canonical" href="https://easygoaitool.online/">
 
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://easygoaitool.online/">
-  <meta property="og:title" content="Free AI Tools – ATS Resume, SEO Audit, Scam Detector">
-  <meta property="og:description" content="ATS resume optimizer, SEO checker, scam detector, message rewriter. All free, no sign-up.">
+  <meta property="og:title" content="Free AI Tools &amp; Calculators – EMI, ATS Resume, SEO Checker">
+  <meta property="og:description" content="Free tools to get hired, rank higher, and calculate smarter. EMI calculator, ATS resume optimizer, SEO audit. No sign-up.">
   <meta property="og:locale" content="en_US">
 
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Free AI Tools – ATS Resume, SEO Audit, Scam Detector">
-  <meta name="twitter:description" content="ATS resume optimizer, SEO checker, scam detector. Free, no sign-up.">
+  <meta name="twitter:title" content="Free AI Tools &amp; Calculators – EMI, ATS Resume, SEO Checker">
+  <meta name="twitter:description" content="Free tools to get hired, rank higher, and calculate smarter. No sign-up.">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -55,6 +55,7 @@
       margin: 0;
       font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
       background: var(--bg);
+      background-image: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(168, 85, 247, 0.06) 0%, transparent 55%);
       color: var(--text);
       line-height: 1.5;
       min-height: 100vh;
@@ -76,7 +77,7 @@
       padding: 12px max(var(--space-md), env(safe-area-inset-left)) 12px max(var(--space-md), env(safe-area-inset-right));
     }
     .nav-inner {
-      max-width: 1000px;
+      max-width: 1200px;
       margin: 0 auto;
       display: flex;
       align-items: center;
@@ -171,10 +172,71 @@
       max-width: 480px;
       line-height: 1.6;
     }
+    /* Trust line below hero — subtle muted styling */
+    .hero-trust {
+      color: var(--text-muted);
+      font-size: 0.875rem;
+      margin: var(--space-md) auto 0;
+      opacity: 0.9;
+    }
+    .hero-social-proof {
+      color: var(--text-muted);
+      font-size: 0.8125rem;
+      margin: var(--space-lg) auto 0;
+      max-width: 420px;
+    }
+
+    /* Quick action strip — directly under hero */
+    .quick-action-strip {
+      padding: var(--space-lg) 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .quick-action-heading {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin: 0 0 var(--space-md);
+      text-align: center;
+    }
+    .quick-action-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-md);
+      justify-content: center;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .quick-action-list a {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 20px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-full);
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9375rem;
+      transition: border-color 0.2s, background 0.2s, transform 0.1s;
+    }
+    .quick-action-list a:hover {
+      border-color: rgba(168, 85, 247, 0.5);
+      background: rgba(168, 85, 247, 0.08);
+      transform: translateY(-2px);
+    }
+    .quick-action-list a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .quick-action-list .icon { font-size: 1.125rem; }
+    @media (max-width: 640px) {
+      .quick-action-strip { padding: var(--space-md) 0; }
+      .quick-action-list { gap: var(--space); }
+      .quick-action-list a { padding: 10px 16px; font-size: 0.875rem; }
+    }
 
     /* ---- Main ---- */
     .container {
-      max-width: 1000px;
+      max-width: 1200px;
       margin: 0 auto;
       padding: 0 var(--space-md) var(--space-2xl);
       padding-left: max(var(--space-md), env(safe-area-inset-left));
@@ -182,19 +244,22 @@
     }
 
     .section {
-      margin-bottom: var(--space-2xl);
+      margin-bottom: 0;
+      padding: var(--space-2xl) 0;
       scroll-margin-top: 80px;
+      border-top: 1px solid var(--border);
     }
-    .section:last-of-type { margin-bottom: 0; }
+    .section:first-of-type { border-top: none; padding-top: 0; }
     .section-head {
       display: flex;
-      align-items: center;
-      gap: 10px;
+      align-items: baseline;
+      gap: 12px;
       margin-bottom: var(--space-lg);
+      flex-wrap: wrap;
     }
-    .section-head .emoji { font-size: 1.5rem; }
+    .section-head .emoji { font-size: 1.35rem; line-height: 1; }
     .section-title {
-      font-size: 1.25rem;
+      font-size: 1.375rem;
       font-weight: 700;
       margin: 0;
       letter-spacing: -0.02em;
@@ -203,46 +268,18 @@
     .section-desc {
       color: var(--text-muted);
       font-size: 0.9375rem;
-      margin: 4px 0 0;
+      margin: 6px 0 0;
       line-height: 1.5;
+      width: 100%;
     }
 
     .tools-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: var(--space-md);
-    }
-    .top-picks {
-      margin-bottom: var(--space-lg);
-    }
-    .top-picks-label {
-      font-size: 0.75rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--accent-2);
-      margin-bottom: 12px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .top-picks-label::before {
-      content: '';
-      width: 20px;
-      height: 3px;
-      background: linear-gradient(90deg, var(--accent), var(--pop));
-      border-radius: 2px;
-    }
-    .top-picks-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: var(--space-md);
-    }
-    @media (max-width: 900px) {
-      .top-picks-grid { grid-template-columns: 1fr 1fr; }
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: var(--space-lg);
     }
     @media (max-width: 640px) {
-      .top-picks-grid { grid-template-columns: 1fr; }
+      .tools-grid { grid-template-columns: 1fr; gap: var(--space-md); }
     }
     .card.card-featured {
       border-color: rgba(168, 85, 247, 0.35);
@@ -346,9 +383,32 @@
     }
     .utility-placeholder strong { color: var(--text); }
     .utility-placeholder .soon { font-size: 0.875rem; margin-top: 8px; opacity: 0.85; }
+    .utility-placeholder-link { color: var(--accent-2); text-decoration: none; font-weight: 600; }
+    .utility-placeholder-link:hover { text-decoration: underline; color: var(--pop-2); }
+    .utility-placeholder-link:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+    .reengage-bar {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: var(--space-lg) max(var(--space-md), env(safe-area-inset-left)) var(--space-lg) max(var(--space-md), env(safe-area-inset-right));
+      text-align: center;
+      border-top: 1px solid var(--border);
+    }
+    .reengage-text {
+      margin: 0;
+      font-size: 0.9375rem;
+      color: var(--text-muted);
+    }
+    .reengage-text a {
+      color: var(--accent-2);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .reengage-text a:hover { text-decoration: underline; }
+    .reengage-text a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
     footer {
-      margin-top: var(--space-2xl);
+      margin-top: 0;
       padding: var(--space-lg) var(--space-md);
       padding-bottom: max(var(--space-lg), env(safe-area-inset-bottom));
       border-top: 1px solid var(--border);
@@ -357,6 +417,10 @@
       font-size: 0.875rem;
     }
     footer p { margin: 0 0 8px; }
+    .footer-back { font-size: 0.8125rem; }
+    .footer-back a { color: var(--accent-2); text-decoration: none; }
+    .footer-back a:hover { text-decoration: underline; }
+    .footer-back a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
     footer p:last-child { margin-bottom: 0; }
     .footer-links {
       display: flex;
@@ -403,8 +467,10 @@
     <div class="nav-inner">
       <a href="index.html" class="logo">EasyGo<span>.</span>Tools</a>
       <div class="nav-links">
+        <a href="index.html#most-used">Most used</a>
         <a href="index.html#ai-tools">AI tools</a>
-        <a href="index.html#utility">Utility</a>
+        <a href="index.html#utility">Calculators</a>
+        <a href="contact.html" aria-label="Suggest a tool or contact us">Suggest a tool</a>
         <a href="https://services.easygoaitool.online/" target="_blank" rel="noopener noreferrer" class="nav-services" aria-label="Open Services &amp; more in a new tab">Services &amp; more</a>
       </div>
     </div>
@@ -412,46 +478,65 @@
 
   <header class="hero">
     <span class="hero-badge">Free ATS resume, SEO audit, scam checker — no sign-up</span>
-    <h1>Free AI tools that <span class="highlight">actually work</span></h1>
-    <p class="subtitle">ATS resume optimizer, SEO website checker, scam detector, message rewriter. Get more interviews, rank better, stay safe—all free.</p>
+    <h1>Free AI tools &amp; smart calculators that <span class="highlight">actually work</span></h1>
+    <p class="subtitle">Free tools to get hired, rank higher, and calculate smarter.</p>
+    <p class="hero-trust" aria-hidden="true">&#x26a1; Instant results &bull; &#x1f512; No sign-up &bull; &#x1f4af; Free tools</p>
+    <p class="hero-social-proof">Used by job seekers, developers, and small businesses — no account needed.</p>
   </header>
 
+  <div class="container">
+    <nav class="quick-action-strip" aria-label="Try a tool instantly">
+      <p class="quick-action-heading">Try a tool instantly</p>
+      <ul class="quick-action-list">
+        <li><a href="/tools/emi-calculator.html"><span class="icon" aria-hidden="true">&#x26a1;</span> Calculate EMI</a></li>
+        <li><a href="/tools/ATS_resume_cover.html"><span class="icon" aria-hidden="true">&#x1f4c4;</span> Optimize Resume</a></li>
+        <li><a href="https://services.easygoaitool.online/audit-tool/" target="_blank" rel="noopener noreferrer"><span class="icon" aria-hidden="true">&#x1f4c8;</span> Run SEO Audit</a></li>
+        <li><a href="/tools/scam-detector.html"><span class="icon" aria-hidden="true">&#x1f6e1;</span> Detect Scam</a></li>
+      </ul>
+    </nav>
+  </div>
+
   <main class="container">
+    <section id="most-used" class="section" aria-labelledby="most-used-heading">
+      <div class="section-head">
+        <span class="emoji" aria-hidden="true">&#128293;</span>
+        <h2 id="most-used-heading" class="section-title">Most used tools</h2>
+        <p class="section-desc">High-traffic tools people use every day.</p>
+      </div>
+      <div class="tools-grid">
+        <div class="card card-featured">
+          <span class="card-badge">Most used</span>
+          <h2>Smart EMI Calculator</h2>
+          <p>Calculate EMI, loan payoff date, total interest and see how prepayment reduces loan tenure. Includes amortization schedule. See how extra payments reduce your loan years faster.</p>
+          <a href="/tools/emi-calculator.html">Calculate EMI &rarr;</a>
+        </div>
+        <div class="card card-featured">
+          <span class="card-badge">Trending</span>
+          <h2>ATS Resume Optimizer &amp; Cover Letter Generator</h2>
+          <p>Optimize your resume for Applicant Tracking Systems (ATS). Generate ATS-friendly resumes and job-specific cover letters.</p>
+          <a href="/tools/ATS_resume_cover.html">Optimize resume &rarr;</a>
+        </div>
+        <div class="card card-featured card-external">
+          <span class="card-badge">Trending</span>
+          <h2>Free SEO Website Audit &amp; Checker</h2>
+          <p>Run a free website SEO audit and get a full technical SEO score with actionable fixes. Perfect for improving Google rankings.</p>
+          <a href="https://services.easygoaitool.online/audit-tool/" target="_blank" rel="noopener noreferrer">Run SEO audit &rarr;</a>
+        </div>
+      </div>
+    </section>
+
     <section id="ai-tools" class="section" aria-labelledby="ai-tools-heading">
       <div class="section-head">
-        <span class="emoji" aria-hidden="true">✨</span>
-        <div>
-          <h2 id="ai-tools-heading" class="section-title">The main character tools</h2>
-          <p class="section-desc">AI + productivity. Pick one and go.</p>
-        </div>
+        <span class="emoji" aria-hidden="true">&#9733;</span>
+        <h2 id="ai-tools-heading" class="section-title">AI tools</h2>
+        <p class="section-desc">AI-powered tools for resumes, contracts, messages, and more.</p>
       </div>
-
-      <div class="top-picks" aria-label="Top picks">
-        <p class="top-picks-label">Start here — most loved</p>
-        <div class="top-picks-grid">
-          <div class="card card-featured">
-            <span class="card-badge">Top pick</span>
-            <h2>ATS Resume Optimizer & Cover Letter Generator</h2>
-            <p>Beat applicant tracking systems (ATS). Paste the job description + your resume → get an ATS-optimized resume, cover letter tailored to the job, and keyword tips. Free.</p>
-            <a href="/tools/ATS_resume_cover.html">Open ATS resume tool</a>
-          </div>
-          <div class="card card-featured card-external">
-            <span class="card-badge">Top pick</span>
-            <h2>Free SEO Website Audit & Checker</h2>
-            <p>Check your site's SEO in seconds. Get a score out of 100, see what's wrong (title, meta, links, speed), and get a fix list. No sign-up.</p>
-            <a href="https://services.easygoaitool.online/audit-tool/" target="_blank" rel="noopener">Open SEO checker</a>
-          </div>
-          <div class="card card-featured">
-            <span class="card-badge">Top pick</span>
-            <h2>Contract Risk Checker</h2>
-            <p>Analyze contracts and detect risky clauses before signing. NDAs, freelance agreements, leases, and more. Free.</p>
-            <a href="/tools/contract-risk-checker.html">Open contract risk checker</a>
-          </div>
-        </div>
-      </div>
-
-      <p class="section-desc" style="margin-bottom: var(--space-md);">More tools</p>
       <div class="tools-grid">
+        <div class="card">
+          <h2>Contract Risk Checker</h2>
+          <p>Analyze contracts and detect risky clauses before signing. NDAs, freelance agreements, leases, and more. Free.</p>
+          <a href="/tools/contract-risk-checker.html">Open contract risk checker</a>
+        </div>
         <div class="card">
           <h2>AI Message Rewriter</h2>
           <p>Turn rude or unclear messages into professional, polite text. Free AI writing tool for emails and DMs.</p>
@@ -472,11 +557,9 @@
 
     <section id="utility" class="section" aria-labelledby="utility-heading">
       <div class="section-head">
-        <span class="emoji" aria-hidden="true">🧰</span>
-        <div>
-          <h2 id="utility-heading" class="section-title">Utility tools</h2>
-          <p class="section-desc">Everyday helpers. Word counter, QR, password generator and more.</p>
-        </div>
+        <span class="emoji" aria-hidden="true">&#128736;</span>
+        <h2 id="utility-heading" class="section-title">Calculators &amp; utilities</h2>
+        <p class="section-desc">Everyday calculators and quick tools — EMI, QR, password generator, word counter and more.</p>
       </div>
       <div class="tools-grid">
         <div class="card">
@@ -484,17 +567,27 @@
           <p>Word counter, QR code generator, password generator, age calculator, character counter, random number, text case converter, EMI calculator. Fast, free and simple.</p>
           <a href="/tools/utility-tools.html">Open utility tools</a>
         </div>
+        <div class="card">
+          <h2>Smart EMI Calculator</h2>
+          <p>Calculate EMI, loan payoff date, total interest and see how prepayment reduces loan tenure. Includes amortization schedule. See how extra payments reduce your loan years faster.</p>
+          <a href="/tools/emi-calculator.html">Open EMI calculator</a>
+        </div>
         <div class="utility-placeholder">
-          <strong>More tools coming soon</strong><br>
-          We’re cooking. Check back later for more random-but-useful stuff.
-          <p class="soon">Fr though, we’re adding more.</p>
+          <strong>Which tool would you like next?</strong><br>
+          Suggest the next calculator or AI tool you need — we read every request.
+          <p class="soon"><a href="contact.html" class="utility-placeholder-link">Contact us to suggest a tool</a></p>
         </div>
       </div>
     </section>
   </main>
 
+  <div class="reengage-bar" role="complementary" aria-label="Next step">
+    <p class="reengage-text">Try one of the <a href="#most-used">tools above</a>.</p>
+  </div>
+
   <footer>
     <p>Built with chaos and caffeine • Free forever, fr</p>
+    <p class="footer-back"><a href="#most-used">Back to tools</a></p>
     <nav class="footer-links" aria-label="Footer links">
       <a href="about.html">About</a>
       <a href="contact.html">Contact</a>
@@ -509,7 +602,7 @@
     "@type": "WebSite",
     "name": "EasyGo AI Tools",
     "url": "https://easygoaitool.online/",
-    "description": "Free AI tools: ATS resume optimizer, SEO website audit, scam detector, message rewriter. No sign-up.",
+    "description": "Free AI tools and calculators: EMI calculator, ATS resume optimizer, SEO checker. Get hired, rank higher, calculate smarter. No sign-up.",
     "publisher": { "@type": "Organization", "name": "EasyGo AI" }
   }
   </script>
