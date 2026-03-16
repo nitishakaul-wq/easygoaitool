@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="google-site-verification" content="nH10WfNzJ-IzUg3sWRqEOhyYWmpt3U8DclkaG3S_F4Q"/>
   <title>Utility Tools — Word Counter, QR Generator, Password & More | EasyGo AI Tools</title>
-  <meta name="description" content="Free everyday tools: word counter, QR code generator, password generator, age calculator, character counter, random number, text case converter, EMI calculator. Part of EasyGo AI Tools.">
-  <meta name="keywords" content="word counter, QR code generator, password generator, age calculator, character counter, EMI calculator, free online tools, utility tools">
+  <meta name="description" content="Free everyday tools: word counter, QR code generator, password generator, age calculator, character counter, random number, text case converter. Part of EasyGo AI Tools.">
+  <meta name="keywords" content="word counter, QR code generator, password generator, age calculator, character counter, free online tools, utility tools">
   <link rel="canonical" href="https://easygoaitool.online/tools/utility-tools.html">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -227,7 +227,6 @@
       <a href="#character">Character Counter</a>
       <a href="#random">Random Number</a>
       <a href="#case">Text Case Converter</a>
-      <a href="#emi">EMI Calculator</a>
     </nav>
 
     <div id="word" class="tool-section">
@@ -279,15 +278,6 @@
       <button onclick="toUpper()">UPPERCASE</button>
       <button onclick="toLower()">lowercase</button>
       <p id="caseResult" class="result"></p>
-    </div>
-
-    <div id="emi" class="tool-section">
-      <h2>EMI Calculator</h2>
-      <input id="loan" type="number" placeholder="Loan amount">
-      <input id="rate" type="number" placeholder="Interest rate (%)">
-      <input id="months" type="number" placeholder="Tenure (months)">
-      <button onclick="calcEMI()">Calculate</button>
-      <p id="emiResult" class="result"></p>
     </div>
 
     <footer class="tools-footer">Utility Tools · Part of EasyGo AI Tools</footer>
@@ -353,16 +343,6 @@
     function toLower() {
       var text = document.getElementById('caseInput').value;
       document.getElementById('caseResult').textContent = text.toLowerCase();
-    }
-
-    function calcEMI() {
-      var P = parseFloat(document.getElementById('loan').value);
-      var annual = parseFloat(document.getElementById('rate').value);
-      var n = parseFloat(document.getElementById('months').value);
-      if (!P || !annual || !n) { document.getElementById('emiResult').textContent = ''; return; }
-      var r = annual / 12 / 100;
-      var emi = P * r * Math.pow(1 + r, n) / (Math.pow(1 + r, n) - 1);
-      document.getElementById('emiResult').textContent = '₹' + emi.toFixed(2);
     }
   </script>
 </body>
