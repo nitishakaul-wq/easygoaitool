@@ -1,0 +1,1147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>EMI Calculator – Home Loan, Car Loan EMI & Prepayment Calculator | EasyGo AI</title>
+  <meta name="description" content="Free EMI calculator for home loan, car loan & personal loan. Calculate monthly EMI, total interest, payoff date. See how prepayment reduces tenure & interest. Amortization schedule & remaining loan balance. No sign-up.">
+  <meta name="keywords" content="EMI calculator, home loan EMI calculator, car loan EMI calculator, loan EMI calculator, how to reduce EMI, how much extra payment to reduce loan, should I prepay home loan, reduce loan tenure, prepayment calculator, home loan interest calculator, amortization schedule, when will my loan be paid off, remaining loan balance calculator">
+  <meta name="author" content="EasyGo AI">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://easygoaitool.online/tools/emi-calculator.html">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://easygoaitool.online/tools/emi-calculator.html">
+  <meta property="og:title" content="EMI Calculator – Home Loan, Car Loan & Prepayment | EasyGo AI">
+  <meta property="og:description" content="Free EMI calculator: monthly EMI, total interest, payoff date. See how prepayment reduces loan tenure. Amortization schedule & remaining balance. No sign-up.">
+  <meta property="og:locale" content="en_IN">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <style>
+    :root {
+      --bg: #0f0f12;
+      --surface: #1e1e24;
+      --surface-2: #26262c;
+      --border: rgba(255,255,255,0.08);
+      --text: #fafafa;
+      --text-muted: #a1a1aa;
+      --accent: #0d9488;
+      --accent-2: #14b8a6;
+      --success: #22c55e;
+      --warning: #eab308;
+      --radius: 16px;
+      --radius-sm: 10px;
+      --input-bg: #f4f4f5;
+      --input-text: #18181b;
+      --input-border: #d4d4d8;
+    }
+    html { scroll-padding-top: 4rem; }
+    body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+    .input-block { width: 100%; padding: 0.75rem 1rem; font-size: 1rem; min-height: 44px; color: var(--input-text); background: var(--input-bg); border: 1px solid var(--input-border); border-radius: var(--radius-sm); outline: none; -webkit-tap-highlight-color: transparent; }
+    .input-block:focus { border-color: var(--accent); box-shadow: 0 0 0 2px rgba(13, 148, 136, 0.2); }
+    input[type="range"] { -webkit-appearance: none; appearance: none; background: transparent; touch-action: none; }
+    input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 24px; height: 24px; min-width: 24px; min-height: 24px; border-radius: 50%; background: var(--accent); cursor: pointer; box-shadow: 0 2px 6px rgba(13, 148, 136, 0.4); margin-top: -9px; }
+    input[type="range"]::-moz-range-thumb { width: 24px; height: 24px; border-radius: 50%; background: var(--accent); cursor: pointer; border: none; }
+    input[type="range"]::-webkit-slider-runnable-track { height: 6px; border-radius: 3px; background: rgba(255,255,255,0.12); }
+    input[type="range"]::-moz-range-track { height: 6px; border-radius: 3px; background: rgba(255,255,255,0.12); }
+    @media (min-width: 768px) {
+      input[type="range"]::-webkit-slider-thumb { width: 18px; height: 18px; min-width: 18px; min-height: 18px; margin-top: -6px; }
+      input[type="range"]::-moz-range-thumb { width: 18px; height: 18px; }
+    }
+    #chartWrap { height: 280px; }
+    @media (min-width: 640px) { #chartWrap { height: 320px; } }
+    .tap-target { min-height: 44px; min-width: 44px; display: inline-flex; align-items: center; justify-content: center; -webkit-tap-highlight-color: transparent; padding: 0.5rem 1rem; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+    .overflow-touch { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .mvp-badge { background: linear-gradient(135deg, rgba(13, 148, 136, 0.25), rgba(20, 184, 166, 0.15)); border-left: 3px solid var(--accent); }
+    .hero-pill { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); }
+    details.accordion summary { list-style: none; cursor: pointer; user-select: none; }
+    details.accordion summary::-webkit-details-marker { display: none; }
+    details.accordion summary::after { content: '+'; float: right; font-size: 1.1rem; font-weight: 300; opacity: 0.7; }
+    details.accordion[open] summary::after { content: '−'; }
+    details.accordion[open] summary { border-radius: var(--radius-sm) var(--radius-sm) 0 0; }
+    .hero-pill:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.18); }
+    .page-bg { background: var(--bg); background-image: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(13, 148, 136, 0.15), transparent), radial-gradient(ellipse 60% 40% at 100% 50%, rgba(13, 148, 136, 0.06), transparent), radial-gradient(ellipse 60% 40% at 0% 50%, rgba(13, 148, 136, 0.06), transparent); }
+    .nav-sections a { color: var(--text-muted); text-decoration: none; font-size: 0.8125rem; white-space: nowrap; padding: 0.25rem 0.5rem; border-radius: 6px; }
+    .nav-sections a:hover { color: var(--accent-2); background: rgba(255,255,255,0.06); }
+    .nav-sections-details summary { list-style: none; cursor: pointer; font-size: 0.8125rem; color: var(--text-muted); padding: 0.25rem 0; }
+    .nav-sections-details summary::-webkit-details-marker { display: none; }
+    .nav-sections-details[open] summary { margin-bottom: 0.25rem; }
+    .result-card { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+    .result-card.updated { animation: resultFlash 0.4s ease; }
+    @keyframes resultFlash { 0% { opacity: 1; } 50% { opacity: 0.85; } 100% { opacity: 1; } }
+  </style>
+</head>
+<body class="min-h-screen page-bg">
+  <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-[var(--accent)] focus:text-white focus:rounded-lg">Skip to calculator</a>
+  <nav class="sticky top-0 z-50 border-b border-white/10 bg-[var(--bg)]/90 backdrop-blur-md px-4 py-3 md:px-6" aria-label="Main navigation">
+    <div class="max-w-6xl mx-auto flex justify-between items-center gap-4">
+      <a href="/" class="tap-target text-sm font-medium text-[var(--text-muted)] hover:text-[var(--accent-2)] transition">← Back to tools</a>
+      <div class="flex items-center gap-1 sm:gap-2">
+        <span class="hidden sm:inline text-xs text-[var(--text-muted)] mr-1">Jump to:</span>
+        <details class="nav-sections-details sm:hidden" aria-label="Page sections">
+          <summary class="tap-target text-[var(--text-muted)] hover:text-[var(--accent-2)]">Sections ▾</summary>
+          <div class="nav-sections flex flex-col gap-0.5 mt-1 pb-1">
+            <a href="#loan-details">Calculator</a>
+            <a href="#prepayment">Prepayment</a>
+            <a href="#comparison">Compare</a>
+            <a href="#amortization">Schedule</a>
+            <a href="#remaining-loan">Remaining</a>
+            <a href="#faq">FAQ</a>
+          </div>
+        </details>
+        <div class="nav-sections hidden sm:flex flex-wrap justify-end gap-0.5">
+          <a href="#loan-details">Calculator</a>
+          <a href="#prepayment">Prepayment</a>
+          <a href="#comparison">Compare</a>
+          <a href="#amortization">Schedule</a>
+          <a href="#remaining-loan">Remaining</a>
+          <a href="#faq">FAQ</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main-content" class="max-w-6xl mx-auto px-4 py-6 sm:py-8 md:px-6 md:py-12" role="main">
+    <header class="mb-6 text-center md:text-left">
+      <p class="inline-block rounded-full border border-[var(--accent)]/40 bg-[var(--accent)]/15 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-[var(--accent-2)]">Free · No sign-up · Multi-currency</p>
+      <h1 class="mt-3 text-3xl sm:text-4xl font-bold tracking-tight text-white">EMI Calculator</h1>
+      <p class="mt-1 text-[var(--text-muted)]">Calculate monthly EMI, total interest and payoff date for home loan, car loan or personal loan. Try prepayment to see how much you can reduce tenure and interest.</p>
+      <details class="accordion mt-4 rounded-lg border border-white/10 bg-[var(--surface)]/40 overflow-hidden" aria-label="How to use">
+        <summary class="px-4 py-2 text-sm text-[var(--text-muted)] hover:text-white cursor-pointer">How to use</summary>
+        <div class="border-t border-white/10 px-4 py-3 text-sm text-[var(--text-muted)] space-y-2">
+          <p>Enter loan amount, interest rate and tenure below. Use the sliders or type values. Add optional extra payment (monthly or yearly) in the prepayment section to see new tenure and interest saved. You get payoff date, comparison table, amortization schedule and remaining loan calculator. Estimation only — verify with your lender.</p>
+        </div>
+      </details>
+    </header>
+
+    <!-- Home Loan EMI Calculator -->
+    <section class="rounded-2xl border border-white/10 bg-[var(--surface)]/80 p-6 shadow-lg mb-6" id="loan-details">
+      <h2 class="text-lg font-semibold text-white mb-1">Home Loan EMI Calculator</h2>
+      <p class="text-sm text-[var(--text-muted)] mb-4">Enter loan amount, rate and tenure. See EMI and total interest below.</p>
+      <div class="mb-6 flex flex-wrap items-center gap-2">
+        <label for="currencySelect" class="text-sm text-[var(--text-muted)]">Currency</label>
+        <select id="currencySelect" class="input-block w-auto min-w-[120px] py-2">
+          <option value="INR" selected>₹ INR (India)</option>
+          <option value="USD">$ USD (US)</option>
+          <option value="EUR">€ EUR (Euro)</option>
+          <option value="GBP">£ GBP (UK)</option>
+          <option value="AED">د.إ AED (UAE)</option>
+          <option value="SGD">$ SGD (Singapore)</option>
+        </select>
+      </div>
+      <div class="grid gap-6 md:grid-cols-3">
+        <div>
+          <label for="loanAmount" class="block text-sm text-[var(--text-muted)] mb-2">Loan amount (<span id="symLoan">₹</span>)</label>
+          <input type="number" id="loanAmount" class="input-block mb-2" value="2000000" min="100000" max="10000000" step="50000" placeholder="e.g. 2500000" aria-describedby="loanHint">
+          <input type="range" id="loanSlider" min="100000" max="10000000" step="50000" value="2000000" class="w-full" aria-label="Loan amount slider">
+          <p id="loanHint" class="mt-1 text-xs text-[var(--text-muted)]">₹1 L – ₹1 Cr. Use the slider or type the amount.</p>
+        </div>
+        <div>
+          <label for="interestRate" class="block text-sm text-[var(--text-muted)] mb-2">Interest rate (% per year)</label>
+          <input type="number" id="interestRate" class="input-block mb-2" value="8.5" min="1" max="24" step="0.1" placeholder="e.g. 8.5" aria-describedby="rateHint">
+          <input type="range" id="rateSlider" min="6" max="18" step="0.5" value="8.5" class="w-full" aria-label="Interest rate slider">
+          <p id="rateHint" class="mt-1 text-xs text-[var(--text-muted)]">Check your loan agreement or bank for the rate.</p>
+        </div>
+        <div>
+          <label for="tenureYears" class="block text-sm text-[var(--text-muted)] mb-2">Tenure (years)</label>
+          <input type="number" id="tenureYears" class="input-block mb-2" value="20" min="1" max="30" placeholder="e.g. 20" aria-describedby="tenureHint">
+          <input type="range" id="tenureSlider" min="1" max="30" value="20" class="w-full" aria-label="Tenure slider">
+          <p id="tenureHint" class="mt-1 text-xs text-[var(--text-muted)]">1–30 years. Home loans are often 15–20 years.</p>
+        </div>
+      </div>
+      <p id="inputError" class="mt-4 text-sm text-[var(--warning)] hidden" role="alert"></p>
+      <p class="mt-2 text-xs text-[var(--text-muted)]" role="note">Estimation only. Verify with your lender. Works for home loan, car loan, personal loan and education loan.</p>
+    </section>
+
+    <!-- Summary panel: EMI prominent + highlight cards -->
+    <section class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 mb-6" aria-live="polite" id="emi-result">
+      <div class="result-card rounded-xl border-2 border-[var(--accent)]/50 bg-[var(--surface)]/90 p-5 shadow-lg shadow-[var(--accent)]/10 transition duration-200">
+        <p class="text-sm font-medium text-[var(--accent-2)]">Monthly EMI</p>
+        <p id="outEmi" class="mt-1 text-2xl sm:text-3xl font-bold text-[var(--accent)]">—</p>
+        <p class="mt-1 text-xs text-[var(--text-muted)]">You pay this every month</p>
+      </div>
+      <div class="result-card rounded-xl border border-white/10 bg-[var(--surface)]/80 p-5 shadow transition duration-200">
+        <p class="text-sm text-[var(--text-muted)]">Total Interest</p>
+        <p id="outInterest" class="mt-1 text-2xl font-bold text-[var(--warning)]">—</p>
+        <p class="mt-1 text-xs text-[var(--text-muted)]">Over full term</p>
+      </div>
+      <div class="result-card rounded-xl border border-white/10 bg-[var(--surface)]/80 p-5 shadow transition duration-200">
+        <p class="text-sm text-[var(--text-muted)]">Debt Free Date</p>
+        <p id="outDebtFreeDate" class="mt-1 text-2xl font-bold text-white">—</p>
+        <p class="mt-1 text-xs text-[var(--text-muted)]">Payoff without prepayment</p>
+      </div>
+      <div class="result-card rounded-xl border border-white/10 bg-[var(--surface)]/80 p-5 shadow transition duration-200">
+        <p class="text-sm text-[var(--text-muted)]">Interest Saved</p>
+        <p id="outInterestSavedCard" class="mt-1 text-2xl font-bold text-[var(--success)]">—</p>
+        <p class="mt-1 text-xs text-[var(--text-muted)]">With prepayment</p>
+      </div>
+    </section>
+
+    <!-- Loan insights (Interest Impact + Banks) -->
+    <section class="rounded-2xl border border-white/10 bg-[var(--surface)]/80 p-5 shadow-lg mb-6" id="interest-impact" aria-live="polite">
+      <h2 class="text-base font-semibold text-white mb-3">Interest impact</h2>
+      <p class="text-sm text-[var(--text-muted)] mb-3">See how much interest you pay over the loan term.</p>
+      <div class="grid gap-4 sm:grid-cols-3 text-sm">
+        <div><p class="text-[var(--text-muted)]">Loan</p><p id="outImpactLoan" class="mt-0.5 font-bold text-white">—</p></div>
+        <div><p class="text-[var(--text-muted)]">Total interest</p><p id="outImpactInterest" class="mt-0.5 font-bold text-[var(--warning)]">—</p></div>
+        <div><p class="text-[var(--text-muted)]">Interest % of loan</p><p id="outImpactPct" class="mt-0.5 font-bold text-white">—</p></div>
+      </div>
+      <p id="outImpactStatement" class="mt-3 text-sm text-[var(--text-muted)]">—</p>
+      <div class="mt-4 pt-4 border-t border-white/10 flex flex-wrap items-center justify-between gap-3">
+        <p class="text-sm text-[var(--text-muted)]">Loan: <strong id="insightLoan" class="text-white">—</strong> · Interest: <strong id="insightInterest" class="text-[var(--warning)]">—</strong> · <span id="insightBanksPct">—</span></p>
+        <button type="button" id="btnShareInsight" class="tap-target rounded-lg bg-[#25D366] px-3 py-1.5 text-sm font-medium text-white hover:opacity-90">Share</button>
+      </div>
+    </section>
+
+    <!-- Disclaimer + formula: collapsed -->
+    <details class="accordion mb-8 rounded-xl border border-white/10 bg-[var(--surface)]/40 overflow-hidden" role="region" aria-label="Disclaimer and formula">
+      <summary class="px-4 py-3 text-sm font-medium text-[var(--text-muted)] hover:text-white cursor-pointer">Disclaimer &amp; how we calculate</summary>
+      <div class="border-t border-white/10 px-4 py-4 text-sm text-[var(--text-muted)] space-y-3">
+        <p><strong class="text-white">Disclaimer:</strong> This tool is for estimation only. We are not a lender. Verify with your lender. We do not store your inputs.</p>
+        <p><strong class="text-white">Formula:</strong> Reducing-balance: EMI = P × r × (1+r)^n / ((1+r)^n − 1). Prepayment applied to principal first. Results are estimates only.</p>
+      </div>
+    </details>
+
+    <!-- Advanced: Prepayment & more -->
+    <div class="border-t border-white/10 pt-8 mt-8" id="advanced-analysis">
+      <h2 class="text-lg font-bold text-white mb-2">Prepayment &amp; more</h2>
+      <p class="text-sm text-[var(--text-muted)] mb-6">See how extra payments reduce your loan tenure and total interest.</p>
+      <div class="space-y-6">
+
+    <!-- Loan Prepayment Calculator -->
+    <section class="rounded-2xl border border-white/10 bg-[var(--surface)]/80 p-5 shadow-lg" id="prepayment">
+      <h2 class="text-base font-semibold text-white mb-1">Loan Prepayment Calculator</h2>
+      <p class="text-sm text-[var(--text-muted)] mb-3">Add extra monthly or yearly amount to see new tenure and interest saved. Leave 0 if you only want EMI.</p>
+      <div class="grid gap-4 md:grid-cols-2">
+        <div>
+          <label for="extraEMI" class="block text-sm text-[var(--text-muted)] mb-1">Extra per month (<span id="symExtra">₹</span>)</label>
+          <input type="number" id="extraEMI" class="input-block" value="" min="0" placeholder="e.g. 5000">
+          <p class="mt-1 text-xs text-[var(--text-muted)]">Goes toward principal; reduces tenure.</p>
+        </div>
+        <div>
+          <label for="yearlyPrepayment" class="block text-sm text-[var(--text-muted)] mb-1">Lump sum per year (<span id="symYearly">₹</span>)</label>
+          <input type="number" id="yearlyPrepayment" class="input-block" value="" min="0" placeholder="e.g. 50000">
+          <p class="mt-1 text-xs text-[var(--text-muted)]">e.g. bonus or one-time payment.</p>
+        </div>
+      </div>
+      <div id="prepaymentHighlights" class="mt-6 hidden flex-wrap gap-6 rounded-xl bg-[var(--accent)]/10 border border-[var(--accent)]/30 p-4">
+        <div><p class="text-sm text-[var(--text-muted)]">New loan tenure</p><p id="outNewTenure" class="text-xl font-bold text-[var(--accent)]">—</p></div>
+        <div><p class="text-sm text-[var(--text-muted)]">Interest saved</p><p id="outInterestSaved" class="text-xl font-bold text-[var(--success)]">—</p></div>
+        <div><p class="text-sm text-[var(--text-muted)]">New debt-free date</p><p id="outNewPayoff" class="text-xl font-bold text-white">—</p></div>
+      </div>
+    </section>
+
+    <!-- Payoff + Tips (collapsible) -->
+    <section class="rounded-2xl border border-white/10 bg-[var(--surface)]/80 p-5 shadow-lg" id="payoff-date">
+      <div class="rounded-xl bg-[var(--accent)]/10 border border-[var(--accent)]/30 p-3 mb-3">
+        <p class="text-xs text-[var(--text-muted)]">Debt-free in</p>
+        <p id="outDebtFreeCountdown" class="text-lg font-bold text-[var(--accent)]">—</p>
+      </div>
+      <p class="text-sm text-[var(--text-muted)]">Payoff (no prepayment): <strong id="outPayoffNormal" class="text-white">—</strong></p>
+      <p id="outPayoffPrepayment" class="mt-1 text-sm text-[var(--accent)] hidden">With prepayment: <strong id="outPayoffPrepaymentVal">—</strong></p>
+      <details class="accordion mt-4 rounded-lg border border-white/10 bg-[var(--surface)]/50 overflow-hidden" id="suggested-prepayment-block">
+        <summary class="px-3 py-2 text-sm font-medium text-white cursor-pointer flex items-center justify-between gap-2 flex-wrap">
+          <span>Tips &amp; suggestions</span>
+          <button type="button" id="btnAiRec" class="tap-target rounded-lg bg-[var(--accent)] px-3 py-1.5 text-sm font-medium text-white hover:opacity-90 shrink-0" onclick="event.preventDefault(); event.stopPropagation();">Personalised AI suggestions</button>
+        </summary>
+        <div class="border-t border-white/10 px-3 py-3 text-sm text-[var(--text-muted)] space-y-3">
+          <p id="outSuggestedPrepayment">—</p>
+          <p id="outRecommendation" class="text-[var(--text-muted)]">—</p>
+          <ul id="outRecommendationBullets" class="space-y-1 list-disc list-inside"></ul>
+          <p id="aiRecText" class="mt-2 text-[var(--text-muted)] hidden"></p>
+          <p id="aiRecError" class="mt-1 text-sm text-[var(--warning)] hidden"></p>
+        </div>
+      </details>
+    </section>
+
+    <!-- Comparison -->
+    <section class="rounded-2xl border border-white/10 bg-[var(--surface)]/80 p-5 shadow-lg" id="comparison">
+      <h2 class="text-base font-semibold text-white mb-1">Normal vs prepayment</h2>
+      <p class="text-sm text-[var(--text-muted)] mb-3">Compare tenure and interest with and without extra payment.</p>
+      <div class="overflow-touch overflow-x-auto">
+        <table class="w-full min-w-[320px] text-left text-sm">
+          <thead>
+            <tr class="border-b border-white/10">
+              <th class="pb-3 font-medium text-[var(--text-muted)]">Metric</th>
+              <th class="pb-3 font-medium text-[var(--text-muted)]">Normal loan</th>
+              <th class="pb-3 font-medium text-[var(--accent)]">With prepayment</th>
+            </tr>
+          </thead>
+          <tbody class="text-[var(--text-muted)]">
+            <tr class="border-b border-white/5"><td class="py-3">Loan tenure</td><td class="py-3" id="cmpTenureNormal">—</td><td class="py-3 text-[var(--accent)]" id="cmpTenurePrepay">—</td></tr>
+            <tr class="border-b border-white/5"><td class="py-3">Interest paid</td><td class="py-3" id="cmpInterestNormal">—</td><td class="py-3 text-[var(--accent)]" id="cmpInterestPrepay">—</td></tr>
+            <tr class="border-b border-white/5"><td class="py-3">Total payment</td><td class="py-3" id="cmpTotalNormal">—</td><td class="py-3 text-[var(--accent)]" id="cmpTotalPrepay">—</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Chart -->
+    <section class="rounded-2xl border border-white/10 bg-[var(--surface)]/80 p-5 shadow-lg">
+      <h2 class="text-base font-semibold text-white mb-1">EMI breakdown</h2>
+      <p class="text-sm text-[var(--text-muted)] mb-3">EMI stays constant; interest share falls and principal share rises over time.</p>
+      <div id="chartWrap"><canvas id="chart"></canvas></div>
+    </section>
+
+    <!-- Loan Amortization Schedule -->
+    <section class="rounded-2xl border border-white/10 bg-[var(--surface)]/80 p-5 shadow-lg" id="amortization">
+      <h2 class="text-base font-semibold text-white mb-1">Loan Amortization Schedule</h2>
+      <p class="text-sm text-[var(--text-muted)] mb-3">Month-wise or year-wise breakdown. Download CSV for full table.</p>
+      <div class="flex flex-wrap gap-4 mb-4">
+        <div class="flex rounded-lg border border-white/10 p-1">
+          <button type="button" id="btnMonthly" class="tap-target rounded-md px-4 py-2 text-sm font-medium bg-[var(--accent)] text-white">Monthly</button>
+          <button type="button" id="btnYearly" class="tap-target rounded-md px-4 py-2 text-sm font-medium text-[var(--text-muted)] hover:text-white">Yearly summary</button>
+        </div>
+        <button type="button" id="btnCSV" class="tap-target rounded-lg bg-[var(--accent)] px-4 py-2 text-sm font-medium text-white hover:opacity-90">Download CSV</button>
+      </div>
+      <div class="max-h-96 overflow-auto overflow-touch rounded-lg border border-white/10">
+        <table class="w-full min-w-[280px] text-left text-sm" id="scheduleTable">
+          <thead class="sticky top-0 bg-[var(--surface-2)]">
+            <tr class="border-b border-white/10" id="scheduleHead"></tr>
+          </thead>
+          <tbody id="scheduleBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Remaining Loan Calculator -->
+    <section class="rounded-2xl border border-white/10 bg-[var(--surface)]/80 p-5 shadow-lg" id="remaining-loan">
+      <h2 class="text-base font-semibold text-white mb-1">Remaining Loan Calculator</h2>
+      <p class="text-sm text-[var(--text-muted)] mb-3">Already repaying? Enter original loan, EMI, months paid and rate to see remaining balance and years left.</p>
+      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div><label for="remOriginal" class="block text-sm text-[var(--text-muted)] mb-1">Original loan (<span id="symRemOrig">₹</span>)</label><input type="number" id="remOriginal" class="input-block" value="2000000" min="0" placeholder="e.g. 2000000"></div>
+        <div><label for="remEMI" class="block text-sm text-[var(--text-muted)] mb-1">Your EMI (<span id="symRemEmi">₹</span>)</label><input type="number" id="remEMI" class="input-block" value="20000" min="0" placeholder="e.g. 20000"></div>
+        <div><label for="remMonthsPaid" class="block text-sm text-[var(--text-muted)] mb-1">Months already paid</label><input type="number" id="remMonthsPaid" class="input-block" value="24" min="0" placeholder="e.g. 24"></div>
+        <div><label for="remRate" class="block text-sm text-[var(--text-muted)] mb-1">Interest rate (% per year)</label><input type="number" id="remRate" class="input-block" value="8.5" step="0.1" min="0" placeholder="e.g. 8.5"></div>
+      </div>
+      <div class="mt-6 flex flex-wrap gap-6 rounded-xl bg-[var(--surface-2)] p-4">
+        <div><p class="text-sm text-[var(--text-muted)]">Remaining balance</p><p id="outRemBalance" class="text-xl font-bold text-white">—</p></div>
+        <div><p class="text-sm text-[var(--text-muted)]">Remaining interest</p><p id="outRemInterest" class="text-xl font-bold text-[var(--warning)]">—</p></div>
+        <div><p class="text-sm text-[var(--text-muted)]">Remaining tenure</p><p id="outRemTenure" class="text-xl font-bold text-[var(--accent)]">—</p></div>
+      </div>
+    </section>
+
+      </div>
+    </div>
+
+    <!-- Share -->
+    <section class="rounded-2xl border border-white/10 bg-[var(--surface)]/80 p-5 shadow-lg mb-8">
+      <h2 class="text-base font-semibold text-white mb-1">Share your results</h2>
+      <p class="text-sm text-[var(--text-muted)] mb-3">Copy link to reopen with your current inputs.</p>
+      <div class="flex flex-wrap gap-2">
+        <input type="text" id="shareUrl" readonly class="flex-1 min-w-[200px] rounded-lg border border-white/10 bg-[var(--surface-2)] px-4 py-2 text-sm text-[var(--text-muted)]">
+        <button type="button" id="btnCopy" class="tap-target rounded-lg bg-[var(--accent)] px-4 py-2 text-sm font-medium text-white hover:opacity-90">Copy link</button>
+        <button type="button" id="btnWhatsApp" class="tap-target rounded-lg bg-[#25D366] px-4 py-2 text-sm font-medium text-white hover:opacity-90">Share on WhatsApp</button>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <article class="mt-10 border-t border-white/10 pt-10 text-[var(--text-muted)]" id="faq">
+      <h2 class="text-lg font-bold text-white mb-3">EMI calculator – common questions</h2>
+      <div class="space-y-2">
+        <details class="accordion rounded-lg border border-white/10 bg-[var(--surface)]/50 overflow-hidden">
+          <summary class="px-4 py-3 text-sm font-semibold text-white cursor-pointer hover:bg-[var(--surface)]/70">What is EMI?</summary>
+          <div class="px-4 py-3 border-t border-white/10 text-sm leading-relaxed">EMI (Equated Monthly Installment) is the fixed amount you pay each month towards your loan until it is fully repaid. It includes both principal and interest. In the initial years a larger portion goes towards interest; over time the principal share increases.</div>
+        </details>
+        <details class="accordion rounded-lg border border-white/10 bg-[var(--surface)]/50 overflow-hidden">
+          <summary class="px-4 py-3 text-sm font-semibold text-white cursor-pointer hover:bg-[var(--surface)]/70">How is EMI calculated?</summary>
+          <div class="px-4 py-3 border-t border-white/10 text-sm leading-relaxed">Banks use the reducing-balance formula: EMI = P × r × (1+r)^n / ((1+r)^n − 1), where P is principal, r is monthly rate (annual ÷ 12), n is months. This calculator uses the same formula.</div>
+        </details>
+        <details class="accordion rounded-lg border border-white/10 bg-[var(--surface)]/50 overflow-hidden">
+          <summary class="px-4 py-3 text-sm font-semibold text-white cursor-pointer hover:bg-[var(--surface)]/70">How to reduce EMI or total interest?</summary>
+          <div class="px-4 py-3 border-t border-white/10 text-sm leading-relaxed">To lower <strong class="text-white">monthly EMI</strong>: longer tenure or refinance at lower rate. To <strong class="text-white">reduce total interest &amp; pay faster</strong>: use prepayment (extra monthly or lump sum) in the calculator above.</div>
+        </details>
+        <details class="accordion rounded-lg border border-white/10 bg-[var(--surface)]/50 overflow-hidden">
+          <summary class="px-4 py-3 text-sm font-semibold text-white cursor-pointer hover:bg-[var(--surface)]/70">How much extra payment should I do?</summary>
+          <div class="px-4 py-3 border-t border-white/10 text-sm leading-relaxed">Any extra helps—even 5–10% of EMI regularly can cut interest and tenure. Use the prepayment section above to try amounts and see savings. Depends on your cash flow and goals.</div>
+        </details>
+        <details class="accordion rounded-lg border border-white/10 bg-[var(--surface)]/50 overflow-hidden">
+          <summary class="px-4 py-3 text-sm font-semibold text-white cursor-pointer hover:bg-[var(--surface)]/70">Should I prepay my home loan?</summary>
+          <div class="px-4 py-3 border-t border-white/10 text-sm leading-relaxed">Prepayment usually reduces total interest and shortens tenure. Check prepayment penalty with your lender and compare with other uses of the money. Most home loans in India allow partial prepayment without penalty.</div>
+        </details>
+        <details class="accordion rounded-lg border border-white/10 bg-[var(--surface)]/50 overflow-hidden">
+          <summary class="px-4 py-3 text-sm font-semibold text-white cursor-pointer hover:bg-[var(--surface)]/70">When will my loan be paid off?</summary>
+          <div class="px-4 py-3 border-t border-white/10 text-sm leading-relaxed">Use the payoff date section above for date with/without prepayment. Already repaying? Use the Remaining loan balance section to see how much you still owe.</div>
+        </details>
+        <details class="accordion rounded-lg border border-white/10 bg-[var(--surface)]/50 overflow-hidden">
+          <summary class="px-4 py-3 text-sm font-semibold text-white cursor-pointer hover:bg-[var(--surface)]/70">How does amortization work?</summary>
+          <div class="px-4 py-3 border-t border-white/10 text-sm leading-relaxed">Each EMI is split into interest (on remaining balance) and principal. As balance falls, interest share falls and principal share rises. The amortization schedule shows this month-by-month or year-by-year.</div>
+        </details>
+      </div>
+    </article>
+
+    <p class="mt-8 text-sm text-[var(--text-muted)]">This EMI calculator works for <strong class="text-white">home loans</strong>, <strong class="text-white">car loans</strong>, <strong class="text-white">personal loans</strong> and <strong class="text-white">education loans</strong>. Use it to plan EMI, payoff date and prepayment.</p>
+
+    <footer class="mt-10 pt-6 pb-6 border-t border-white/10 text-center text-sm text-[var(--text-muted)]">
+      <p class="mb-2">This calculator is for estimation only. We are not a lender. Verify with your bank or lender before making financial decisions.</p>
+      <nav class="flex flex-wrap justify-center gap-4 mt-4" aria-label="Footer links">
+        <a href="/" class="hover:text-[var(--accent-2)] transition">Back to tools</a>
+        <a href="/privacy-policy.html" class="hover:text-[var(--accent-2)] transition">Privacy Policy</a>
+        <a href="/terms.html" class="hover:text-[var(--accent-2)] transition">Terms</a>
+      </nav>
+    </footer>
+  </main>
+
+  <script>
+(function() {
+  'use strict';
+
+  function debounce(fn, delay) {
+    var t;
+    return function() {
+      var args = arguments;
+      clearTimeout(t);
+      t = setTimeout(function() { fn.apply(null, args); }, delay);
+    };
+  }
+
+  function calculateEMI(P, annualRatePercent, nMonths) {
+    if (P <= 0 || nMonths <= 0) return 0;
+    var r = annualRatePercent / 100 / 12;
+    if (r === 0) return P / nMonths;
+    var factor = Math.pow(1 + r, nMonths);
+    return (P * r * factor) / (factor - 1);
+  }
+
+  function getAmortizationSchedule(principal, annualRatePercent, tenureYears, extraEMIPerMonth, yearlyOneTime) {
+    extraEMIPerMonth = extraEMIPerMonth || 0;
+    yearlyOneTime = yearlyOneTime || 0;
+    if (principal <= 0 || tenureYears <= 0) return [];
+    var nMonths = tenureYears * 12;
+    var monthlyRate = annualRatePercent / 100 / 12;
+    var emi = calculateEMI(principal, annualRatePercent, nMonths);
+    var totalEMI = emi + extraEMIPerMonth;
+    var schedule = [];
+    var balance = principal;
+    var month = 0;
+    var nextPrepaymentMonth = 12;
+    while (balance > 0.01 && month < 600) {
+      month++;
+      var interest = balance * monthlyRate;
+      var principalPart = Math.max(0, totalEMI - interest);
+      if (principalPart > balance) principalPart = balance;
+      var extraPayment = extraEMIPerMonth;
+      if (month === nextPrepaymentMonth && yearlyOneTime > 0) {
+        extraPayment += yearlyOneTime;
+        nextPrepaymentMonth += 12;
+      }
+      var totalPrincipalPayment = Math.min(principalPart + extraPayment, balance);
+      balance -= totalPrincipalPayment;
+      if (balance < 0.01) balance = 0;
+      schedule.push({ month: month, emi: totalEMI, principal: totalPrincipalPayment, interest: interest, balance: balance });
+    }
+    return schedule;
+  }
+
+  var scheduleCache = {};
+  function getScheduleCached(params) {
+    var key = params.loan + '_' + params.rate + '_' + params.tenure + '_' + (params.extraEMI || 0) + '_' + (params.yearlyPrepayment || 0);
+    if (scheduleCache[key]) return scheduleCache[key];
+    var schedule = getAmortizationSchedule(params.loan, params.rate, params.tenure, params.extraEMI || 0, params.yearlyPrepayment || 0);
+    scheduleCache[key] = schedule;
+    return schedule;
+  }
+
+  function getRemainingLoan(originalPrincipal, emi, monthsPaid, annualRatePercent) {
+    if (originalPrincipal <= 0 || emi <= 0 || monthsPaid < 0) {
+      return { remainingBalance: 0, remainingInterest: 0, remainingTenureMonths: 0 };
+    }
+    var r = Math.max(0, annualRatePercent / 100 / 12);
+    var balance = originalPrincipal;
+    for (var m = 0; m < monthsPaid && balance > 0; m++) {
+      var interest = balance * r;
+      var pr = Math.min(Math.max(0, emi - interest), balance);
+      balance -= pr;
+    }
+    if (balance <= 0) return { remainingBalance: 0, remainingInterest: 0, remainingTenureMonths: 0 };
+    var p = balance * r;
+    if (emi <= p) return { remainingBalance: balance, remainingInterest: 0, remainingTenureMonths: 999 };
+    var n = -Math.log(1 - p / emi) / Math.log(1 + r);
+    var remainingTenureMonths = Math.max(0, Math.ceil(n));
+    var remainingInterest = 0, b = balance;
+    for (var i = 0; i < remainingTenureMonths && b > 0; i++) {
+      remainingInterest += b * r;
+      var pr = Math.min(Math.max(0, emi - b * r), b);
+      b -= pr;
+    }
+    return { remainingBalance: balance, remainingInterest: remainingInterest, remainingTenureMonths: remainingTenureMonths };
+  }
+
+  function getYearlySummary(rows) {
+    if (!rows.length) return [];
+    var byYear = {};
+    rows.forEach(function(row) {
+      var year = Math.ceil(row.month / 12);
+      if (!byYear[year]) byYear[year] = { principal: 0, interest: 0, emiTotal: 0, balance: row.balance };
+      byYear[year].principal += row.principal;
+      byYear[year].interest += row.interest;
+      byYear[year].emiTotal += row.emi;
+      byYear[year].balance = row.balance;
+    });
+    var years = Object.keys(byYear).map(Number).sort(function(a, b) { return a - b; });
+    return years.map(function(y) {
+      var d = byYear[y];
+      return { year: y, principal: d.principal, interest: d.interest, balance: d.balance, emiTotal: d.emiTotal };
+    });
+  }
+
+  var CURRENCIES = {
+    INR: { symbol: '₹', locale: 'en-IN', code: 'INR', short: function(x) { if (x >= 10000000) return '₹' + (x / 10000000).toFixed(2) + ' Cr'; if (x >= 100000) return '₹' + (x / 100000).toFixed(2) + ' L'; return null; } },
+    USD: { symbol: '$', locale: 'en-US', code: 'USD', short: function(x) { if (x >= 1000000) return '$' + (x / 1000000).toFixed(2) + 'M'; if (x >= 1000) return '$' + (x / 1000).toFixed(0) + 'K'; return null; } },
+    EUR: { symbol: '€', locale: 'de-DE', code: 'EUR', short: function(x) { if (x >= 1000000) return (x / 1000000).toFixed(2) + 'M €'; if (x >= 1000) return (x / 1000).toFixed(0) + 'K €'; return null; } },
+    GBP: { symbol: '£', locale: 'en-GB', code: 'GBP', short: function(x) { if (x >= 1000000) return '£' + (x / 1000000).toFixed(2) + 'M'; if (x >= 1000) return '£' + (x / 1000).toFixed(0) + 'K'; return null; } },
+    AED: { symbol: 'د.إ', locale: 'ar-AE', code: 'AED', short: function(x) { if (x >= 1000000) return (x / 1000000).toFixed(2) + 'M'; if (x >= 1000) return (x / 1000).toFixed(0) + 'K'; return null; } },
+    SGD: { symbol: '$', locale: 'en-SG', code: 'SGD', short: function(x) { if (x >= 1000000) return '$' + (x / 1000000).toFixed(2) + 'M'; if (x >= 1000) return '$' + (x / 1000).toFixed(0) + 'K'; return null; } }
+  };
+  function getCurrentCurrency() {
+    var code = (document.getElementById('currencySelect') && document.getElementById('currencySelect').value) || 'INR';
+    return CURRENCIES[code] || CURRENCIES.INR;
+  }
+  function formatCurrencyFull(x) {
+    if (typeof x !== 'number' || !isFinite(x) || x < 0) return '—';
+    var c = getCurrentCurrency();
+    try {
+      return new Intl.NumberFormat(c.locale, { style: 'currency', currency: c.code, maximumFractionDigits: 0, minimumFractionDigits: 0 }).format(x);
+    } catch (e) {
+      return c.symbol + ' ' + Math.round(x).toLocaleString();
+    }
+  }
+  function formatCurrencyShort(x) {
+    if (typeof x !== 'number' || !isFinite(x) || x < 0) return '—';
+    var c = getCurrentCurrency();
+    if (c.short) {
+      try { var s = c.short(x); if (s) return s; } catch (e) { /* fall through */ }
+    }
+    return formatCurrencyFull(x);
+  }
+  function getLoanHintText() {
+    var c = getCurrentCurrency();
+    if (c.code === 'INR') return '₹1 L – ₹1 Cr. Use the slider or type the amount.';
+    if (c.code === 'USD') return '$50K – $2M. Use the slider or type the amount.';
+    if (c.code === 'EUR' || c.code === 'GBP') return c.symbol + '50K – ' + c.symbol + '2M. Use the slider or type the amount.';
+    return c.symbol + ' 50K – 2M. Use the slider or type the amount.';
+  }
+  function getValidationExample() {
+    var c = getCurrentCurrency();
+    if (c.code === 'INR') return 'e.g. ₹1,00,000 to ₹1,00,00,000';
+    return 'e.g. 100,000 to 10,000,000';
+  }
+  function updateCurrencyLabels() {
+    var c = getCurrentCurrency();
+    var ids = ['symLoan', 'symExtra', 'symYearly', 'symRemOrig', 'symRemEmi'];
+    ids.forEach(function(id) { var el = document.getElementById(id); if (el) el.textContent = c.symbol; });
+    var hint = document.getElementById('loanHint');
+    if (hint) hint.textContent = getLoanHintText();
+  }
+  function addMonths(d, months) { var x = new Date(d); x.setMonth(x.getMonth() + months); return x; }
+  function formatDate(d) { return d.toLocaleDateString('en-GB', { month: 'long', year: 'numeric' }); }
+
+  var chartInstance = null;
+  var scheduleView = 'yearly';
+
+  function syncInputs() {
+    var loanEl = document.getElementById('loanAmount');
+    var rateEl = document.getElementById('interestRate');
+    var tenureEl = document.getElementById('tenureYears');
+    var loan = loanEl ? parseInt(loanEl.value, 10) || 0 : 0;
+    var rate = rateEl ? parseFloat(rateEl.value) || 0 : 0;
+    var tenure = tenureEl ? parseInt(tenureEl.value, 10) || 1 : 1;
+    var loanSl = document.getElementById('loanSlider');
+    var rateSl = document.getElementById('rateSlider');
+    var tenureSl = document.getElementById('tenureSlider');
+    if (loanSl) loanSl.value = loan;
+    if (rateSl) rateSl.value = rate;
+    if (tenureSl) tenureSl.value = tenure;
+  }
+
+  function parseInputs() {
+    var loanEl = document.getElementById('loanAmount');
+    var rateEl = document.getElementById('interestRate');
+    var tenureEl = document.getElementById('tenureYears');
+    var extraEl = document.getElementById('extraEMI');
+    var yearlyEl = document.getElementById('yearlyPrepayment');
+    var loan = loanEl ? parseInt(loanEl.value, 10) || 0 : 0;
+    var rate = rateEl ? parseFloat(rateEl.value) : NaN;
+    if (isNaN(rate) || rate < 0) rate = 8.5;
+    var tenure = tenureEl ? parseInt(tenureEl.value, 10) || 1 : 1;
+    if (tenure < 1) tenure = 1;
+    if (tenure > 30) tenure = 30;
+    var extraEMI = extraEl ? Math.max(0, parseInt(extraEl.value, 10) || 0) : 0;
+    var yearlyPre = yearlyEl ? Math.max(0, parseInt(yearlyEl.value, 10) || 0) : 0;
+    return { loan: loan, rate: rate, tenure: tenure, extraEMI: extraEMI, yearlyPrepayment: yearlyPre };
+  }
+
+  function validateInputs(p) {
+    var msg = '';
+    var ex = getValidationExample();
+    if (p.loan <= 0) msg = 'Enter a loan amount (' + ex + ').';
+    else if (p.loan < 100000) msg = 'Loan amount should be at least 100,000.';
+    else if (p.loan > 10000000) msg = 'Loan amount should be at most 10,000,000.';
+    else if (p.tenure < 1 || p.tenure > 30) msg = 'Tenure should be between 1 and 30 years.';
+    var errEl = document.getElementById('inputError');
+    if (errEl) {
+      if (msg) {
+        errEl.textContent = msg;
+        errEl.classList.remove('hidden');
+        return false;
+      }
+      errEl.classList.add('hidden');
+    }
+    return !msg;
+  }
+
+  function updateShareUrl() {
+    var p = parseInputs();
+    var base = window.location.origin + window.location.pathname;
+    var sel = document.getElementById('currencySelect');
+    var curr = (sel && sel.value) ? sel.value : 'INR';
+    var q = '?loan=' + p.loan + '&rate=' + p.rate + '&tenure=' + p.tenure + '&currency=' + curr;
+    var shareEl = document.getElementById('shareUrl');
+    if (shareEl) shareEl.value = base + q;
+  }
+
+  var PRESET_LOANS = { '20-lakh': 2000000, '50-lakh': 5000000, '1-crore': 10000000 };
+  function applyUrlParams() {
+    var params = new URLSearchParams(window.location.search);
+    var path = window.location.pathname || '';
+    var preset = params.get('preset') || (path.indexOf('20-lakh') !== -1 ? '20-lakh' : path.indexOf('50-lakh') !== -1 ? '50-lakh' : path.indexOf('1-crore') !== -1 ? '1-crore' : null);
+    var loan = parseInt(params.get('loan'), 10);
+    if (preset && PRESET_LOANS[preset] && (isNaN(loan) || loan < 0)) loan = PRESET_LOANS[preset];
+    var loanEl = document.getElementById('loanAmount');
+    if (loanEl && !isNaN(loan) && loan >= 0) loanEl.value = loan;
+    var rate = parseFloat(params.get('rate'));
+    var rateEl = document.getElementById('interestRate');
+    if (rateEl && !isNaN(rate) && rate >= 0) rateEl.value = rate;
+    var tenure = parseInt(params.get('tenure'), 10);
+    var tenureEl = document.getElementById('tenureYears');
+    if (tenureEl && !isNaN(tenure) && tenure >= 1 && tenure <= 30) tenureEl.value = tenure;
+    var curr = (params.get('currency') || '').toUpperCase();
+    if (curr && CURRENCIES[curr]) {
+      var sel = document.getElementById('currencySelect');
+      if (sel) sel.value = curr;
+    }
+    updateCurrencyLabels();
+    syncSliders();
+  }
+
+  function syncSliders() {
+    var loanEl = document.getElementById('loanAmount');
+    var rateEl = document.getElementById('interestRate');
+    var tenureEl = document.getElementById('tenureYears');
+    var loan = loanEl ? parseInt(loanEl.value, 10) || 2000000 : 2000000;
+    var rate = rateEl ? parseFloat(rateEl.value) || 8.5 : 8.5;
+    var tenure = tenureEl ? parseInt(tenureEl.value, 10) || 20 : 20;
+    var loanSl = document.getElementById('loanSlider');
+    var rateSl = document.getElementById('rateSlider');
+    var tenureSl = document.getElementById('tenureSlider');
+    if (loanSl) loanSl.value = loan;
+    if (rateSl) rateSl.value = rate;
+    if (tenureSl) tenureSl.value = tenure;
+  }
+
+  function render() {
+    var p = parseInputs();
+    if (!validateInputs(p)) {
+      var setText = function(id, text) { var el = document.getElementById(id); if (el) el.textContent = text; };
+      var setHtml = function(id, html) { var el = document.getElementById(id); if (el) el.innerHTML = html; };
+      setText('outEmi', '—');
+      setText('outInterest', '—');
+      setText('outDebtFreeDate', '—');
+      setText('outInterestSavedCard', '—');
+      setText('outImpactLoan', '—');
+      setText('outImpactInterest', '—');
+      setText('outImpactPct', '—');
+      setText('outImpactStatement', 'Enter valid loan details above.');
+      setText('insightLoan', '—');
+      setText('insightInterest', '—');
+      setText('insightBanksPct', '—');
+      setText('outDebtFreeCountdown', '—');
+      setText('outSuggestedPrepayment', 'Enter valid loan details above.');
+      setText('outPayoffNormal', 'Enter valid loan details above');
+      setText('outRecommendation', 'Enter loan amount, interest rate, and tenure (1–30 years) to see your EMI and savings.');
+      var ph = document.getElementById('prepaymentHighlights');
+      if (ph) ph.classList.add('hidden');
+      var opp = document.getElementById('outPayoffPrepayment');
+      if (opp) opp.classList.add('hidden');
+      setText('cmpTenureNormal', '—');
+      setText('cmpTenurePrepay', '—');
+      setText('cmpInterestNormal', '—');
+      setText('cmpInterestPrepay', '—');
+      setText('cmpTotalNormal', '—');
+      setText('cmpTotalPrepay', '—');
+      setHtml('scheduleHead', '');
+      setHtml('scheduleBody', '<tr><td colspan="5" class="px-4 py-6 text-center text-[var(--text-muted)]">Enter valid loan details above to see the schedule.</td></tr>');
+      if (chartInstance) { chartInstance.destroy(); chartInstance = null; }
+      updateShareUrl();
+      return;
+    }
+
+    scheduleCache = {};
+    var nMonths = p.tenure * 12;
+    var emi = calculateEMI(p.loan, p.rate, nMonths);
+    var scheduleNormal = getScheduleCached({ loan: p.loan, rate: p.rate, tenure: p.tenure, extraEMI: 0, yearlyPrepayment: 0 });
+    var schedulePrepay = getScheduleCached({ loan: p.loan, rate: p.rate, tenure: p.tenure, extraEMI: p.extraEMI, yearlyPrepayment: p.yearlyPrepayment });
+
+    var totalInterestNormal = scheduleNormal.reduce(function(s, r) { return s + r.interest; }, 0);
+    var totalInterestPrepay = schedulePrepay.reduce(function(s, r) { return s + r.interest; }, 0);
+    var totalPaymentNormal = p.loan + totalInterestNormal;
+    var interestSaved = totalInterestNormal - totalInterestPrepay;
+    var monthsNormal = scheduleNormal.length;
+    var monthsPrepay = schedulePrepay.length;
+    var monthsSaved = monthsNormal - monthsPrepay;
+    var hasPrepay = p.extraEMI > 0 || p.yearlyPrepayment > 0;
+
+    try {
+    var setOut = function(id, text) { var el = document.getElementById(id); if (el) el.textContent = text; };
+    setOut('outEmi', formatCurrencyFull(emi));
+    setOut('outInterest', formatCurrencyFull(totalInterestNormal));
+    var payoffNormal = addMonths(new Date(), monthsNormal);
+    setOut('outDebtFreeDate', formatDate(payoffNormal));
+    setOut('outInterestSavedCard', hasPrepay ? formatCurrencyFull(interestSaved) : 'Add prepayment to see savings');
+    var impactPct = p.loan > 0 ? Math.round((totalInterestNormal / p.loan) * 100) : 0;
+    setOut('outImpactLoan', formatCurrencyFull(p.loan));
+    setOut('outImpactInterest', formatCurrencyFull(totalInterestNormal));
+    setOut('outImpactPct', impactPct + '%');
+    setOut('outImpactStatement', 'Over the full tenure, you will pay ' + formatCurrencyFull(totalInterestNormal) + ' in interest, which is about ' + impactPct + '% of the original loan amount.');
+    var insightLoanEl = document.getElementById('insightLoan');
+    var insightInterestEl = document.getElementById('insightInterest');
+    var insightBanksPctEl = document.getElementById('insightBanksPct');
+    if (insightLoanEl) insightLoanEl.textContent = formatCurrencyFull(p.loan);
+    if (insightInterestEl) insightInterestEl.textContent = formatCurrencyFull(totalInterestNormal);
+    if (insightBanksPctEl) insightBanksPctEl.textContent = 'Banks earn about ' + impactPct + '% of the loan amount as interest.';
+    var yrs = Math.floor(monthsNormal / 12);
+    var mon = monthsNormal % 12;
+    setOut('outDebtFreeCountdown', yrs + ' years ' + mon + ' months');
+    var suggestedExtra10 = Math.max(1000, Math.round(emi * 0.1 / 1000) * 1000);
+    var sched10 = getScheduleCached({ loan: p.loan, rate: p.rate, tenure: p.tenure, extraEMI: suggestedExtra10, yearlyPrepayment: 0 });
+    var intSaved10 = totalInterestNormal - sched10.reduce(function(s, r) { return s + r.interest; }, 0);
+    var yrsEarlier10 = Math.round((monthsNormal - sched10.length) / 12);
+    var suggestedEl = document.getElementById('outSuggestedPrepayment');
+    if (suggestedEl) {
+      if (suggestedExtra10 >= 1000 && yrsEarlier10 > 0) {
+        suggestedEl.textContent = 'If you add ' + formatCurrencyShort(suggestedExtra10) + ' extra every month, you could finish your loan ' + yrsEarlier10 + ' years earlier and save ' + formatCurrencyFull(intSaved10) + ' in interest.';
+      } else if (suggestedExtra10 >= 1000 && intSaved10 > 0) {
+        suggestedEl.textContent = 'Adding ' + formatCurrencyShort(suggestedExtra10) + ' extra per month could save ' + formatCurrencyFull(intSaved10) + ' in interest. Try the prepayment section above.';
+      } else {
+        suggestedEl.textContent = 'Try adding an extra amount in the prepayment section above to see your savings.';
+      }
+    }
+    document.querySelectorAll('.result-card').forEach(function(el) { el.classList.add('updated'); setTimeout(function() { el.classList.remove('updated'); }, 400); });
+    setOut('outPayoffNormal', formatDate(payoffNormal));
+
+    var phEl = document.getElementById('prepaymentHighlights');
+    if (phEl) phEl.classList.toggle('hidden', !hasPrepay);
+    var oppEl = document.getElementById('outPayoffPrepayment');
+    if (oppEl) oppEl.classList.toggle('hidden', !hasPrepay);
+    if (hasPrepay) {
+      var payoffPrepay = addMonths(new Date(), monthsPrepay);
+      setOut('outNewTenure', Math.floor(monthsPrepay / 12) + ' years ' + (monthsPrepay % 12) + ' months');
+      setOut('outInterestSaved', formatCurrencyFull(interestSaved));
+      setOut('outNewPayoff', formatDate(payoffPrepay));
+      setOut('outPayoffPrepaymentVal', formatDate(payoffPrepay));
+    }
+
+    var bullets = document.getElementById('outRecommendationBullets');
+    if (bullets) bullets.innerHTML = '';
+    if (!hasPrepay && p.loan > 0 && emi > 0 && bullets) {
+      var tiers = [
+        { pct: 0.05, label: '5%' },
+        { pct: 0.1, label: '10%' },
+        { pct: 0.15, label: '15%' }
+      ];
+      tiers.forEach(function(t) {
+        var ex = Math.max(1000, Math.round(emi * t.pct / 1000) * 1000);
+        var schedT = getScheduleCached({ loan: p.loan, rate: p.rate, tenure: p.tenure, extraEMI: ex, yearlyPrepayment: 0 });
+        var saveInt = totalInterestNormal - schedT.reduce(function(s, r) { return s + r.interest; }, 0);
+        var saveYrs = (monthsNormal - schedT.length) / 12;
+        if (saveInt > 0) {
+          var li = document.createElement('li');
+          li.textContent = 'Extra ' + formatCurrencyShort(ex) + '/month (' + t.label + ' of EMI): save ' + formatCurrencyFull(saveInt) + ' and ' + saveYrs.toFixed(1) + ' years.';
+          bullets.appendChild(li);
+        }
+      });
+    }
+    var suggestedExtra = Math.round(emi * 0.1 / 1000) * 1000;
+    var recText = 'Add extra EMI or a one-time yearly prepayment above to see how much you can save.';
+    if (hasPrepay && interestSaved > 0) {
+      recText = 'With your prepayment strategy, you save ' + formatCurrencyFull(interestSaved) + ' in interest and become debt-free ' + Math.round(monthsSaved / 12) + ' years earlier.';
+    } else if (suggestedExtra >= 1000 && bullets && bullets.children.length > 0) {
+      recText = 'See suggested amounts below, or enter your own in the prepayment section above.';
+    } else if (suggestedExtra >= 1000) {
+      var sched = getScheduleCached({ loan: p.loan, rate: p.rate, tenure: p.tenure, extraEMI: suggestedExtra, yearlyPrepayment: 0 });
+      var intSaved = totalInterestNormal - sched.reduce(function(s, r) { return s + r.interest; }, 0);
+      var monthsSavedRec = monthsNormal - sched.length;
+      recText = 'If you add ' + formatCurrencyShort(suggestedExtra) + ' extra per month, you can finish your loan ' + Math.round(monthsSavedRec / 12) + ' years earlier and save ' + formatCurrencyFull(intSaved) + ' in interest.';
+    }
+    var outRec = document.getElementById('outRecommendation');
+    if (outRec) outRec.textContent = recText;
+
+    var cmpTn = document.getElementById('cmpTenureNormal');
+    var cmpTp = document.getElementById('cmpTenurePrepay');
+    if (cmpTn) cmpTn.textContent = Math.floor(monthsNormal / 12) + ' yrs';
+    if (cmpTp) cmpTp.textContent = Math.floor(monthsPrepay / 12) + ' yrs';
+    var setCmp = function(id, text) { var el = document.getElementById(id); if (el) el.textContent = text; };
+    setCmp('cmpInterestNormal', formatCurrencyFull(totalInterestNormal));
+    setCmp('cmpInterestPrepay', formatCurrencyFull(totalInterestPrepay));
+    setCmp('cmpTotalNormal', formatCurrencyFull(totalPaymentNormal));
+    setCmp('cmpTotalPrepay', formatCurrencyFull(p.loan + totalInterestPrepay));
+
+    var yearlySummary = getYearlySummary(scheduleNormal);
+    if (chartInstance) chartInstance.destroy();
+    chartInstance = null;
+    if (yearlySummary.length > 0 && emi > 0) {
+      var canvas = document.getElementById('chart');
+      var ctx = canvas && canvas.getContext('2d');
+      if (ctx) {
+      var labels = yearlySummary.map(function(d) { return d.year + 'Yr'; });
+      var emiFlat = yearlySummary.map(function() { return emi; });
+      var interestData = yearlySummary.map(function(d) { return d.interest; });
+      var principalData = yearlySummary.map(function(d) { return d.principal; });
+      chartInstance = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: [
+            { label: 'EMI', data: emiFlat, borderColor: '#67e8f9', backgroundColor: 'rgba(103,232,249,0.1)', fill: false, tension: 0, pointRadius: 2 },
+            { label: 'Interest', data: interestData, borderColor: '#f472b6', backgroundColor: 'rgba(244,114,182,0.15)', fill: true, tension: 0.3 },
+            { label: 'Principal', data: principalData, borderColor: '#0d9488', backgroundColor: 'rgba(13,148,136,0.15)', fill: true, tension: 0.3 }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          interaction: { intersect: false, mode: 'index' },
+          plugins: {
+            legend: { position: 'top' },
+            tooltip: {
+              callbacks: {
+                label: function(ctx) {
+                  var v = ctx.raw;
+                  return ctx.dataset.label + ': ' + formatCurrencyShort(v);
+                }
+              }
+            }
+          },
+          scales: {
+            x: { grid: { color: 'rgba(255,255,255,0.08)' }, ticks: { color: '#71717a', maxRotation: 0 } },
+            y: { grid: { color: 'rgba(255,255,255,0.08)' }, ticks: { color: '#71717a', callback: function(v) { var c = getCurrentCurrency(); if (c.code === 'INR' && v >= 100000) return (v / 100000).toFixed(0) + 'L'; if (v >= 1000000) return (v / 1000000).toFixed(1) + 'M'; return (v / 1000).toFixed(0) + 'K'; } } }
+          }
+        }
+      });
+      }
+    }
+
+    var head = document.getElementById('scheduleHead');
+    var body = document.getElementById('scheduleBody');
+    if (head && body) {
+      if (scheduleView === 'yearly') {
+        head.innerHTML = '<th class="px-4 py-3 font-medium text-[var(--text-muted)]">Year</th><th class="px-4 py-3 font-medium text-[var(--text-muted)]">Principal</th><th class="px-4 py-3 font-medium text-[var(--text-muted)]">Interest</th><th class="px-4 py-3 font-medium text-[var(--text-muted)]">Balance</th>';
+        body.innerHTML = yearlySummary.map(function(r) {
+          return '<tr class="border-b border-white/5"><td class="px-4 py-2">' + r.year + '</td><td class="px-4 py-2">' + formatCurrencyFull(r.principal) + '</td><td class="px-4 py-2">' + formatCurrencyFull(r.interest) + '</td><td class="px-4 py-2">' + formatCurrencyFull(r.balance) + '</td></tr>';
+        }).join('');
+      } else {
+        head.innerHTML = '<th class="px-4 py-3 font-medium text-[var(--text-muted)]">Month</th><th class="px-4 py-3 font-medium text-[var(--text-muted)]">EMI</th><th class="px-4 py-3 font-medium text-[var(--text-muted)]">Principal</th><th class="px-4 py-3 font-medium text-[var(--text-muted)]">Interest</th><th class="px-4 py-3 font-medium text-[var(--text-muted)]">Balance</th>';
+        var rows = scheduleNormal.slice(0, 120);
+        body.innerHTML = rows.map(function(r) {
+          return '<tr class="border-b border-white/5"><td class="px-4 py-2">' + r.month + '</td><td class="px-4 py-2">' + formatCurrencyFull(r.emi) + '</td><td class="px-4 py-2">' + formatCurrencyFull(r.principal) + '</td><td class="px-4 py-2">' + formatCurrencyFull(r.interest) + '</td><td class="px-4 py-2">' + formatCurrencyFull(r.balance) + '</td></tr>';
+        }).join('');
+        if (scheduleNormal.length > 120) {
+          body.innerHTML += '<tr><td colspan="5" class="px-4 py-3 text-center text-[var(--text-muted)]">... and ' + (scheduleNormal.length - 120) + ' more rows (see CSV for full schedule)</td></tr>';
+        }
+      }
+    }
+    } catch (e) {
+      if (typeof console !== 'undefined' && console.warn) console.warn('EMI render:', e);
+      var setText = function(id, text) { var el = document.getElementById(id); if (el) el.textContent = text; };
+      setText('outEmi', '—');
+      setText('outInterest', '—');
+      setText('outDebtFreeDate', '—');
+      setText('outInterestSavedCard', '—');
+      setText('outImpactLoan', '—');
+      setText('outImpactInterest', '—');
+      setText('outImpactPct', '—');
+      setText('outImpactStatement', 'Something went wrong. Please refresh.');
+      setText('outDebtFreeCountdown', '—');
+      setText('outSuggestedPrepayment', 'Please refresh and try again.');
+      setText('outRecommendation', '—');
+      var bulletsEl = document.getElementById('outRecommendationBullets');
+      if (bulletsEl) bulletsEl.innerHTML = '';
+      setText('insightLoan', '—');
+      setText('insightInterest', '—');
+      setText('insightBanksPct', '—');
+    }
+
+    updateShareUrl();
+  }
+
+  function updateRemaining() {
+    var origEl = document.getElementById('remOriginal');
+    var emiEl = document.getElementById('remEMI');
+    var monthsEl = document.getElementById('remMonthsPaid');
+    var rateEl = document.getElementById('remRate');
+    if (!origEl || !emiEl || !monthsEl || !rateEl) return;
+    var orig = parseInt(origEl.value, 10) || 0;
+    var emi = parseInt(emiEl.value, 10) || 0;
+    var months = parseInt(monthsEl.value, 10) || 0;
+    if (months < 0) months = 0;
+    if (months > 600) months = 600;
+    var rate = parseFloat(rateEl.value);
+    if (isNaN(rate) || rate < 0) rate = 0;
+    var r = getRemainingLoan(orig, emi, months, rate);
+    var outBal = document.getElementById('outRemBalance');
+    var outInt = document.getElementById('outRemInterest');
+    var outTen = document.getElementById('outRemTenure');
+    if (outBal) outBal.textContent = r.remainingBalance <= 0 ? 'Paid off' : formatCurrencyFull(r.remainingBalance);
+    if (outInt) outInt.textContent = (r.remainingTenureMonths === 0 || r.remainingTenureMonths >= 999) ? '—' : formatCurrencyFull(r.remainingInterest);
+    var tenureText = r.remainingTenureMonths === 0 ? '—' : (r.remainingTenureMonths >= 999 ? 'Your EMI is too low to reduce the loan balance. Increase EMI to repay the loan.' : r.remainingTenureMonths + ' months');
+    if (outTen) outTen.textContent = tenureText;
+  }
+
+  function downloadCSV() {
+    var p = parseInputs();
+    if (!validateInputs(p)) {
+      var errEl = document.getElementById('inputError');
+      if (errEl) {
+        errEl.textContent = 'Enter valid loan details above before downloading the schedule.';
+        errEl.classList.remove('hidden');
+      }
+      return;
+    }
+    var scheduleNormal = getScheduleCached({ loan: p.loan, rate: p.rate, tenure: p.tenure, extraEMI: 0, yearlyPrepayment: 0 });
+    var yearlySummary = getYearlySummary(scheduleNormal);
+    var headers, body;
+    if (scheduleView === 'yearly') {
+      headers = 'Year,Principal Paid,Interest Paid,Balance,Total EMI\n';
+      body = yearlySummary.map(function(r) { return r.year + ',' + r.principal.toFixed(0) + ',' + r.interest.toFixed(0) + ',' + r.balance.toFixed(0) + ',' + r.emiTotal.toFixed(0); }).join('\n');
+    } else {
+      headers = 'Month,EMI,Principal,Interest,Balance\n';
+      body = scheduleNormal.map(function(r) { return r.month + ',' + r.emi.toFixed(0) + ',' + r.principal.toFixed(0) + ',' + r.interest.toFixed(0) + ',' + r.balance.toFixed(0); }).join('\n');
+    }
+    var csv = headers + body;
+    var blob = new Blob([csv], { type: 'text/csv' });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = 'emi-amortization-schedule.csv';
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  var debouncedRender = debounce(function() { render(); }, 150);
+  document.getElementById('currencySelect').addEventListener('change', function() { updateCurrencyLabels(); render(); updateRemaining(); });
+  document.getElementById('loanAmount').addEventListener('input', function() { document.getElementById('loanSlider').value = this.value; render(); });
+  document.getElementById('loanSlider').addEventListener('input', function() { document.getElementById('loanAmount').value = this.value; debouncedRender(); });
+  document.getElementById('interestRate').addEventListener('input', function() { document.getElementById('rateSlider').value = this.value; render(); });
+  document.getElementById('rateSlider').addEventListener('input', function() { document.getElementById('interestRate').value = this.value; debouncedRender(); });
+  document.getElementById('tenureYears').addEventListener('input', function() { document.getElementById('tenureSlider').value = this.value; render(); });
+  document.getElementById('tenureSlider').addEventListener('input', function() { document.getElementById('tenureYears').value = this.value; debouncedRender(); });
+  document.getElementById('extraEMI').addEventListener('input', render);
+  document.getElementById('yearlyPrepayment').addEventListener('input', render);
+
+  document.getElementById('btnMonthly').addEventListener('click', function() {
+    scheduleView = 'monthly';
+    document.getElementById('btnMonthly').className = 'rounded-md px-4 py-2 text-sm font-medium bg-[var(--accent)] text-white';
+    document.getElementById('btnYearly').className = 'rounded-md px-4 py-2 text-sm font-medium text-[var(--text-muted)] hover:text-white';
+    render();
+  });
+  document.getElementById('btnYearly').addEventListener('click', function() {
+    scheduleView = 'yearly';
+    document.getElementById('btnYearly').className = 'rounded-md px-4 py-2 text-sm font-medium bg-[var(--accent)] text-white';
+    document.getElementById('btnMonthly').className = 'rounded-md px-4 py-2 text-sm font-medium text-[var(--text-muted)] hover:text-white';
+    render();
+  });
+  document.getElementById('btnCSV').addEventListener('click', downloadCSV);
+
+  document.getElementById('remOriginal').addEventListener('input', updateRemaining);
+  document.getElementById('remEMI').addEventListener('input', updateRemaining);
+  document.getElementById('remMonthsPaid').addEventListener('input', updateRemaining);
+  document.getElementById('remRate').addEventListener('input', updateRemaining);
+
+  function openWhatsAppShare(url) {
+    var text = 'Check my loan calculation here: ' + url;
+    var waUrl = 'https://wa.me/?text=' + encodeURIComponent(text);
+    window.open(waUrl, '_blank', 'noopener,noreferrer');
+  }
+  document.getElementById('btnCopy').addEventListener('click', function() {
+    var shareInput = document.getElementById('shareUrl');
+    var u = shareInput && shareInput.value;
+    if (!u) return;
+    var btn = this;
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(u).then(function() {
+        btn.textContent = 'Copied!';
+        setTimeout(function() { btn.textContent = 'Copy link'; }, 2000);
+      }).catch(function() {
+        fallbackCopy(u, btn);
+      });
+    } else {
+      fallbackCopy(u, btn);
+    }
+  });
+  var btnWhatsApp = document.getElementById('btnWhatsApp');
+  if (btnWhatsApp) btnWhatsApp.addEventListener('click', function() {
+    var shareInput = document.getElementById('shareUrl');
+    var u = shareInput && shareInput.value;
+    if (u) openWhatsAppShare(u);
+  });
+  var btnShareInsight = document.getElementById('btnShareInsight');
+  if (btnShareInsight) btnShareInsight.addEventListener('click', function() {
+    var shareInput = document.getElementById('shareUrl');
+    var u = shareInput && shareInput.value;
+    if (u) openWhatsAppShare(u);
+  });
+  function fallbackCopy(str, btn) {
+    var ta = document.createElement('textarea');
+    ta.value = str;
+    ta.setAttribute('readonly', '');
+    ta.style.position = 'fixed';
+    ta.style.left = '-9999px';
+    document.body.appendChild(ta);
+    try {
+      ta.select();
+      ta.setSelectionRange(0, str.length);
+      document.execCommand('copy');
+      if (btn) btn.textContent = 'Copied!';
+      setTimeout(function() { if (btn) btn.textContent = 'Copy link'; }, 2000);
+    } catch (e) { /* ignore */ }
+    if (ta.parentNode) ta.parentNode.removeChild(ta);
+  }
+
+  (function() {
+    var AI_REC_COOLDOWN_MS = 30000;
+    var cooldownUntil = 0;
+    var btnAiRec = document.getElementById('btnAiRec');
+  if (btnAiRec) btnAiRec.addEventListener('click', function() {
+      var btn = this;
+      var now = Date.now();
+      var errEl = document.getElementById('aiRecError');
+      if (now < cooldownUntil) {
+        var sec = Math.ceil((cooldownUntil - now) / 1000);
+        if (errEl) {
+          errEl.textContent = 'Please wait ' + sec + 's before requesting again.';
+          errEl.classList.remove('hidden');
+        }
+        return;
+      }
+      var out = document.getElementById('aiRecText');
+      if (out) out.classList.add('hidden');
+      if (errEl) errEl.classList.add('hidden');
+      var p = parseInputs();
+      if (!validateInputs(p)) {
+        if (errEl) {
+          errEl.textContent = 'Enter valid loan details first.';
+          errEl.classList.remove('hidden');
+          var detailsEl = document.getElementById('suggested-prepayment-block');
+          if (detailsEl) detailsEl.setAttribute('open', '');
+        }
+        return;
+      }
+      var nMonths = p.tenure * 12;
+      var emi = calculateEMI(p.loan, p.rate, nMonths);
+      var scheduleNormal = getScheduleCached({ loan: p.loan, rate: p.rate, tenure: p.tenure, extraEMI: 0, yearlyPrepayment: 0 });
+      var schedulePrepay = getScheduleCached({ loan: p.loan, rate: p.rate, tenure: p.tenure, extraEMI: p.extraEMI, yearlyPrepayment: p.yearlyPrepayment });
+      var totalInterestNormal = scheduleNormal.reduce(function(s, r) { return s + r.interest; }, 0);
+      var interestSaved = totalInterestNormal - schedulePrepay.reduce(function(s, r) { return s + r.interest; }, 0);
+      var monthsSaved = scheduleNormal.length - schedulePrepay.length;
+      btn.disabled = true;
+      btn.textContent = 'Loading…';
+      cooldownUntil = Date.now() + AI_REC_COOLDOWN_MS;
+      var apiUrl = (typeof window !== 'undefined' && window.location.pathname.indexOf('/tools/') !== -1) ? '/api/emi-recommendation' : (window.location.origin + '/api/emi-recommendation');
+      fetch(apiUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          loan: p.loan,
+          rate: p.rate,
+          tenure: p.tenure,
+          emi: emi,
+          totalInterest: totalInterestNormal,
+          totalPayment: p.loan + totalInterestNormal,
+          extraEMI: p.extraEMI,
+          yearlyPrepayment: p.yearlyPrepayment,
+          interestSaved: interestSaved,
+          monthsSaved: monthsSaved
+        })
+      }).then(function(r) {
+        var retryAfter = r.headers && r.headers.get('Retry-After');
+        if (r.status === 429) {
+          if (errEl) {
+            errEl.textContent = retryAfter ? 'Too many requests. Please wait ' + retryAfter + ' seconds and try again.' : 'Too many requests. Please try again later.';
+            errEl.classList.remove('hidden');
+            var detailsEl = document.getElementById('suggested-prepayment-block');
+            if (detailsEl) detailsEl.setAttribute('open', '');
+          }
+          if (retryAfter) cooldownUntil = Date.now() + (parseInt(retryAfter, 10) * 1000);
+          return null;
+        }
+        if (!r.ok) return r.json().catch(function() { return { error: 'Service error ' + r.status }; });
+        return r.json();
+      }).then(function(data) {
+        if (!data) return;
+        if (data.error && data.retryAfterSeconds) {
+          if (errEl) {
+            errEl.textContent = 'Too many requests. Try again in ' + data.retryAfterSeconds + ' seconds.';
+            errEl.classList.remove('hidden');
+            var detailsEl = document.getElementById('suggested-prepayment-block');
+            if (detailsEl) detailsEl.setAttribute('open', '');
+          }
+          return;
+        }
+        if (data.error) {
+          if (errEl) {
+            errEl.textContent = data.error;
+            errEl.classList.remove('hidden');
+            var detailsEl = document.getElementById('suggested-prepayment-block');
+            if (detailsEl) detailsEl.setAttribute('open', '');
+          }
+          return;
+        }
+        if (out) {
+          out.textContent = data.recommendation || 'Could not generate recommendation.';
+          out.classList.remove('hidden');
+          if (data.source === 'ai') out.setAttribute('data-source', 'ai');
+          var detailsEl = document.getElementById('suggested-prepayment-block');
+          if (detailsEl) detailsEl.setAttribute('open', '');
+        }
+      }).catch(function() {
+        if (errEl) {
+          errEl.textContent = 'Recommendation service unavailable. Try again later.';
+          errEl.classList.remove('hidden');
+          var detailsEl = document.getElementById('suggested-prepayment-block');
+          if (detailsEl) detailsEl.setAttribute('open', '');
+        }
+      }).then(function() {
+        btn.disabled = false;
+        btn.textContent = 'Personalised AI suggestions';
+      });
+    });
+  })();
+
+  applyUrlParams();
+  render();
+  updateRemaining();
+})();
+  </script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+    {"@type":"Question","name":"What is EMI?","acceptedAnswer":{"@type":"Answer","text":"EMI (Equated Monthly Installment) is the fixed amount you pay each month towards your loan until it is fully repaid. It includes both principal and interest."}},
+    {"@type":"Question","name":"How is EMI calculated?","acceptedAnswer":{"@type":"Answer","text":"Banks use the formula EMI = P × r × (1+r)^n / ((1+r)^n − 1), where P is principal, r is monthly interest rate (annual rate ÷ 12), and n is number of months."}},
+    {"@type":"Question","name":"How to reduce EMI?","acceptedAnswer":{"@type":"Answer","text":"To lower your monthly EMI you can opt for a longer tenure or refinance at a lower rate. To reduce total interest and pay off faster, use prepayment (extra monthly or lump sum)."}},
+    {"@type":"Question","name":"How much extra payment should I do to reduce my loan?","acceptedAnswer":{"@type":"Answer","text":"Any extra amount helps. Even 5–10% of your EMI as a regular extra payment can cut total interest and shorten tenure. Use the prepayment simulator to try different amounts."}},
+    {"@type":"Question","name":"How to reduce loan tenure?","acceptedAnswer":{"@type":"Answer","text":"Pay more than the EMI: add a fixed extra amount every month and/or make lump-sum prepayments. Extra payments go towards principal and shorten the loan."}},
+    {"@type":"Question","name":"Should I prepay my home loan?","acceptedAnswer":{"@type":"Answer","text":"Prepayment is usually beneficial as it reduces total interest and tenure. Check for prepayment penalties with your lender and compare with other uses of the money."}},
+    {"@type":"Question","name":"When will my loan be paid off?","acceptedAnswer":{"@type":"Answer","text":"Use the calculator’s payoff date section: it shows your estimated debt-free date with and without prepayment. The remaining loan calculator shows how much you still owe if you’re already repaying."}},
+    {"@type":"Question","name":"How does amortization work?","acceptedAnswer":{"@type":"Answer","text":"Amortization is repaying the loan through regular EMIs. Each EMI is split into interest and principal; over time the interest portion decreases and the principal portion increases."}}
+  ]}
+  </script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"WebApplication","name":"EMI Calculator – Home Loan, Car Loan & Prepayment","url":"https://easygoaitool.online/tools/emi-calculator.html","description":"Free EMI calculator for home loan, car loan, personal loan. Monthly EMI, total interest, payoff date. Prepayment calculator to reduce tenure. Amortization schedule and remaining loan balance.","applicationCategory":"FinanceApplication","operatingSystem":"Any","browserRequirements":"Requires JavaScript.","offers":{"@type":"Offer","price":"0","priceCurrency":"INR"},"publisher":{"@type":"Organization","name":"EasyGo AI"}}
+  </script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"SoftwareApplication","name":"EMI Calculator","applicationCategory":"FinanceApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0"}}
+  </script>
+</body>
+</html>
