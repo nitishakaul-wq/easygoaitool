@@ -1,206 +1,410 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-US" dir="ltr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Free GEO Audit – AI &amp; ChatGPT Readiness Checker | EasyGo AI</title>
-  <meta name="description" content="Free GEO (Generative Engine Optimization) audit: robots.txt AI crawlers, schema markup, HTML structure, llms.txt, optional AI recommendations. Check any public website.">
-  <meta name="keywords" content="GEO audit, generative engine optimization, ChatGPT crawler, GPTBot, llms.txt, AI SEO, schema markup audit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>Free GEO Audit Tool — ChatGPT &amp; AI Crawler Readiness Checker | EasyGo AI</title>
+  <meta name="description" content="Free GEO audit: check GPTBot, Perplexity &amp; robots.txt, JSON-LD schema, H1/meta, llms.txt &amp; AI readiness score. No sign-up. Improve how Google &amp; AI engines see your site.">
+  <meta name="keywords" content="GEO audit, generative engine optimization, AI SEO, ChatGPT crawler, GPTBot robots.txt, Perplexity SEO, llms.txt checker, schema markup audit, AI readiness score">
   <meta name="author" content="EasyGo AI">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+  <meta name="theme-color" content="#0c1222">
   <link rel="canonical" href="https://easygoaitool.online/tools/geo-audit.html">
 
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://easygoaitool.online/tools/geo-audit.html">
-  <meta property="og:title" content="Free GEO Audit – AI Readiness for Your Website">
-  <meta property="og:description" content="Check robots.txt, structured data, llms.txt, score, and more. Optional AI tips.">
+  <meta property="og:site_name" content="EasyGo AI Tools">
+  <meta property="og:title" content="Free GEO Audit — Is Your Site Ready for AI Search &amp; ChatGPT?">
+  <meta property="og:description" content="Instant robots.txt AI crawler check, structured data, llms.txt &amp; GEO score. Run a free audit in seconds—no account.">
   <meta property="og:locale" content="en_US">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Free GEO Website Audit | AI &amp; Search Readiness">
+  <meta name="twitter:description" content="Check AI crawlers, schema, llms.txt &amp; get an actionable GEO score. Free, no sign-up.">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,600&display=swap" rel="stylesheet">
+
   <style>
     :root {
-      --bg: #0f0f12;
-      --surface: #1e1e24;
-      --surface-2: #26262c;
-      --border: rgba(255,255,255,0.08);
-      --text: #fafafa;
-      --text-muted: #a1a1aa;
-      --accent: #22d3ee;
-      --accent-2: #67e8f9;
+      --bg: #0a0e17;
+      --bg-elevated: #0f1524;
+      --surface: #141b2d;
+      --surface-2: #1a2338;
+      --border: rgba(255,255,255,0.07);
+      --text: #f4f6fb;
+      --text-muted: #94a3b8;
+      --accent: #38bdf8;
+      --accent-dim: rgba(56, 189, 248, 0.15);
+      --accent-glow: rgba(56, 189, 248, 0.35);
+      --mint: #34d399;
+      --mint-dim: rgba(52, 211, 153, 0.12);
+      --violet: #a78bfa;
       --warn: #fbbf24;
       --bad: #f87171;
-      --good: #4ade80;
-      --radius: 16px;
-      --radius-sm: 10px;
+      --radius: 20px;
+      --radius-sm: 12px;
       --radius-full: 9999px;
-      --space-md: 16px;
-      --space-lg: 24px;
-      --space-xl: 32px;
+      --font: 'Plus Jakarta Sans', system-ui, sans-serif;
+      --max: 960px;
     }
-    * { box-sizing: border-box; }
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
     body {
       margin: 0;
-      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-family: var(--font);
       background: var(--bg);
-      background-image: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(34, 211, 238, 0.07) 0%, transparent 50%);
       color: var(--text);
-      line-height: 1.55;
+      line-height: 1.6;
+      font-size: 1rem;
       min-height: 100vh;
-      font-size: 16px;
       -webkit-font-smoothing: antialiased;
       padding-left: env(safe-area-inset-left);
       padding-right: env(safe-area-inset-right);
+      background-image:
+        radial-gradient(ellipse 100% 80% at 50% -30%, rgba(56, 189, 248, 0.12), transparent 55%),
+        radial-gradient(ellipse 60% 40% at 100% 20%, rgba(167, 139, 250, 0.06), transparent);
     }
-    .top-bar {
+    .skip-link {
+      position: absolute;
+      left: -9999px;
+      top: 0;
+      z-index: 100;
+      padding: 12px 20px;
+      background: var(--accent);
+      color: #0a0e17;
+      font-weight: 700;
+      border-radius: 0 0 var(--radius-sm) 0;
+    }
+    .skip-link:focus { left: 0; }
+
+    .site-header {
       position: sticky;
       top: 0;
       z-index: 50;
-      background: rgba(15, 15, 18, 0.92);
-      backdrop-filter: blur(12px);
+      background: rgba(10, 14, 23, 0.88);
+      backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--border);
-      padding: 12px max(var(--space-md), env(safe-area-inset-left));
     }
-    .top-bar-inner { max-width: 920px; margin: 0 auto; }
-    .back-link {
+    .site-header-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 10px max(16px, env(safe-area-inset-left)) 10px max(16px, env(safe-area-inset-right));
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .logo {
+      font-weight: 800;
+      font-size: 1.05rem;
+      color: var(--text);
+      text-decoration: none;
+      letter-spacing: -0.03em;
+    }
+    .logo span { color: var(--accent); }
+    .nav-tools {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      align-items: center;
+    }
+    .nav-tools a {
       color: var(--text-muted);
       text-decoration: none;
-      font-weight: 500;
-      padding: 8px 14px;
-      border-radius: var(--radius-full);
-    }
-    .back-link:hover { color: var(--accent-2); background: var(--surface); }
-
-    .container {
-      max-width: 920px;
-      margin: 0 auto;
-      padding: var(--space-xl) var(--space-md) 56px;
-    }
-    .badge {
-      display: inline-block;
-      padding: 6px 14px;
-      background: rgba(34, 211, 238, 0.12);
-      border: 1px solid rgba(34, 211, 238, 0.35);
-      border-radius: var(--radius-full);
       font-size: 0.8125rem;
       font-weight: 600;
-      color: var(--accent-2);
-      margin-bottom: var(--space-md);
+      padding: 8px 12px;
+      border-radius: var(--radius-full);
+      transition: color 0.2s, background 0.2s;
     }
-    h1 {
-      font-size: clamp(1.65rem, 4vw, 2.2rem);
-      font-weight: 700;
-      margin: 0 0 10px;
-      letter-spacing: -0.02em;
-    }
-    .subtitle { color: var(--text-muted); margin: 0 0 var(--space-xl); max-width: 640px; }
+    .nav-tools a:hover { color: var(--accent); background: var(--surface); }
 
-    .form-row { margin-bottom: var(--space-lg); }
-    label { display: block; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); margin-bottom: 8px; }
-    input[type="url"] {
-      width: 100%;
-      padding: 14px 18px;
+    main { max-width: var(--max); margin: 0 auto; padding: 28px 16px 80px; }
+
+    .hero {
+      margin-bottom: 36px;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      background: var(--accent-dim);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      border-radius: var(--radius-full);
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      margin-bottom: 18px;
+    }
+    .hero h1 {
+      font-size: clamp(1.85rem, 5vw, 2.65rem);
+      font-weight: 800;
+      line-height: 1.12;
+      letter-spacing: -0.035em;
+      margin: 0 0 16px;
+      max-width: 18ch;
+    }
+    .hero h1 em {
+      font-style: normal;
+      background: linear-gradient(135deg, var(--accent), var(--violet));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-lead {
+      font-size: 1.0625rem;
+      color: var(--text-muted);
+      max-width: 38rem;
+      margin: 0 0 24px;
+      line-height: 1.65;
+    }
+    .hero-lead strong { color: #e2e8f0; }
+
+    .benefit-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 14px;
+      margin-bottom: 28px;
+    }
+    .benefit-card {
+      padding: 16px 18px;
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--radius-sm);
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .benefit-card:hover { border-color: rgba(56, 189, 248, 0.25); transform: translateY(-2px); }
+    .benefit-card h3 {
+      margin: 0 0 6px;
+      font-size: 0.9375rem;
+      font-weight: 700;
       color: var(--text);
-      font-size: 1rem;
+    }
+    .benefit-card p {
+      margin: 0;
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+    .benefit-icon { font-size: 1.35rem; margin-bottom: 8px; display: block; }
+
+    .cta-panel {
+      padding: 24px;
+      background: linear-gradient(145deg, var(--surface) 0%, var(--bg-elevated) 100%);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: 0 24px 48px -24px rgba(0, 0, 0, 0.5);
+    }
+    .cta-panel label[for="url"] {
+      display: block;
+      font-size: 0.6875rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+    input[type="url"] {
+      width: 100%;
+      padding: 16px 18px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--text);
+      font-size: 1.0625rem;
       font-family: inherit;
       outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
     }
-    input:focus { border-color: var(--accent); box-shadow: 0 0 0 2px rgba(34, 211, 238, 0.2); }
+    input[type="url"]:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-dim);
+    }
+    input[type="url"]::placeholder { color: #64748b; }
 
+    .chk-wrap { margin-top: 18px; }
     .chk {
       display: flex;
       align-items: flex-start;
-      gap: 10px;
-      margin-top: 14px;
+      gap: 12px;
       cursor: pointer;
       color: var(--text-muted);
       font-size: 0.9375rem;
+      line-height: 1.45;
     }
-    .chk input { margin-top: 3px; accent-color: var(--accent); }
+    .chk input { margin-top: 4px; accent-color: var(--accent); width: 18px; height: 18px; }
+    .hint-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 20px;
+      height: 20px;
+      margin-left: 6px;
+      border-radius: 50%;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      font-size: 0.7rem;
+      font-weight: 800;
+      color: var(--accent);
+      cursor: help;
+      vertical-align: middle;
+    }
+    .ai-limit-note {
+      margin-top: 12px;
+      padding: 14px 16px;
+      background: var(--bg);
+      border-radius: var(--radius-sm);
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+      border-left: 3px solid var(--violet);
+    }
+    .ai-limit-note strong { color: #cbd5e1; }
 
     .btn-primary {
-      margin-top: var(--space-lg);
+      margin-top: 22px;
+      width: 100%;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 10px;
-      padding: 14px 28px;
-      background: linear-gradient(135deg, #0891b2, var(--accent));
-      color: #0f172a;
+      padding: 16px 28px;
+      background: linear-gradient(135deg, #0ea5e9, var(--accent));
+      color: #0a0e17;
       border: none;
       border-radius: var(--radius-sm);
-      font-weight: 700;
-      font-size: 1rem;
+      font-weight: 800;
+      font-size: 1.0625rem;
       font-family: inherit;
       cursor: pointer;
-      min-height: 48px;
+      min-height: 52px;
+      box-shadow: 0 8px 28px -6px var(--accent-glow);
+      transition: transform 0.15s, box-shadow 0.2s;
     }
-    .btn-primary:disabled { opacity: 0.55; cursor: not-allowed; }
+    .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 12px 36px -8px var(--accent-glow); }
+    .btn-primary:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
     .spinner {
-      width: 20px; height: 20px;
-      border: 2px solid rgba(15,23,42,0.25);
-      border-top-color: #0f172a;
+      width: 22px; height: 22px;
+      border: 2px solid rgba(10,14,23,0.2);
+      border-top-color: #0a0e17;
       border-radius: 50%;
       animation: spin 0.65s linear infinite;
     }
     @keyframes spin { to { transform: rotate(360deg); } }
 
-    #results { margin-top: var(--space-xl); display: none; }
+    .trust-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px 24px;
+      margin-top: 18px;
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+      justify-content: center;
+      text-align: center;
+    }
+    .trust-strip span { display: flex; align-items: center; gap: 6px; }
+    .trust-strip strong { color: var(--mint); }
+
+    .value-prop {
+      margin-top: 20px;
+      padding: 14px 18px;
+      background: var(--mint-dim);
+      border: 1px solid rgba(52, 211, 153, 0.25);
+      border-radius: var(--radius-sm);
+      font-size: 0.875rem;
+      color: #cbd5e1;
+      line-height: 1.55;
+    }
+    .value-prop strong { color: var(--mint); }
+
+    .err-box {
+      margin-top: 20px;
+      padding: 16px 18px;
+      background: rgba(248, 113, 113, 0.08);
+      border: 1px solid rgba(248, 113, 113, 0.35);
+      border-radius: var(--radius-sm);
+      color: #fca5a5;
+      font-size: 0.9375rem;
+    }
+
+    #results { margin-top: 40px; display: none; }
     #results.visible { display: block; }
 
     .score-card {
       display: flex;
       flex-wrap: wrap;
-      align-items: center;
-      gap: var(--space-lg);
-      padding: var(--space-lg);
+      align-items: flex-start;
+      gap: 24px;
+      padding: 28px;
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      margin-bottom: var(--space-lg);
+      margin-bottom: 20px;
     }
     .score-num {
-      font-size: 3rem;
+      font-size: clamp(2.75rem, 8vw, 3.75rem);
       font-weight: 800;
       line-height: 1;
       color: var(--accent);
+      font-variant-numeric: tabular-nums;
     }
-    .score-band { font-size: 1.125rem; font-weight: 600; color: var(--text); }
-    .bullets { margin: 0; padding-left: 1.2rem; color: var(--text-muted); font-size: 0.9375rem; }
-    .bullets li { margin-bottom: 6px; }
+    .score-band { font-size: 1.125rem; font-weight: 700; color: var(--text); margin-top: 8px; }
+    .bullets { margin: 0; padding-left: 1.15rem; color: var(--text-muted); font-size: 0.9375rem; }
+    .bullets li { margin-bottom: 8px; }
+
+    .toolbar { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; }
+    .btn-sec {
+      padding: 12px 20px;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--text);
+      font-weight: 700;
+      font-size: 0.875rem;
+      font-family: inherit;
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-sec:hover { border-color: var(--accent); color: var(--accent); }
 
     .panel {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: var(--space-lg);
-      margin-bottom: var(--space-md);
+      padding: 22px 24px;
+      margin-bottom: 16px;
     }
     .panel h2 {
-      font-size: 1.05rem;
-      font-weight: 600;
-      margin: 0 0 var(--space-md);
+      font-size: 1.125rem;
+      font-weight: 800;
+      margin: 0 0 14px;
+      letter-spacing: -0.02em;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
     }
 
     table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
-    th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
-    th { color: var(--text-muted); font-weight: 600; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.04em; }
+    th, td { text-align: left; padding: 12px 14px; border-bottom: 1px solid var(--border); vertical-align: top; }
+    th { color: var(--text-muted); font-weight: 700; font-size: 0.6875rem; text-transform: uppercase; letter-spacing: 0.06em; }
 
-    .tag { display: inline-block; padding: 4px 10px; border-radius: var(--radius-full); font-size: 0.75rem; font-weight: 600; }
-    .tag-ok { background: rgba(74, 222, 128, 0.15); color: var(--good); }
-    .tag-warn { background: rgba(251, 191, 36, 0.15); color: var(--warn); }
-    .tag-bad { background: rgba(248, 113, 113, 0.15); color: var(--bad); }
+    .tag { display: inline-block; padding: 4px 10px; border-radius: var(--radius-full); font-size: 0.6875rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em; }
+    .tag-ok { background: rgba(52, 211, 153, 0.15); color: var(--mint); }
+    .tag-warn { background: rgba(251, 191, 36, 0.12); color: var(--warn); }
+    .tag-bad { background: rgba(248, 113, 113, 0.12); color: var(--bad); }
     .tag-muted { background: var(--surface-2); color: var(--text-muted); }
 
     pre.pre-block {
       margin: 0;
-      padding: 14px;
+      padding: 16px;
       background: var(--bg);
       border-radius: var(--radius-sm);
       font-size: 0.8125rem;
@@ -211,193 +415,511 @@
       color: var(--text-muted);
     }
 
-    .issue-list, .win-list { margin: 0; padding-left: 1.2rem; font-size: 0.9rem; }
-    .issue-list li { color: var(--bad); margin-bottom: 6px; }
-    .win-list li { color: var(--good); margin-bottom: 6px; }
+    .win-list { margin: 0; padding-left: 1.15rem; font-size: 0.9rem; }
+    .win-list li { color: #86efac; margin-bottom: 8px; }
+
+    ul.issue-list { list-style: none; padding: 0; margin: 0; font-size: 0.9rem; }
+    .issue-item { margin-bottom: 16px; padding-bottom: 14px; border-bottom: 1px solid var(--border); }
+    .issue-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+    .issue-msg { margin: 0 0 8px; color: #fca5a5; font-weight: 600; line-height: 1.45; }
+    .issue-fix { margin: 0; }
+    .issue-fix summary {
+      cursor: pointer;
+      font-size: 0.8125rem;
+      font-weight: 700;
+      color: var(--accent);
+      list-style: none;
+      margin: 0;
+    }
+    .issue-fix summary::-webkit-details-marker { display: none; }
+    .issue-fix summary::before { content: '▸ '; display: inline-block; transition: transform 0.15s; }
+    .issue-fix[open] summary::before { transform: rotate(90deg); }
+    .issue-action-text {
+      margin: 10px 0 0;
+      padding: 12px 14px;
+      background: var(--bg);
+      border-radius: var(--radius-sm);
+      border-left: 3px solid var(--accent);
+      color: #cbd5e1;
+      font-size: 0.875rem;
+      line-height: 1.6;
+      font-weight: 500;
+    }
+    .issue-item--plain { color: #fca5a5; padding: 4px 0; border: none; }
+
+    .panel-hint {
+      margin: -6px 0 14px;
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+      padding: 10px 12px;
+      background: var(--bg);
+      border-radius: var(--radius-sm);
+      border-left: 2px solid rgba(56, 189, 248, 0.35);
+    }
+    .th-tip { cursor: help; border-bottom: 1px dotted var(--text-muted); }
+
+    @media print {
+      body { background: #fff !important; color: #111 !important; }
+      .no-print, .skip-link, .site-header, .sticky-cta, .hero, #audit-tool,
+      .content-section, .site-footer, .err-box, .toolbar, .benefit-grid,
+      .related-intro, .related-grid, .related-disclaimer, .print-hide { display: none !important; }
+      main { padding: 16px; max-width: 100%; }
+      #results { display: block !important; margin: 0 !important; visibility: visible !important; }
+      #results:not(.visible) { display: none !important; }
+      .score-card, .panel { background: #f8fafc !important; border: 1px solid #ccc !important; color: #111 !important; break-inside: avoid; page-break-inside: avoid; }
+      .issue-msg { color: #b91c1c !important; }
+      .issue-action-text { background: #f1f5f9 !important; color: #334155 !important; border-color: #0ea5e9 !important; }
+      .tag { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+      .print-title { display: block !important; font-size: 1.25rem; font-weight: 800; margin-bottom: 16px; border-bottom: 2px solid #111; padding-bottom: 8px; }
+    }
+    .print-title { display: none; }
 
     .ai-box {
-      margin-top: var(--space-md);
-      padding: var(--space-lg);
-      background: linear-gradient(145deg, rgba(34, 211, 238, 0.06), var(--surface-2));
-      border: 1px solid rgba(34, 211, 238, 0.2);
-      border-radius: var(--radius);
+      margin-top: 12px;
+      padding: 20px;
+      background: var(--bg);
+      border: 1px solid rgba(56, 189, 248, 0.2);
+      border-radius: var(--radius-sm);
       font-size: 0.9375rem;
       white-space: pre-wrap;
+      line-height: 1.65;
     }
-    .ai-box h3 { margin: 0 0 12px; font-size: 1rem; }
 
-    .toolbar { display: flex; flex-wrap: wrap; gap: 10px; margin-top: var(--space-md); }
-    .btn-sec {
-      padding: 10px 18px;
-      background: var(--surface-2);
+    details summary { cursor: pointer; color: var(--accent); font-weight: 700; margin-top: 14px; font-size: 0.875rem; }
+
+    .content-section {
+      margin-top: 56px;
+      padding-top: 40px;
+      border-top: 1px solid var(--border);
+    }
+    .content-section h2 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin: 0 0 16px;
+      letter-spacing: -0.03em;
+    }
+    .content-section h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin: 28px 0 12px;
+      color: #e2e8f0;
+    }
+    .content-section p, .content-section li { color: var(--text-muted); font-size: 0.9375rem; line-height: 1.7; }
+    .content-section ul { padding-left: 1.2rem; }
+    .content-section li { margin-bottom: 8px; }
+
+    .faq-list { margin: 0; padding: 0; list-style: none; }
+    .faq-list li {
+      margin-bottom: 20px;
+      padding: 20px 22px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+    }
+    .faq-list strong {
+      display: block;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+    .faq-list p { margin: 0; }
+
+    /* Related tools: 1 col phone → 2 col tablet → 3 col desktop (5 cards: 3+2 or 2+2+1) */
+    .related-grid {
+      list-style: none;
+      padding: 0;
+      margin: 20px 0 0;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+    .related-grid > li { min-width: 0; }
+    .related-grid a {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-height: 72px;
+      padding: 16px 18px;
+      background: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--radius-sm);
       color: var(--text);
-      font-weight: 600;
-      font-size: 0.875rem;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.9375rem;
+      line-height: 1.35;
+      transition: border-color 0.2s, color 0.2s, box-shadow 0.2s;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+      box-sizing: border-box;
+    }
+    .related-grid a:hover { border-color: var(--accent); color: var(--accent); }
+    .related-grid a:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+    .related-grid a > span:not(.related-ext-mark) {
+      display: block;
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      margin-top: 8px;
+      line-height: 1.45;
+    }
+    .related-ext-mark {
+      display: inline;
+      font-size: 0.8em;
+      font-weight: 700;
+      color: var(--accent);
+      margin-left: 3px;
+      vertical-align: super;
+      line-height: 0;
+    }
+    @media (min-width: 480px) {
+      .related-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+      }
+      /* 3 or 5 items: lone last row spans full width (no dangling empty cell) */
+      .related-grid > li:last-child:nth-child(odd) {
+        grid-column: 1 / -1;
+      }
+    }
+    @media (min-width: 900px) {
+      .related-grid {
+        gap: 16px;
+      }
+      /* Default: 3 columns (works for 3, 6, 9… cards) */
+      .related-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+      .related-grid > li {
+        grid-column: auto;
+      }
+      .related-grid > li:last-child:nth-child(odd) {
+        grid-column: auto;
+      }
+      /* Exactly 4 cards: balanced 2×2, centered */
+      .related-grid:has(> :nth-child(4):last-child) {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        max-width: 640px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      /* Exactly 5 cards: 3 + 2 equal halves (avoids empty 3rd column) */
+      .related-grid:has(> :nth-child(5):last-child) {
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+        max-width: none;
+        margin-left: 0;
+        margin-right: 0;
+      }
+      .related-grid:has(> :nth-child(5):last-child) > li:nth-child(-n + 3) {
+        grid-column: span 2;
+      }
+      .related-grid:has(> :nth-child(5):last-child) > li:nth-child(4) {
+        grid-column: 1 / 4;
+      }
+      .related-grid:has(> :nth-child(5):last-child) > li:nth-child(5) {
+        grid-column: 4 / 7;
+      }
+    }
+
+    .site-footer {
+      margin-top: 48px;
+      padding: 32px 16px;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+    }
+    .site-footer a { color: var(--accent); text-decoration: none; font-weight: 600; }
+    .site-footer a:hover { text-decoration: underline; }
+
+    .sticky-cta {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
+      background: linear-gradient(to top, rgba(10,14,23,0.98), rgba(10,14,23,0.92));
+      border-top: 1px solid var(--border);
+      z-index: 40;
+    }
+    .sticky-cta button {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, #0ea5e9, var(--accent));
+      color: #0a0e17;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-weight: 800;
       font-family: inherit;
+      font-size: 1rem;
       cursor: pointer;
     }
-    .btn-sec:hover { border-color: var(--accent); }
+    @media (max-width: 640px) {
+      .sticky-cta { display: block; }
+      main { padding-bottom: 100px; }
+    }
 
-    .disclaimer {
-      margin-top: var(--space-xl);
-      font-size: 0.8125rem;
-      color: var(--text-muted);
-      padding: 14px 16px;
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .btn-primary:hover, .benefit-card:hover { transform: none; }
+    }
+
+    .related-intro { margin: 0 0 4px; color: var(--text-muted); font-size: 0.9375rem; line-height: 1.55; max-width: 42rem; }
+    .related-disclaimer {
+      margin-top: 28px;
+      margin-bottom: 0;
+      padding: 18px 20px;
       background: var(--surface);
-      border-radius: var(--radius-sm);
-      border: 1px solid var(--border);
-    }
-
-    .err-box {
-      margin-top: var(--space-lg);
-      padding: 16px;
-      background: rgba(248, 113, 113, 0.1);
-      border: 1px solid rgba(248, 113, 113, 0.35);
-      border-radius: var(--radius-sm);
-      color: #fca5a5;
-    }
-
-    details summary { cursor: pointer; color: var(--accent-2); font-weight: 600; margin-top: 12px; }
-
-    .value-prop {
-      padding: 14px 18px;
-      background: rgba(74, 222, 128, 0.08);
-      border: 1px solid rgba(74, 222, 128, 0.25);
-      border-radius: var(--radius-sm);
-      font-size: 0.9375rem;
-      color: var(--text);
-      margin-bottom: var(--space-lg);
-      line-height: 1.55;
-    }
-    .value-prop strong { color: var(--good); }
-    .ai-limit-note {
-      margin-top: 10px;
-      padding: 12px 14px;
-      background: var(--surface-2);
       border: 1px solid var(--border);
       border-radius: var(--radius-sm);
       font-size: 0.8125rem;
       color: var(--text-muted);
-      line-height: 1.5;
+      line-height: 1.65;
     }
-    .ai-limit-note kbd { font-size: 0.75em; background: var(--bg); padding: 2px 6px; border-radius: 4px; }
-    .chk-wrap { margin-top: 14px; }
-    .chk-wrap .hint-icon {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 18px;
-      height: 18px;
-      margin-left: 6px;
-      border-radius: 50%;
-      background: var(--surface-2);
-      border: 1px solid var(--border);
-      font-size: 0.7rem;
-      font-weight: 700;
-      color: var(--accent-2);
-      cursor: help;
-      vertical-align: middle;
+    @media (max-width: 479px) {
+      .related-disclaimer { margin-top: 24px; padding: 16px; }
     }
   </style>
 </head>
 <body>
-  <nav class="top-bar" aria-label="Navigation">
-    <div class="top-bar-inner">
-      <a href="/" class="back-link">← Back to tools</a>
+  <a class="skip-link" href="#audit-tool">Skip to free GEO audit</a>
+
+  <header class="site-header">
+    <div class="site-header-inner">
+      <a class="logo" href="https://easygoaitool.online/">EasyGo<span>AI</span></a>
+      <nav class="nav-tools" aria-label="More tools">
+        <a href="https://easygoaitool.online/">Home</a>
+        <a href="https://easygoaitool.online/tools/emi-calculator.html">EMI calculator</a>
+        <a href="https://easygoaitool.online/tools/ATS_resume_cover.html">ATS resume</a>
+        <a href="https://easygoaitool.online/contact.html">Contact</a>
+      </nav>
     </div>
-  </nav>
+  </header>
 
-  <div class="container">
-    <header>
-      <span class="badge">GEO · Generative Engine Optimization</span>
-      <h1>GEO website audit</h1>
-      <p class="subtitle">See how AI crawlers and answer engines may see your site—<strong>robots.txt</strong> for major AI bots, <strong>structured data</strong>, page structure, <strong>/llms.txt</strong>, and a clear score. <strong>No account required.</strong></p>
-      <p class="value-prop"><strong>Full audit is always useful</strong> without checking the box below: score, crawler table, llms.txt, HTML/schema findings, and copyable report. Optional AI text is an extra layer—limited while we test costs.</p>
-    </header>
+  <main id="main-content">
+    <article class="hero" itemscope itemtype="https://schema.org/WebApplication">
+      <meta itemprop="name" content="Free GEO Website Audit Tool">
+      <meta itemprop="applicationCategory" content="UtilitiesApplication">
+      <meta itemprop="operatingSystem" content="Any">
+      <meta itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+      <meta itemprop="price" content="0">
+      <meta itemprop="priceCurrency" content="USD">
+      <span class="hero-badge">Free · No sign-up · Instant results</span>
+      <h1 itemprop="description">Is your site ready for <em>AI search</em> &amp; ChatGPT?</h1>
+      <p class="hero-lead">Run a <strong>free GEO audit</strong> (Generative Engine Optimization): see how <strong>GPTBot, Perplexity, and other AI crawlers</strong> may read your <strong>robots.txt</strong>, whether you have <strong>JSON-LD schema</strong>, a solid <strong>title &amp; H1</strong>, and an <strong>llms.txt</strong> file—plus an <strong>AI readiness score</strong> you can act on.</p>
 
-    <div class="form-row">
-      <label for="url">Website URL</label>
-      <input type="url" id="url" placeholder="https://example.com" autocomplete="url" inputmode="url">
-      <div class="chk-wrap">
-        <label class="chk">
-          <input type="checkbox" id="includeAi" aria-describedby="ai-limit-explained">
-          <span>Add optional AI-written tips (Groq)<span class="hint-icon" title="Without sign-up we can’t name users. We use your network IP so each Wi‑Fi/office usually shares one ‘slot’. AI tips: 1 successful summary per network per 24h while testing.">?</span></span>
-        </label>
-        <div class="ai-limit-note" id="ai-limit-explained">
-          <strong>How we limit AI without accounts:</strong> we use your <strong>IP address</strong> (the address your browser uses to reach the internet). People on the same Wi‑Fi or office network often share one IP—so they share the same AI allowance. That’s imperfect but standard for free, no-sign-up tools.<br><br>
-          <strong>While testing:</strong> <strong>one free AI summary per network per ~24 hours</strong> (run audit with this box checked). You can run the <strong>full structured audit unlimited times</strong>—leave the box unchecked anytime.
+      <div class="benefit-grid" aria-label="What this GEO checker analyzes">
+        <div class="benefit-card">
+          <span class="benefit-icon" aria-hidden="true">🤖</span>
+          <h3>AI crawler rules</h3>
+          <p>Heuristic check for GPTBot, Perplexity, Claude-related bots, and more in robots.txt.</p>
+        </div>
+        <div class="benefit-card">
+          <span class="benefit-icon" aria-hidden="true">📊</span>
+          <h3>Schema &amp; HTML</h3>
+          <p>JSON-LD types, meta description, Open Graph signals, canonical, and heading structure.</p>
+        </div>
+        <div class="benefit-card">
+          <span class="benefit-icon" aria-hidden="true">📄</span>
+          <h3>llms.txt</h3>
+          <p>Detects /llms.txt and /ai.txt so you know if AI-friendly policy files exist.</p>
         </div>
       </div>
-      <button type="button" class="btn-primary" id="btnRun" onclick="runAudit()">
-        <span id="btnLabel">Run GEO audit</span>
-      </button>
-    </div>
 
-    <div id="err" class="err-box" style="display:none;" role="alert"></div>
+      <section id="audit-tool" class="cta-panel" aria-labelledby="audit-heading">
+        <h2 id="audit-heading" class="visually-hidden" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);">Run GEO audit</h2>
+        <label for="url">Enter your website URL</label>
+        <input type="url" id="url" name="url" placeholder="https://yoursite.com" autocomplete="url" inputmode="url" aria-describedby="url-hint">
+        <p id="url-hint" style="margin:10px 0 0;font-size:0.8125rem;color:var(--text-muted);">Public https sites only. We fetch your homepage, robots.txt, and llms.txt.</p>
 
-    <div id="results" aria-live="polite">
+        <p class="value-prop"><strong>The audit is fully useful without AI.</strong> You get score, tables, and fixes every time. Optional AI tips are extra (limited per network while we test).</p>
+
+        <div class="chk-wrap">
+          <label class="chk">
+            <input type="checkbox" id="includeAi" aria-describedby="ai-limit-explained">
+            <span>Add optional AI-written tips (Groq)<span class="hint-icon" title="One AI summary per network IP per ~24h. Same Wi‑Fi shares one slot.">?</span></span>
+          </label>
+          <div class="ai-limit-note" id="ai-limit-explained">
+            <strong>No account?</strong> We use your <strong>network IP</strong> to limit free AI text (one successful summary per ~24h per IP). Everyone on the same office or home Wi‑Fi shares that limit. <strong>Unlimited structured audits</strong> if you leave this unchecked.
+          </div>
+        </div>
+        <button type="button" class="btn-primary" id="btnRun" onclick="runAudit()" aria-busy="false">
+          <span id="btnLabel">Run free GEO audit</span>
+        </button>
+        <div class="trust-strip" role="presentation">
+          <span><strong>✓</strong> No credit card</span>
+          <span><strong>✓</strong> Copy-paste report</span>
+          <span><strong>✓</strong> Built for marketers &amp; devs</span>
+        </div>
+      </section>
+    </article>
+
+    <div id="err" class="err-box" style="display:none;" role="alert" aria-live="assertive"></div>
+
+    <section id="results" aria-live="polite" aria-label="Audit results">
       <div class="score-card">
         <div>
-          <div class="score-num" id="scoreVal">—</div>
+          <div class="score-num" id="scoreVal" aria-label="GEO score">—</div>
           <div class="score-band" id="scoreBand"></div>
         </div>
-        <div style="flex:1; min-width:200px;">
+        <div style="flex:1; min-width:220px;">
           <ul class="bullets" id="summaryBullets"></ul>
         </div>
       </div>
 
-      <div class="toolbar">
-        <button type="button" class="btn-sec" onclick="copyReport()">Copy report (text)</button>
+      <p class="print-title">GEO audit report — easygoaitool.online</p>
+
+      <div class="toolbar no-print">
+        <button type="button" class="btn-sec" id="btnCopyReport" onclick="copyReport()">Copy full report</button>
+        <button type="button" class="btn-sec" id="btnPrintReport" title="Run an audit first. Opens print — choose Save as PDF">Print / Save as PDF</button>
       </div>
 
       <div class="panel">
-        <h2>🤖 AI crawlers &amp; robots.txt</h2>
-        <p style="margin:0 0 12px;font-size:0.875rem;color:var(--text-muted);">Heuristic check against common <code>User-agent</code> blocks. Always verify your live <a href="#" id="robotsLink" style="color:var(--accent-2)" target="_blank" rel="noopener">robots.txt</a>—rules vary by path and crawler behavior.</p>
+        <h2>AI crawlers &amp; robots.txt</h2>
+        <p class="panel-hint" role="note"><strong>What this means:</strong> We read your <code>robots.txt</code> and match blocks for bots like GPTBot and Perplexity. <strong>Status</strong> is a heuristic—not every path is checked. Click your live <a href="#" id="robotsLink" style="color:var(--accent);font-weight:600" target="_blank" rel="noopener noreferrer">robots.txt</a> to verify.</p>
         <div style="overflow-x:auto;">
           <table>
-            <thead><tr><th>Crawler</th><th>Status</th><th>Notes</th></tr></thead>
+            <caption class="visually-hidden" style="position:absolute;width:1px;height:1px;overflow:hidden;">AI crawler status from robots.txt</caption>
+            <thead><tr>
+              <th scope="col"><span class="th-tip" title="Common AI-related user-agents">Crawler</span></th>
+              <th scope="col"><span class="th-tip" title="Whether / may be disallowed for this bot (simplified)">Status</span></th>
+              <th scope="col"><span class="th-tip" title="Short rule explanation">Notes</span></th>
+            </tr></thead>
             <tbody id="crawlerRows"></tbody>
           </table>
         </div>
         <details>
           <summary>Show robots.txt preview</summary>
-          <pre class="pre-block" id="robotsPreview"></pre>
+          <pre class="pre-block" id="robotsPreview" aria-label="robots.txt excerpt"></pre>
         </details>
       </div>
 
       <div class="panel">
-        <h2>📄 llms.txt &amp; ai.txt</h2>
-        <p id="llmsSummary" style="margin:0;font-size:0.9375rem;color:var(--text-muted);"></p>
-        <pre class="pre-block" id="llmsPreview" style="margin-top:12px;display:none;"></pre>
+        <h2>llms.txt &amp; ai.txt</h2>
+        <p class="panel-hint no-print" role="note"><strong>Tip:</strong> <code>/llms.txt</code> is optional guidance for AI systems (similar idea to robots.txt for LLMs). Missing doesn’t break SEO—it’s extra transparency.</p>
+        <p id="llmsSummary" style="margin:0;font-size:0.9375rem;color:var(--text-muted);line-height:1.6;"></p>
+        <pre class="pre-block" id="llmsPreview" style="margin-top:14px;display:none;" aria-label="llms.txt preview"></pre>
       </div>
 
       <div class="panel">
-        <h2>🏗️ HTML &amp; structured data</h2>
-        <p id="pageUrl" style="font-size:0.8125rem;color:var(--text-muted);word-break:break-all;"></p>
+        <h2>HTML &amp; structured data</h2>
+        <p class="panel-hint no-print" role="note"><strong>Scope:</strong> We analyze the <strong>homepage HTML</strong> only (first ~450KB). Improvements below include <strong>recommended fixes</strong> you can expand—each maps to a concrete change.</p>
+        <p id="pageUrl" style="margin:0 0 12px;font-size:0.8125rem;color:var(--text-muted);word-break:break-all;"></p>
         <div id="indexingFlags" style="margin:12px 0;font-size:0.875rem;"></div>
-        <p style="margin:12px 0 6px;font-weight:600;font-size:0.8125rem;color:var(--text-muted);">Strengths</p>
+        <p style="margin:14px 0 8px;font-weight:700;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-muted);">Strengths</p>
         <ul class="win-list" id="wins"></ul>
-        <p style="margin:16px 0 6px;font-weight:600;font-size:0.8125rem;color:var(--text-muted);">Improvements</p>
-        <ul class="issue-list" id="issues"></ul>
+        <p style="margin:18px 0 8px;font-weight:700;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-muted);">Improvements <span class="no-print" style="font-weight:500;text-transform:none;letter-spacing:0;color:var(--text-muted);">— open “Recommended fix” for steps</span></p>
+        <ul class="issue-list" id="issues" aria-label="Issues and recommended fixes"></ul>
       </div>
 
       <div class="panel" id="aiPanel" style="display:none;">
-        <h2>✨ Optional AI tips</h2>
-        <p style="margin:0 0 12px;font-size:0.8125rem;color:var(--text-muted);">Extra narrative on top of the audit above—not required for a useful result.</p>
+        <h2>Optional AI tips</h2>
+        <p style="margin:0 0 12px;font-size:0.875rem;color:var(--text-muted);">Narrative on top of the structured audit—not required for a useful result.</p>
         <div class="ai-box" id="aiNarrative"></div>
       </div>
-    </div>
+    </section>
 
-    <p class="disclaimer">
-      <strong>Disclaimer:</strong> This tool fetches only the homepage, <code>/robots.txt</code>, <code>/llms.txt</code>, and optionally <code>/ai.txt</code> on standard ports. Results are indicative—not legal or SEO guarantees. Crawler behavior changes; confirm critical decisions with your team and official documentation.
+    <section class="content-section" aria-labelledby="what-geo">
+      <h2 id="what-geo">What is GEO (Generative Engine Optimization)?</h2>
+      <p><strong>GEO</strong> means optimizing your website so <strong>AI assistants and AI-powered search</strong> (ChatGPT, Perplexity, Google AI Overviews, etc.) can find, understand, and fairly represent your content. It overlaps with technical SEO but adds focus on <strong>AI crawler policies</strong> (robots.txt), <strong>machine-readable context</strong> (schema, clear headings), and files like <strong>llms.txt</strong> that tell AI systems how to use your site.</p>
+      <h3>Why run a GEO audit?</h3>
+      <ul>
+        <li>See if major AI bots are blocked from crawling your public pages.</li>
+        <li>Check whether structured data helps engines summarize your brand accurately.</li>
+        <li>Spot missing titles, descriptions, or H1s that weaken how your site is described in AI answers.</li>
+        <li>Know if you publish an llms.txt for transparent AI-use policies.</li>
+      </ul>
+    </section>
+
+    <section class="content-section" aria-labelledby="faq-heading">
+      <h2 id="faq-heading">Frequently asked questions</h2>
+      <ul class="faq-list">
+        <li>
+          <strong>Is this GEO audit really free?</strong>
+          <p>Yes. The full structured audit (score, robots table, llms.txt, HTML/schema checks, copyable report) is free with no sign-up. Optional AI-written tips may be limited per network while we test usage.</p>
+        </li>
+        <li>
+          <strong>Do I need an account?</strong>
+          <p>No. We don’t require registration. AI tip limits use your network IP so we can offer a free tier fairly.</p>
+        </li>
+        <li>
+          <strong>What URL should I enter?</strong>
+          <p>Your site’s homepage URL (e.g. https://example.com). We analyze that page plus /robots.txt, /llms.txt, and optionally /ai.txt on standard ports.</p>
+        </li>
+        <li>
+          <strong>Is the robots.txt analysis legal advice?</strong>
+          <p>No. Results are automated heuristics. Always verify crawler rules with your legal and SEO teams before making changes.</p>
+        </li>
+        <li>
+          <strong>Will this improve my Google rankings?</strong>
+          <p>Good technical structure and schema help both classic SEO and AI discovery, but rankings depend on many factors. Use this audit as one input alongside your broader SEO strategy.</p>
+        </li>
+        <li>
+          <strong>What is llms.txt?</strong>
+          <p>A voluntary file at /llms.txt that describes how AI systems may use your site. Not required, but increasingly discussed for AI transparency.</p>
+        </li>
+      </ul>
+    </section>
+
+    <section class="content-section" aria-labelledby="related-heading">
+      <h2 id="related-heading">More free tools from EasyGo AI</h2>
+      <p class="related-intro">Grow traffic, careers, and clarity with our other no-sign-up tools:</p>
+      <ul class="related-grid" role="list">
+        <li>
+          <a href="https://easygoaitool.online/tools/ATS_resume_cover.html">ATS resume optimizer <span>Job-specific resume &amp; cover letter</span></a>
+        </li>
+        <li>
+          <a href="https://easygoaitool.online/tools/emi-calculator.html">EMI calculator <span>Loans, prepayment, amortization</span></a>
+        </li>
+        <li>
+          <a href="https://services.easygoaitool.online/audit-tool/" target="_blank" rel="noopener noreferrer" aria-label="Free SEO website audit, opens in new tab">Free SEO website audit<span class="related-ext-mark" aria-hidden="true" title="Opens in new tab">↗</span><span>Technical SEO score, fixes &amp; checklist</span></a>
+        </li>
+        <li>
+          <a href="https://easygoaitool.online/tools/scam-detector.html">Scam detector <span>Check suspicious messages</span></a>
+        </li>
+        <li>
+          <a href="https://easygoaitool.online/tools/contract-risk-checker.html">Contract risk checker <span>Spot risky clauses</span></a>
+        </li>
+      </ul>
+    </section>
+
+    <p class="disclaimer related-disclaimer">
+      <strong style="color:#e2e8f0;">Disclaimer:</strong> This tool performs automated checks only. Crawler behavior and AI platform policies change. Not legal, financial, or guaranteed SEO advice. Confirm important decisions with qualified professionals.
     </p>
+  </main>
+
+  <div class="sticky-cta">
+    <button type="button" aria-label="Scroll to GEO audit form" onclick="document.getElementById('audit-tool').scrollIntoView({behavior:'smooth'});document.getElementById('url').focus();">Run GEO audit</button>
   </div>
 
+  <footer class="site-footer">
+    <p><a href="https://easygoaitool.online/">EasyGo AI Tools</a> · <a href="https://easygoaitool.online/privacy-policy.html">Privacy</a> · <a href="https://easygoaitool.online/terms.html">Terms</a> · <a href="https://easygoaitool.online/contact.html">Suggest a tool</a></p>
+  </footer>
+
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"WebApplication","name":"GEO Website Audit","url":"https://easygoaitool.online/tools/geo-audit.html","description":"Free GEO audit: robots.txt AI crawlers, schema, llms.txt, HTML structure.","applicationCategory":"UtilitiesApplication","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}
+  {"@context":"https://schema.org","@graph":[
+    {"@type":"WebApplication","@id":"https://easygoaitool.online/tools/geo-audit.html#app","name":"Free GEO Website Audit Tool","url":"https://easygoaitool.online/tools/geo-audit.html","description":"Free GEO audit: AI crawler robots.txt check, JSON-LD schema, H1 and meta, llms.txt detection, and AI readiness score. No sign-up.","applicationCategory":"BusinessApplication","operatingSystem":"Any","browserRequirements":"Requires JavaScript.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"provider":{"@type":"Organization","name":"EasyGo AI","url":"https://easygoaitool.online/"}},
+    {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://easygoaitool.online/"},{"@type":"ListItem","position":2,"name":"GEO Audit Tool","item":"https://easygoaitool.online/tools/geo-audit.html"}]},
+    {"@type":"FAQPage","mainEntity":[
+      {"@type":"Question","name":"Is the GEO audit free?","acceptedAnswer":{"@type":"Answer","text":"Yes. The full structured audit including score, robots.txt AI crawler checks, schema analysis, and llms.txt detection is free with no sign-up."}},
+      {"@type":"Question","name":"What is Generative Engine Optimization (GEO)?","acceptedAnswer":{"@type":"Answer","text":"GEO is optimizing your site so AI search and assistants can crawl, understand, and represent your content fairly. It includes robots.txt rules for AI bots, structured data, clear page structure, and optional llms.txt."}},
+      {"@type":"Question","name":"What does this tool check?","acceptedAnswer":{"@type":"Answer","text":"It checks your homepage HTML for title, meta description, H1, JSON-LD, Open Graph, and semantic structure; fetches robots.txt for common AI crawlers; and looks for /llms.txt and /ai.txt."}},
+      {"@type":"Question","name":"Do I need to create an account?","acceptedAnswer":{"@type":"Answer","text":"No account is required. Optional AI-written tips may be rate-limited by network IP."}}
+    ]},
+    {"@type":"HowTo","name":"How to run a free GEO audit","description":"Check your website's AI and search readiness in under a minute.","step":[
+      {"@type":"HowToStep","position":1,"name":"Enter your URL","text":"Paste your website homepage URL (https) into the audit field."},
+      {"@type":"HowToStep","position":2,"name":"Run the audit","text":"Click Run free GEO audit. Optionally enable AI tips if available."},
+      {"@type":"HowToStep","position":3,"name":"Review and act","text":"Read your GEO score, crawler table, and HTML findings. Copy the report to share with your team."}
+    ]}
+  ]}
   </script>
+
   <script>
     var apiUrl = (typeof window !== 'undefined' && window.location.pathname.indexOf('/tools/') !== -1)
       ? '/api/geo-audit'
@@ -435,6 +957,7 @@
       }
 
       btn.disabled = true;
+      btn.setAttribute('aria-busy', 'true');
       label.innerHTML = '<span class="spinner" aria-hidden="true"></span> Auditing…';
 
       fetch(apiUrl, {
@@ -445,22 +968,48 @@
           includeAiAnalysis: document.getElementById('includeAi').checked
         })
       })
-        .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, status: r.status, j: j }; }); })
+        .then(function (r) {
+          return r.text().then(function (text) {
+            var j = null;
+            try {
+              j = text ? JSON.parse(text) : {};
+            } catch (parseErr) {
+              return {
+                ok: false,
+                j: { error: 'Server returned invalid data (not JSON). Try again or check your connection.' },
+                status: r.status,
+              };
+            }
+            return { ok: r.ok, status: r.status, j: j };
+          });
+        })
         .then(function (x) {
           btn.disabled = false;
-          label.textContent = 'Run GEO audit';
-          if (!x.ok && x.j && x.j.error) {
+          btn.setAttribute('aria-busy', 'false');
+          label.textContent = 'Run free GEO audit';
+          if (!x.j || typeof x.j !== 'object') {
+            err.textContent = 'Unexpected response. Try again.';
+            err.style.display = 'block';
+            return;
+          }
+          if (!x.ok && x.j.error) {
             err.textContent = x.j.error;
             err.style.display = 'block';
             return;
           }
           if (!x.j.ok) {
-            err.textContent = (x.j.error || 'Request failed');
+            err.textContent = x.j.error || 'Request failed.';
             err.style.display = 'block';
             return;
           }
           var a = x.j.audit;
+          if (!a || !a.scoring || typeof a.scoring.score !== 'number') {
+            err.textContent = 'Audit data incomplete. Please try again.';
+            err.style.display = 'block';
+            return;
+          }
           results.classList.add('visible');
+          document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
 
           document.getElementById('scoreVal').textContent = a.scoring.score;
           document.getElementById('scoreBand').textContent = a.scoring.band + ' · GEO readiness';
@@ -525,12 +1074,39 @@
             p2.textContent = 'HTML meta robots includes noindex.';
             idx.appendChild(p2);
           }
+          function appendIssueRow(iss, t) {
+            var li = document.createElement('li');
+            if (typeof t === 'object' && t && t.issue) {
+              li.className = 'issue-item';
+              var pm = document.createElement('p');
+              pm.className = 'issue-msg';
+              pm.textContent = String(t.issue);
+              var det = document.createElement('details');
+              det.className = 'issue-fix';
+              var sum = document.createElement('summary');
+              sum.textContent = 'Recommended fix';
+              var act = document.createElement('div');
+              act.className = 'issue-action-text';
+              act.textContent = t.action
+                ? String(t.action)
+                : 'Review GEO and technical SEO guides for this check, or re-run the audit after updating your page.';
+              det.appendChild(sum);
+              det.appendChild(act);
+              li.appendChild(pm);
+              li.appendChild(det);
+            } else if (typeof t === 'string' && t.length) {
+              li.className = 'issue-item issue-item--plain';
+              li.textContent = t;
+            } else {
+              li.className = 'issue-item issue-item--plain';
+              li.textContent = 'Unknown issue (malformed data).';
+            }
+            iss.appendChild(li);
+          }
           if (!page || page.error) {
             document.getElementById('wins').innerHTML = '';
             document.getElementById('issues').innerHTML = '';
-            var li = document.createElement('li');
-            li.textContent = page && page.error ? page.error : 'No HTML analysis.';
-            document.getElementById('issues').appendChild(li);
+            appendIssueRow(document.getElementById('issues'), page && page.error ? page.error : 'No HTML analysis.');
           } else {
             var w = document.getElementById('wins');
             var iss = document.getElementById('issues');
@@ -542,9 +1118,7 @@
               w.appendChild(li);
             });
             (page.issues || []).forEach(function (t) {
-              var li = document.createElement('li');
-              li.textContent = t;
-              iss.appendChild(li);
+              appendIssueRow(iss, t);
             });
             if ((page.jsonLdTypes || []).length) {
               var extra = document.createElement('p');
@@ -578,7 +1152,8 @@
         })
         .catch(function () {
           btn.disabled = false;
-          label.textContent = 'Run GEO audit';
+          btn.setAttribute('aria-busy', 'false');
+          label.textContent = 'Run free GEO audit';
           err.textContent = 'Network error. Try again.';
           err.style.display = 'block';
         });
@@ -596,7 +1171,29 @@
         lines.push('  - ' + c.label + ': ' + tagLabel(c) + ' — ' + c.detail);
       });
       lines.push('');
-      lines.push('llms.txt: ' + (a.llmsTxt.present ? 'present' : 'missing'));
+      lines.push('llms.txt: ' + (a.llmsTxt && a.llmsTxt.present ? 'present' : 'missing'));
+      var page = a.page;
+      if (page && page.error) {
+        lines.push('');
+        lines.push('Homepage / HTML: ' + page.error);
+      }
+      if (page && !page.error && page.wins && page.wins.length) {
+        lines.push('');
+        lines.push('Strengths:');
+        page.wins.forEach(function (w) { lines.push('  + ' + w); });
+      }
+      if (page && page.issues && page.issues.length && !page.error) {
+        lines.push('');
+        lines.push('Improvements & recommended fixes:');
+        page.issues.forEach(function (t) {
+          if (typeof t === 'object' && t && t.issue) {
+            lines.push('• ' + t.issue);
+            lines.push('  → ' + (t.action || '(see GEO best practices)'));
+          } else if (typeof t === 'string') {
+            lines.push('• ' + t);
+          }
+        });
+      }
       if (resp.aiAnalysis) {
         lines.push('');
         lines.push('AI recommendations:');
@@ -607,15 +1204,38 @@
 
     function copyReport() {
       if (!lastReportText) return;
-      var btn = document.querySelector('.toolbar .btn-sec');
+      var btn = document.getElementById('btnCopyReport');
+      var errEl = document.getElementById('err');
+      if (!navigator.clipboard || !navigator.clipboard.writeText) {
+        errEl.textContent = 'Copy not supported in this browser. Use Print / Save as PDF or select text manually.';
+        errEl.style.display = 'block';
+        return;
+      }
       navigator.clipboard.writeText(lastReportText).then(function () {
         if (btn) {
           var t = btn.textContent;
           btn.textContent = 'Copied!';
           setTimeout(function () { btn.textContent = t; }, 2000);
         }
+      }).catch(function () {
+        errEl.textContent = 'Could not copy (permission denied). Try Print / Save as PDF.';
+        errEl.style.display = 'block';
       });
     }
+
+    (function bindPrint() {
+      var bp = document.getElementById('btnPrintReport');
+      if (!bp) return;
+      bp.addEventListener('click', function () {
+        var res = document.getElementById('results');
+        if (!res || !res.classList.contains('visible')) {
+          window.alert('Run an audit first, then use Print / Save as PDF.');
+          return;
+        }
+        document.querySelectorAll('.issue-fix').forEach(function (d) { d.setAttribute('open', ''); });
+        window.print();
+      });
+    })();
   </script>
 </body>
 </html>
