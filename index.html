@@ -1163,6 +1163,22 @@
     var dismissBtn = bar && bar.querySelector('[data-sticky-dismiss]');
     if (dismissBtn) dismissBtn.addEventListener('click', hideSticky);
 
+    function vanishStickyBeforeNav() {
+      if (!bar || bar.hasAttribute('hidden')) return;
+      if (showTimer) clearTimeout(showTimer);
+      bar.classList.remove('sticky-return-cta--in', 'sticky-return-cta--out');
+      bar.style.setProperty('transition', 'none');
+      bar.setAttribute('hidden', '');
+      bar.setAttribute('aria-hidden', 'true');
+      requestAnimationFrame(function () {
+        bar.style.removeProperty('transition');
+      });
+    }
+    var stickyGeoLink = bar && bar.querySelector('a.sticky-cta-primary[href*="geo-audit"]');
+    if (stickyGeoLink) {
+      stickyGeoLink.addEventListener('click', vanishStickyBeforeNav, true);
+    }
+
     document.querySelectorAll('a[href*="geo-audit"]').forEach(function (a) {
       a.addEventListener('click', function () {
         lsSet(KEY_GEO, '1');
