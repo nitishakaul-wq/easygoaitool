@@ -75,8 +75,17 @@ function compactAuditForPrompt(audit) {
   });
 }
 
+function getDeepSeekKey() {
+  const k =
+    process.env.DEEPSEEK_API_KEY ||
+    process.env.DEEPSEEK_KEY ||
+    process.env.DEEPSEEK_API_TOKEN ||
+    '';
+  return typeof k === 'string' ? k.trim() : '';
+}
+
 async function deepSeekAnalysis(audit) {
-  const key = process.env.DEEPSEEK_API_KEY;
+  const key = getDeepSeekKey();
   if (!key) return { narrative: null, source: 'skipped' };
   const model = process.env.DEEPSEEK_MODEL || 'deepseek-chat';
   const payload = compactAuditForPrompt(audit);
@@ -177,16 +186,23 @@ module.exports = async function handler(req, res) {
     const includeAi = Boolean(body.includeAiAnalysis);
     let ai = { narrative: null, source: 'skipped' };
     if (includeAi) {
+      const hasKey = Boolean(getDeepSeekKey());
+      console.log('[geo-audit] includeAi=true, DEEPSEEK key visible to function:', hasKey);
       ai = await deepSeekAnalysis(audit);
     }
 
-    res.status(200).json({
+    const payload = {
       ok: true,
       audit,
       aiAnalysis: ai.narrative,
       aiAnalysisSource: ai.source,
       aiAnalysisError: ai.error || undefined,
-    });
+    };
+    if (includeAi && ai.source === 'skipped') {
+      payload.aiSetupHint =
+        'Vercel injects env vars only after a new deployment. Open Deployments → … on latest → Redeploy (do not use a cached-only refresh).';
+    }
+    res.status(200).json(payload);
   } catch (err) {
     console.error('geo-audit error', err);
     res.status(500).json({ error: 'Audit failed. Try again or check the URL.' });
