@@ -7,7 +7,8 @@
 
 const { runGeoAudit } = require('../geo-audit-brain');
 
-const DEEPSEEK_URL = 'https://api.deepseek.com/v1/chat/completions';
+const DEEPSEEK_BASE = (process.env.DEEPSEEK_API_BASE || 'https://api.deepseek.com/v1').replace(/\/$/, '');
+const DEEPSEEK_URL = `${DEEPSEEK_BASE}/chat/completions`;
 const RATE_LIMIT_WINDOW_MS = 60 * 1000;
 const RATE_LIMIT_MAX = 8;
 const AI_TIMEOUT_MS = 25000;
@@ -118,9 +119,26 @@ async function deepSeekAnalysis(audit) {
     });
     clearTimeout(t);
     if (!res.ok) {
-      const err = await res.text();
-      console.error('DeepSeek geo-audit', res.status, err.slice(0, 500));
-      return { narrative: null, source: 'error', error: 'AI analysis unavailable.' };
+      const errText = await res.text();
+      console.error('DeepSeek geo-audit', res.status, errText.slice(0, 800));
+      let hint = 'DeepSeek API error.';
+      try {
+        const j = JSON.parse(errText);
+        const msg = (j.error && (j.error.message || j.error)) || j.message || '';
+        if (typeof msg === 'string' && msg.length) hint = msg.slice(0, 200);
+      } catch {
+        /* ignore */
+      }
+      if (res.status === 401) {
+        hint = 'Invalid API key (401). Create a new key in DeepSeek Platform → API keys and update DEEPSEEK_API_KEY in Vercel.';
+      } else if (res.status === 402) {
+        hint = 'Insufficient balance (402). Add credits in DeepSeek billing — https://platform.deepseek.com';
+      } else if (res.status === 429) {
+        hint = 'Rate limited (429). Wait a minute and try again.';
+      } else if (res.status === 400) {
+        hint = `Bad request (400): ${hint}. Try unsetting DEEPSEEK_MODEL or set to deepseek-chat.`;
+      }
+      return { narrative: null, source: 'error', error: hint };
     }
     const data = await res.json();
     const text =
