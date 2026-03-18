@@ -281,6 +281,201 @@
     @media (max-width: 640px) {
       .tools-grid { grid-template-columns: 1fr; gap: var(--space-md); }
     }
+    /* Clubbed SEO + GEO — single suite card */
+    .card-audit-suite {
+      grid-column: 1 / -1;
+      position: relative;
+      overflow: hidden;
+      border-color: rgba(168, 85, 247, 0.4);
+      background:
+        radial-gradient(ellipse 90% 80% at 0% 0%, rgba(168, 85, 247, 0.12) 0%, transparent 50%),
+        radial-gradient(ellipse 80% 70% at 100% 100%, rgba(34, 211, 238, 0.1) 0%, transparent 45%),
+        linear-gradient(180deg, rgba(30, 30, 36, 0.98) 0%, var(--surface) 100%);
+      padding: var(--space-lg) var(--space-lg) var(--space-xl);
+    }
+    .card-audit-suite::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--accent) 0%, #7c3aed 45%, var(--pop) 100%);
+      border-radius: var(--radius) var(--radius) 0 0;
+    }
+    .card.card-audit-suite:hover {
+      border-color: rgba(168, 85, 247, 0.55);
+      box-shadow: 0 20px 56px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(168, 85, 247, 0.08);
+      transform: translateY(-3px);
+    }
+    .audit-suite-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--pop);
+      background: linear-gradient(135deg, rgba(168, 85, 247, 0.2), rgba(34, 211, 238, 0.12));
+      border: 1px solid rgba(168, 85, 247, 0.25);
+      padding: 6px 14px;
+      border-radius: var(--radius-full);
+      margin-bottom: var(--space-md);
+    }
+    .audit-suite-title {
+      font-size: clamp(1.25rem, 3vw, 1.5rem);
+      font-weight: 700;
+      margin: 0 0 10px;
+      letter-spacing: -0.02em;
+      line-height: 1.25;
+      color: var(--text);
+      max-width: 36rem;
+    }
+    .audit-suite-title span.seo-word {
+      background: linear-gradient(135deg, #e9d5ff, var(--accent-2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .audit-suite-title span.geo-word {
+      background: linear-gradient(135deg, var(--pop-2), var(--pop));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .audit-suite-sub {
+      color: var(--text-muted);
+      font-size: 0.9375rem;
+      line-height: 1.55;
+      margin: 0 0 var(--space-lg);
+      max-width: 40rem;
+    }
+    .audit-suite-split {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 0;
+      align-items: stretch;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      background: rgba(0, 0, 0, 0.2);
+    }
+    @media (max-width: 720px) {
+      .audit-suite-split {
+        grid-template-columns: 1fr;
+      }
+    }
+    .audit-suite-lane {
+      padding: var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      min-height: 200px;
+    }
+    .audit-suite-lane--seo {
+      background: linear-gradient(160deg, rgba(124, 58, 237, 0.08) 0%, transparent 70%);
+    }
+    .audit-suite-lane--geo {
+      background: linear-gradient(200deg, rgba(34, 211, 238, 0.07) 0%, transparent 70%);
+    }
+    .audit-suite-connector {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      flex-shrink: 0;
+      background: var(--surface-2);
+      border-left: 1px solid var(--border);
+      border-right: 1px solid var(--border);
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--text-muted);
+      user-select: none;
+    }
+    @media (max-width: 720px) {
+      .audit-suite-connector {
+        width: 100%;
+        min-height: 40px;
+        border-left: none;
+        border-right: none;
+        border-top: 1px solid var(--border);
+        border-bottom: 1px solid var(--border);
+      }
+    }
+    .audit-suite-lane h3 {
+      margin: 0 0 8px;
+      font-size: 1.0625rem;
+      font-weight: 700;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .audit-suite-lane h3 .lane-emoji { font-size: 1.25rem; line-height: 1; }
+    .audit-suite-lane p {
+      margin: 0 0 var(--space-md);
+      flex: 1;
+      font-size: 0.875rem;
+      line-height: 1.55;
+      color: var(--text-muted);
+    }
+    .audit-suite-lane a {
+      margin-top: auto;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 18px;
+      border-radius: var(--radius-sm);
+      font-weight: 600;
+      font-size: 0.875rem;
+      text-decoration: none;
+      min-height: 44px;
+      transition: transform 0.15s, box-shadow 0.2s, opacity 0.2s;
+    }
+    .audit-suite-lane a:focus-visible {
+      outline: 2px solid var(--accent-2);
+      outline-offset: 2px;
+    }
+    .audit-suite-btn-seo {
+      background: linear-gradient(135deg, var(--accent), #7c3aed);
+      color: #fff;
+      box-shadow: 0 4px 16px rgba(124, 58, 237, 0.35);
+    }
+    .audit-suite-btn-seo:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(124, 58, 237, 0.4); }
+    .audit-suite-btn-seo::after {
+      content: '';
+      width: 14px;
+      height: 14px;
+      margin-left: 8px;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='white'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14'/%3E%3C/svg%3E") no-repeat center;
+      background-size: contain;
+      opacity: 0.95;
+    }
+    .audit-suite-btn-geo {
+      background: rgba(34, 211, 238, 0.12);
+      color: var(--pop-2);
+      border: 1px solid rgba(34, 211, 238, 0.35);
+    }
+    .audit-suite-btn-geo:hover {
+      background: rgba(34, 211, 238, 0.18);
+      border-color: var(--pop);
+      transform: translateY(-2px);
+    }
+    /* Top two cards: balanced row on desktop */
+    .tools-grid-most-used {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-lg);
+    }
+    @media (max-width: 720px) {
+      .tools-grid-most-used { grid-template-columns: 1fr; }
+    }
+    .tools-grid-most-used .card-featured p {
+      min-height: 4.5em;
+    }
+    @media (max-width: 720px) {
+      .tools-grid-most-used .card-featured p { min-height: 0; }
+    }
     .card.card-featured {
       border-color: rgba(168, 85, 247, 0.35);
       background: linear-gradient(180deg, rgba(168, 85, 247, 0.06) 0%, var(--surface) 100%);
@@ -371,21 +566,11 @@
       opacity: 0.9;
     }
 
-    .utility-placeholder {
-      background: var(--surface-2);
-      border: 1px dashed rgba(255,255,255,0.12);
-      border-radius: var(--radius);
-      padding: var(--space-xl);
-      text-align: center;
-      color: var(--text-muted);
-      font-size: 0.9375rem;
-      line-height: 1.6;
+    .most-used-stack {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-lg);
     }
-    .utility-placeholder strong { color: var(--text); }
-    .utility-placeholder .soon { font-size: 0.875rem; margin-top: 8px; opacity: 0.85; }
-    .utility-placeholder-link { color: var(--accent-2); text-decoration: none; font-weight: 600; }
-    .utility-placeholder-link:hover { text-decoration: underline; color: var(--pop-2); }
-    .utility-placeholder-link:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
     .reengage-bar {
       max-width: 1200px;
@@ -436,6 +621,260 @@
     .footer-links a:hover { color: var(--accent-2); }
     .footer-links a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
+    .utility-hub-card { max-width: 100%; }
+    .utility-hub-grid {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 12px;
+    }
+    @media (max-width: 1024px) {
+      .utility-hub-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    }
+    @media (max-width: 560px) {
+      .utility-hub-grid {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+        gap: 10px;
+        padding: 4px 2px 14px;
+        margin-left: -4px;
+        margin-right: -4px;
+        scroll-snap-type: x proximity;
+      }
+      .utility-hub-grid a {
+        flex: 0 0 auto;
+        min-width: 92px;
+        max-width: 100px;
+        scroll-snap-align: start;
+      }
+    }
+    .utility-hub-grid a {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 88px;
+      padding: 14px 8px;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.75rem;
+      text-align: center;
+      transition: border-color 0.2s, transform 0.15s, background 0.2s;
+    }
+    .utility-hub-grid a:hover {
+      border-color: var(--accent);
+      background: var(--surface);
+      transform: translateY(-2px);
+    }
+    .utility-hub-grid a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .utility-hub-grid .uh-icon { font-size: 1.5rem; line-height: 1; }
+    .utility-hub-more {
+      margin: 14px 0 0;
+      font-size: 0.875rem;
+    }
+    .utility-hub-more a {
+      display: inline !important;
+      margin-top: 0 !important;
+      padding: 0 !important;
+      min-height: 0 !important;
+      background: none !important;
+      border: none !important;
+      box-shadow: none !important;
+      color: var(--text-muted);
+      font-weight: 500;
+      font-size: 0.875rem;
+    }
+    .utility-hub-more a:hover {
+      color: var(--accent-2);
+      transform: none !important;
+      opacity: 1 !important;
+      text-decoration: underline;
+    }
+    footer .footer-mission {
+      max-width: 520px;
+      margin: 0 auto 16px;
+      font-size: 0.9375rem;
+      line-height: 1.6;
+      color: var(--text-muted);
+    }
+    footer .footer-mission strong { color: #e4e4e7; }
+
+    /* Return-visit hooks: badges + sticky CTA */
+    .hook-badge {
+      display: none;
+      align-items: center;
+      margin-left: 8px;
+      padding: 3px 8px;
+      font-size: 0.625rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      border-radius: var(--radius-full);
+      vertical-align: middle;
+    }
+    body.return-visitor:not(.hook-hooks-done) .hook-badge {
+      display: inline-flex;
+      animation: hook-pulse 2.5s ease-in-out infinite;
+    }
+    @keyframes hook-pulse {
+      0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(34, 211, 238, 0.35); }
+      50% { opacity: 0.92; box-shadow: 0 0 12px 0 rgba(34, 211, 238, 0.2); }
+    }
+    .hook-badge--geo {
+      background: rgba(34, 211, 238, 0.2);
+      color: var(--pop-2);
+      border: 1px solid rgba(34, 211, 238, 0.35);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      body.return-visitor:not(.hook-hooks-done) .hook-badge { animation: none; }
+    }
+    .quick-action-list li { position: relative; }
+    body.return-visitor:not(.hook-hooks-done) .quick-action-list li[data-hook-geo] a::after {
+      content: 'Pick up';
+      position: absolute;
+      top: -6px;
+      right: -4px;
+      font-size: 0.5625rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 2px 6px;
+      border-radius: var(--radius-full);
+      background: linear-gradient(135deg, var(--accent), #7c3aed);
+      color: #fff;
+      line-height: 1.2;
+      pointer-events: none;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.35);
+    }
+    @media (max-width: 640px) {
+      body.return-visitor:not(.hook-hooks-done) .quick-action-list li[data-hook-geo] a::after {
+        right: auto;
+        left: 50%;
+        transform: translateX(-50%);
+        top: -8px;
+      }
+    }
+
+    .sticky-return-cta {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 100;
+      padding: 12px max(16px, env(safe-area-inset-left)) calc(12px + env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-right));
+      background: linear-gradient(180deg, rgba(15, 15, 18, 0.92) 0%, rgba(24, 24, 28, 0.98) 100%);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-top: 1px solid rgba(168, 85, 247, 0.35);
+      box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.45);
+      transform: translateY(110%);
+      transition: transform 0.35s var(--ease);
+    }
+    .sticky-return-cta.sticky-return-cta--in {
+      transform: translateY(0);
+    }
+    .sticky-return-cta.sticky-return-cta--out {
+      transform: translateY(110%);
+      transition: transform 0.28s var(--ease);
+    }
+    .sticky-return-cta[hidden] { display: none !important; }
+    .sticky-return-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 12px 16px;
+    }
+    .sticky-return-inner .sticky-cta-copy {
+      margin: 0;
+      font-size: 0.9375rem;
+      color: var(--text-muted);
+      text-align: center;
+      flex: 1 1 200px;
+    }
+    .sticky-return-inner .sticky-cta-copy strong { color: var(--text); }
+    .sticky-return-inner .sticky-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      justify-content: center;
+    }
+    .sticky-return-inner a.sticky-cta-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 10px 20px;
+      background: linear-gradient(135deg, var(--accent), #7c3aed);
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.875rem;
+      border-radius: var(--radius-full);
+      transition: transform 0.15s, box-shadow 0.2s;
+    }
+    .sticky-return-inner a.sticky-cta-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(124, 58, 237, 0.4);
+    }
+    .sticky-return-inner button.sticky-cta-dismiss {
+      min-height: 44px;
+      padding: 10px 16px;
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 0.8125rem;
+      font-weight: 600;
+      border-radius: var(--radius-full);
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .sticky-return-inner button.sticky-cta-dismiss:hover {
+      color: var(--text);
+      border-color: var(--text-muted);
+    }
+    @media (max-width: 380px) {
+      .sticky-return-inner .sticky-cta-copy { display: none; }
+      .sticky-return-inner .sticky-actions {
+        flex-direction: column;
+        width: 100%;
+        max-width: 320px;
+      }
+      .sticky-return-inner a.sticky-cta-primary,
+      .sticky-return-inner button.sticky-cta-dismiss {
+        width: 100%;
+      }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .sticky-return-cta { transition: none; }
+      .sticky-return-cta.sticky-return-cta--in { transform: translateY(0); }
+    }
+    /* Sticky overlays content — no body padding (avoids layout jump on dismiss) */
+    .geo-meaning {
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+      margin: var(--space) 0 var(--space-md);
+      line-height: 1.45;
+      max-width: 36em;
+    }
+    .geo-meaning abbr {
+      text-decoration: underline dotted;
+      cursor: help;
+      border: 0;
+    }
+
     /* ---- Mobile ---- */
     @media (max-width: 600px) {
       .top-nav { padding: 10px 16px; }
@@ -452,13 +891,17 @@
       .section-head { margin-bottom: var(--space-md); }
       .tools-grid { grid-template-columns: 1fr; gap: 12px; }
       .card { padding: var(--space-md); }
-      .utility-placeholder { padding: var(--space-lg); }
     }
     @media (max-width: 380px) {
       .hero h1 { font-size: 1.75rem; }
-      .nav-links a { font-size: 0.875rem; padding: 8px 12px; }
-      .card.card-featured .card-badge { top: 10px; right: 10px; font-size: 0.625rem; padding: 3px 8px; }
-      .card.card-featured h2 { padding-right: 60px; font-size: 1.1rem; }
+      .nav-links a { font-size: 0.875rem; padding: 10px 14px; min-height: 44px; }
+      .card.card-featured .card-badge {
+        position: static;
+        display: inline-block;
+        margin-bottom: 10px;
+        align-self: flex-start;
+      }
+      .card.card-featured h2 { padding-right: 0; font-size: 1.1rem; }
     }
   </style>
 </head>
@@ -470,7 +913,6 @@
         <a href="index.html#most-used">Most used</a>
         <a href="index.html#ai-tools">AI tools</a>
         <a href="index.html#utility">Calculators</a>
-        <a href="contact.html" aria-label="Suggest a tool or contact us">Suggest a tool</a>
         <a href="https://services.easygoaitool.online/" target="_blank" rel="noopener noreferrer" class="nav-services" aria-label="Open Services &amp; more in a new tab">Services &amp; more</a>
       </div>
     </div>
@@ -481,7 +923,7 @@
     <h1>Free AI tools &amp; smart calculators that <span class="highlight">actually work</span></h1>
     <p class="subtitle">Free tools to get hired, rank higher, and calculate smarter.</p>
     <p class="hero-trust" aria-hidden="true">&#x26a1; Instant results &bull; &#x1f512; No sign-up &bull; &#x1f4af; Free tools</p>
-    <p class="hero-social-proof">Used by job seekers, developers, and small businesses — no account needed.</p>
+    <p class="hero-social-proof">Built so you can act fast—no account, no paywall on the basics.</p>
   </header>
 
   <div class="container">
@@ -491,6 +933,7 @@
         <li><a href="/tools/emi-calculator.html"><span class="icon" aria-hidden="true">&#x26a1;</span> Calculate EMI</a></li>
         <li><a href="/tools/ATS_resume_cover.html"><span class="icon" aria-hidden="true">&#x1f4c4;</span> Optimize Resume</a></li>
         <li><a href="https://services.easygoaitool.online/audit-tool/" target="_blank" rel="noopener noreferrer"><span class="icon" aria-hidden="true">&#x1f4c8;</span> Run SEO Audit</a></li>
+        <li data-hook-geo><a href="/tools/geo-audit.html" title="GEO: Generative Engine Optimization — ChatGPT, Perplexity, AI crawlers"><span class="icon" aria-hidden="true">&#x1f310;</span> GEO audit</a></li>
         <li><a href="/tools/scam-detector.html"><span class="icon" aria-hidden="true">&#x1f6e1;</span> Detect Scam</a></li>
       </ul>
     </nav>
@@ -501,26 +944,41 @@
       <div class="section-head">
         <span class="emoji" aria-hidden="true">&#128293;</span>
         <h2 id="most-used-heading" class="section-title">Most used tools</h2>
-        <p class="section-desc">High-traffic tools people use every day.</p>
+        <p class="section-desc">Save money, land interviews, and fix how the web sees your site—starting here.</p>
       </div>
-      <div class="tools-grid">
-        <div class="card card-featured">
-          <span class="card-badge">Most used</span>
-          <h2>Smart EMI Calculator</h2>
-          <p>Calculate EMI, loan payoff date, total interest and see how prepayment reduces loan tenure. Includes amortization schedule. See how extra payments reduce your loan years faster.</p>
-          <a href="/tools/emi-calculator.html">Calculate EMI &rarr;</a>
-        </div>
-        <div class="card card-featured">
-          <span class="card-badge">Trending</span>
-          <h2>ATS Resume Optimizer &amp; Cover Letter Generator</h2>
-          <p>Optimize your resume for Applicant Tracking Systems (ATS). Generate ATS-friendly resumes and job-specific cover letters.</p>
-          <a href="/tools/ATS_resume_cover.html">Optimize resume &rarr;</a>
-        </div>
-        <div class="card card-featured card-external">
-          <span class="card-badge">Trending</span>
-          <h2>Free SEO Website Audit &amp; Checker</h2>
-          <p>Run a free website SEO audit and get a full technical SEO score with actionable fixes. Perfect for improving Google rankings.</p>
-          <a href="https://services.easygoaitool.online/audit-tool/" target="_blank" rel="noopener noreferrer">Run SEO audit &rarr;</a>
+      <div class="most-used-stack">
+        <article class="card card-audit-suite" aria-labelledby="audit-suite-heading">
+          <p class="audit-suite-kicker"><span aria-hidden="true">&#9889;</span> Double visibility check</p>
+          <h2 id="audit-suite-heading" class="audit-suite-title"><span class="seo-word">Google</span> rankings + <span class="geo-word">AI</span> crawlers—audit both free</h2>
+          <p class="audit-suite-sub"><strong>Stop guessing why traffic is flat.</strong> One URL—see Google-facing issues <em>and</em> how AI crawlers and assistants might treat your pages.</p>
+          <p class="geo-meaning"><abbr title="Generative Engine Optimization — how ChatGPT, Perplexity, and AI-powered search discover and summarize your site">GEO</abbr> = Generative Engine Optimization (AI search &amp; assistants).</p>
+          <div class="audit-suite-split" role="group" aria-label="Choose SEO or GEO audit">
+            <div class="audit-suite-lane audit-suite-lane--seo">
+              <h3><span class="lane-emoji" aria-hidden="true">&#128269;</span> SEO audit</h3>
+              <p>Actionable technical score—know what to fix first for rankings.</p>
+              <a class="audit-suite-btn-seo" href="https://services.easygoaitool.online/audit-tool/" target="_blank" rel="noopener noreferrer">Run SEO audit</a>
+            </div>
+            <div class="audit-suite-connector" aria-hidden="true">&amp;</div>
+            <div class="audit-suite-lane audit-suite-lane--geo">
+              <h3><span class="lane-emoji" aria-hidden="true">&#129302;</span> GEO audit<span class="hook-badge hook-badge--geo" data-hook-badge>Try it</span></h3>
+              <p>See if GPTBot &amp; friends can crawl you—and whether your markup helps AI cite you fairly.</p>
+              <a class="audit-suite-btn-geo" href="/tools/geo-audit.html" title="GEO: Generative Engine Optimization — AI search (ChatGPT, Perplexity)">Run GEO audit</a>
+            </div>
+          </div>
+        </article>
+        <div class="tools-grid-most-used">
+          <div class="card card-featured">
+            <span class="card-badge">Most used</span>
+            <h2>Smart EMI Calculator</h2>
+            <p><strong>Pay less interest, finish your loan sooner.</strong> See exactly how extra payments shave months off—and what your EMI really costs over time.</p>
+            <a href="/tools/emi-calculator.html">Calculate EMI &rarr;</a>
+          </div>
+          <div class="card card-featured">
+            <span class="card-badge">Trending</span>
+            <h2>ATS Resume Optimizer &amp; Cover Letter</h2>
+            <p><strong>Get past the bots, get in front of humans.</strong> Tailored resume + cover letter wording so your application doesn’t die in the ATS black hole.</p>
+            <a href="/tools/ATS_resume_cover.html">Optimize resume &rarr;</a>
+          </div>
         </div>
       </div>
     </section>
@@ -529,27 +987,27 @@
       <div class="section-head">
         <span class="emoji" aria-hidden="true">&#9733;</span>
         <h2 id="ai-tools-heading" class="section-title">AI tools</h2>
-        <p class="section-desc">AI-powered tools for resumes, contracts, messages, and more.</p>
+        <p class="section-desc">Less stress in your inbox, contracts, and job search—AI does the heavy wording.</p>
       </div>
       <div class="tools-grid">
         <div class="card">
           <h2>Contract Risk Checker</h2>
-          <p>Analyze contracts and detect risky clauses before signing. NDAs, freelance agreements, leases, and more. Free.</p>
+          <p><strong>Sign with eyes open.</strong> Flag one-sided or vague clauses in NDAs, gigs, and leases before you commit.</p>
           <a href="/tools/contract-risk-checker.html">Open contract risk checker</a>
         </div>
         <div class="card">
           <h2>AI Message Rewriter</h2>
-          <p>Turn rude or unclear messages into professional, polite text. Free AI writing tool for emails and DMs.</p>
+          <p><strong>Sound professional in one click.</strong> Cool down heated drafts or tighten sloppy emails before you hit send.</p>
           <a href="/tools/message-rewriter.html">Open message rewriter</a>
         </div>
         <div class="card">
           <h2>Scam Detector – Email & Message Checker</h2>
-          <p>Paste suspicious emails or messages. Free scam checker to see if they’re phishing or legit. Protect yourself.</p>
+          <p><strong>Don’t get hooked.</strong> Quick read on whether that “urgent” message smells like phishing or social engineering.</p>
           <a href="/tools/scam-detector.html">Open scam detector</a>
         </div>
         <div class="card">
           <h2>Job Offer Evaluator</h2>
-          <p>Is this offer good? Enter your US offer and location (USD)—get a score vs. market, percentile, and recommendation. Free. US only; India and other countries not supported.</p>
+          <p><strong>Know if the number is fair.</strong> US offers only—compare to market bands and get a straight recommendation (USD).</p>
           <a href="/tools/job-offer-evaluator.html">Open job offer evaluator</a>
         </div>
       </div>
@@ -559,34 +1017,32 @@
       <div class="section-head">
         <span class="emoji" aria-hidden="true">&#128736;</span>
         <h2 id="utility-heading" class="section-title">Calculators &amp; utilities</h2>
-        <p class="section-desc">Everyday calculators and quick tools — EMI, QR, password generator, word counter and more.</p>
+        <p class="section-desc">Tiny tools that save you a tab hunt—QR, passwords, word count, and more.</p>
       </div>
-      <div class="tools-grid">
-        <div class="card">
-          <h2>Utility Tools</h2>
-          <p>Word counter, QR code generator, password generator, age calculator, character counter, random number, text case converter, EMI calculator. Fast, free and simple.</p>
-          <a href="/tools/utility-tools.html">Open utility tools</a>
-        </div>
-        <div class="card">
-          <h2>Smart EMI Calculator</h2>
-          <p>Calculate EMI, loan payoff date, total interest and see how prepayment reduces loan tenure. Includes amortization schedule. See how extra payments reduce your loan years faster.</p>
-          <a href="/tools/emi-calculator.html">Open EMI calculator</a>
-        </div>
-        <div class="utility-placeholder">
-          <strong>Which tool would you like next?</strong><br>
-          Suggest the next calculator or AI tool you need — we read every request.
-          <p class="soon"><a href="contact.html" class="utility-placeholder-link">Contact us to suggest a tool</a></p>
-        </div>
+      <div class="card utility-hub-card">
+        <h2>Utility hub</h2>
+        <p><strong>Pick a tool, get an answer.</strong> Scroll sideways on mobile—each opens in one tap.</p>
+        <nav class="utility-hub-grid" aria-label="Utility tools">
+          <a href="/tools/utility-tools.html#word"><span class="uh-icon" aria-hidden="true">📝</span>Word counter</a>
+          <a href="/tools/utility-tools.html#qr"><span class="uh-icon" aria-hidden="true">▦</span>QR code</a>
+          <a href="/tools/utility-tools.html#password"><span class="uh-icon" aria-hidden="true">🔑</span>Password</a>
+          <a href="/tools/utility-tools.html#age"><span class="uh-icon" aria-hidden="true">🎂</span>Age calc</a>
+          <a href="/tools/utility-tools.html#character"><span class="uh-icon" aria-hidden="true">#</span>Characters</a>
+          <a href="/tools/utility-tools.html#random"><span class="uh-icon" aria-hidden="true">🎲</span>Random #</a>
+          <a href="/tools/utility-tools.html#case"><span class="uh-icon" aria-hidden="true">Aa</span>Case</a>
+        </nav>
+        <p class="utility-hub-more"><a href="/tools/utility-tools.html">Full utility page (all tools on one screen)</a></p>
       </div>
     </section>
   </main>
 
   <div class="reengage-bar" role="complementary" aria-label="Next step">
-    <p class="reengage-text">Try one of the <a href="#most-used">tools above</a>.</p>
+    <p class="reengage-text">Try one of the <a href="#most-used">tools above</a>—or <a href="/tools/geo-audit.html">audit your site for AI &amp; search</a>.</p>
   </div>
 
   <footer>
-    <p>Built with chaos and caffeine • Free forever, fr</p>
+    <p class="footer-mission"><strong>Why we exist:</strong> Useful tools shouldn’t need an account or a credit card. We build fast, honest utilities for real problems—jobs, loans, safety, and visibility online.</p>
+    <p>Free tools, no tricks • Built with care (and caffeine)</p>
     <p class="footer-back"><a href="#most-used">Back to tools</a></p>
     <nav class="footer-links" aria-label="Footer links">
       <a href="about.html">About</a>
@@ -605,6 +1061,116 @@
     "description": "Free AI tools and calculators: EMI calculator, ATS resume optimizer, SEO checker. Get hired, rank higher, calculate smarter. No sign-up.",
     "publisher": { "@type": "Organization", "name": "EasyGo AI" }
   }
+  </script>
+
+  <div id="stickyReturnCta" class="sticky-return-cta" hidden role="region" aria-label="Welcome back">
+    <div class="sticky-return-inner">
+      <p class="sticky-cta-copy">Welcome back — <strong>GEO + SEO visibility</strong> for your site, free &amp; fast.</p>
+      <div class="sticky-actions">
+        <a class="sticky-cta-primary" href="/tools/geo-audit.html">Run GEO audit</a>
+        <button type="button" class="sticky-cta-dismiss" data-sticky-dismiss>Not now</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  (function () {
+    var KEY_SESS = 'easygo_sess_mark';
+    var KEY_VISITS = 'easygo_session_count';
+    var KEY_DISMISS = 'easygo_sticky_cta_dismiss';
+    var KEY_GEO = 'easygo_opened_geo_audit';
+    var STICKY_HIDE_DAYS = 5;
+    var STICKY_SHOW_DELAY = 300;
+
+    function lsGet(k) {
+      try { return localStorage.getItem(k); } catch (e) { return null; }
+    }
+    function lsSet(k, v) {
+      try { localStorage.setItem(k, v); return true; } catch (e) { return false; }
+    }
+    function ssGet(k) {
+      try { return sessionStorage.getItem(k); } catch (e) { return null; }
+    }
+    function ssSet(k, v) {
+      try { sessionStorage.setItem(k, v); return true; } catch (e) { return false; }
+    }
+
+    function safeInt(v, d) {
+      var n = parseInt(String(v == null ? '' : v), 10);
+      return isNaN(n) || n < 0 ? d : n;
+    }
+
+    var path = (typeof location !== 'undefined' && location.pathname) || '';
+    if (/geo-audit/i.test(path)) return;
+
+    if (!ssGet(KEY_SESS)) {
+      ssSet(KEY_SESS, '1');
+      lsSet(KEY_VISITS, String(safeInt(lsGet(KEY_VISITS), 0) + 1));
+    }
+
+    var sessions = safeInt(lsGet(KEY_VISITS), 1);
+    var isReturn = sessions >= 2;
+    if (isReturn) document.body.classList.add('return-visitor');
+    if (lsGet(KEY_GEO)) document.body.classList.add('hook-hooks-done');
+
+    var bar = document.getElementById('stickyReturnCta');
+    var dismissedAt = safeInt(lsGet(KEY_DISMISS), 0);
+    var stickyExpired = dismissedAt === 0 || Date.now() - dismissedAt > STICKY_HIDE_DAYS * 86400000;
+    var reducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var showTimer;
+
+    function revealSticky() {
+      if (!bar || bar.classList.contains('sticky-return-cta--in')) return;
+      bar.removeAttribute('hidden');
+      bar.setAttribute('aria-hidden', 'false');
+      function slideIn() {
+        bar.classList.add('sticky-return-cta--in');
+      }
+      if (reducedMotion) slideIn();
+      else requestAnimationFrame(function () { requestAnimationFrame(slideIn); });
+    }
+
+    function hideSticky() {
+      if (!bar) return;
+      lsSet(KEY_DISMISS, String(Date.now()));
+      function done() {
+        bar.classList.remove('sticky-return-cta--in', 'sticky-return-cta--out');
+        bar.setAttribute('hidden', '');
+        bar.setAttribute('aria-hidden', 'true');
+        bar.removeEventListener('transitionend', onTransEnd);
+      }
+      function onTransEnd(e) {
+        if (e.propertyName === 'transform') done();
+      }
+      if (reducedMotion || !bar.classList.contains('sticky-return-cta--in')) {
+        done();
+        return;
+      }
+      bar.classList.remove('sticky-return-cta--in');
+      bar.classList.add('sticky-return-cta--out');
+      bar.addEventListener('transitionend', onTransEnd);
+      setTimeout(function () {
+        bar.removeEventListener('transitionend', onTransEnd);
+        if (!bar.hasAttribute('hidden')) done();
+      }, 450);
+    }
+
+    if (bar && isReturn && stickyExpired) {
+      bar.setAttribute('aria-hidden', 'true');
+      showTimer = setTimeout(revealSticky, STICKY_SHOW_DELAY);
+    }
+
+    var dismissBtn = bar && bar.querySelector('[data-sticky-dismiss]');
+    if (dismissBtn) dismissBtn.addEventListener('click', hideSticky);
+
+    document.querySelectorAll('a[href*="geo-audit"]').forEach(function (a) {
+      a.addEventListener('click', function () {
+        lsSet(KEY_GEO, '1');
+        document.body.classList.add('hook-hooks-done');
+        if (showTimer) clearTimeout(showTimer);
+      });
+    });
+  })();
   </script>
 </body>
 </html>
