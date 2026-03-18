@@ -12,7 +12,7 @@
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://easygoaitool.online/tools/geo-audit.html">
   <meta property="og:title" content="Free GEO Audit – AI Readiness for Your Website">
-  <meta property="og:description" content="Check robots.txt, structured data, llms.txt, and more. Optional DeepSeek-powered tips.">
+  <meta property="og:description" content="Check robots.txt, structured data, llms.txt, score, and more. Optional AI tips.">
   <meta property="og:locale" content="en_US">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -260,6 +260,46 @@
     }
 
     details summary { cursor: pointer; color: var(--accent-2); font-weight: 600; margin-top: 12px; }
+
+    .value-prop {
+      padding: 14px 18px;
+      background: rgba(74, 222, 128, 0.08);
+      border: 1px solid rgba(74, 222, 128, 0.25);
+      border-radius: var(--radius-sm);
+      font-size: 0.9375rem;
+      color: var(--text);
+      margin-bottom: var(--space-lg);
+      line-height: 1.55;
+    }
+    .value-prop strong { color: var(--good); }
+    .ai-limit-note {
+      margin-top: 10px;
+      padding: 12px 14px;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+    .ai-limit-note kbd { font-size: 0.75em; background: var(--bg); padding: 2px 6px; border-radius: 4px; }
+    .chk-wrap { margin-top: 14px; }
+    .chk-wrap .hint-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 18px;
+      height: 18px;
+      margin-left: 6px;
+      border-radius: 50%;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--accent-2);
+      cursor: help;
+      vertical-align: middle;
+    }
   </style>
 </head>
 <body>
@@ -273,16 +313,23 @@
     <header>
       <span class="badge">GEO · Generative Engine Optimization</span>
       <h1>GEO website audit</h1>
-      <p class="subtitle">See how AI crawlers and answer engines may see your site: <strong>robots.txt</strong> rules for major AI bots, <strong>structured data</strong>, page structure, <strong>/llms.txt</strong>, and optional AI-written recommendations (when enabled on the server).</p>
+      <p class="subtitle">See how AI crawlers and answer engines may see your site—<strong>robots.txt</strong> for major AI bots, <strong>structured data</strong>, page structure, <strong>/llms.txt</strong>, and a clear score. <strong>No account required.</strong></p>
+      <p class="value-prop"><strong>Full audit is always useful</strong> without checking the box below: score, crawler table, llms.txt, HTML/schema findings, and copyable report. Optional AI text is an extra layer—limited while we test costs.</p>
     </header>
 
     <div class="form-row">
       <label for="url">Website URL</label>
       <input type="url" id="url" placeholder="https://example.com" autocomplete="url" inputmode="url">
-      <label class="chk">
-        <input type="checkbox" id="includeAi">
-        <span>Include AI-written recommendations (uses DeepSeek when <code style="font-size:0.85em">DEEPSEEK_API_KEY</code> is set on the server; otherwise skipped)</span>
-      </label>
+      <div class="chk-wrap">
+        <label class="chk">
+          <input type="checkbox" id="includeAi" aria-describedby="ai-limit-explained">
+          <span>Add optional AI-written tips (Groq)<span class="hint-icon" title="Without sign-up we can’t name users. We use your network IP so each Wi‑Fi/office usually shares one ‘slot’. AI tips: 1 successful summary per network per 24h while testing.">?</span></span>
+        </label>
+        <div class="ai-limit-note" id="ai-limit-explained">
+          <strong>How we limit AI without accounts:</strong> we use your <strong>IP address</strong> (the address your browser uses to reach the internet). People on the same Wi‑Fi or office network often share one IP—so they share the same AI allowance. That’s imperfect but standard for free, no-sign-up tools.<br><br>
+          <strong>While testing:</strong> <strong>one free AI summary per network per ~24 hours</strong> (run audit with this box checked). You can run the <strong>full structured audit unlimited times</strong>—leave the box unchecked anytime.
+        </div>
+      </div>
       <button type="button" class="btn-primary" id="btnRun" onclick="runAudit()">
         <span id="btnLabel">Run GEO audit</span>
       </button>
@@ -337,7 +384,8 @@
       </div>
 
       <div class="panel" id="aiPanel" style="display:none;">
-        <h2>✨ AI recommendations</h2>
+        <h2>✨ Optional AI tips</h2>
+        <p style="margin:0 0 12px;font-size:0.8125rem;color:var(--text-muted);">Extra narrative on top of the audit above—not required for a useful result.</p>
         <div class="ai-box" id="aiNarrative"></div>
       </div>
     </div>
@@ -514,9 +562,12 @@
             aiBox.textContent = x.j.aiAnalysis;
           } else {
             aiPanel.style.display = 'none';
-            if (document.getElementById('includeAi').checked && x.j.aiAnalysisSource === 'skipped') {
+            if (document.getElementById('includeAi').checked && x.j.aiAnalysisSource === 'limit') {
               aiPanel.style.display = 'block';
-              aiBox.textContent = 'AI recommendations are not configured on this server (set DEEPSEEK_API_KEY), or analysis was skipped.';
+              aiBox.textContent = x.j.aiAnalysisError || 'AI limit reached for this network. The full audit above is complete—try again tomorrow for AI text, or run again without the AI box anytime.';
+            } else if (document.getElementById('includeAi').checked && x.j.aiAnalysisSource === 'skipped') {
+              aiPanel.style.display = 'block';
+              aiBox.textContent = x.j.aiSetupHint || 'AI tips are not configured on the server (add GROQ_API_KEY). Your structured audit is still valid.';
             } else if (x.j.aiAnalysisError) {
               aiPanel.style.display = 'block';
               aiBox.textContent = x.j.aiAnalysisError;
