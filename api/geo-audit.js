@@ -5,7 +5,7 @@
  * No sign-up → AI limits use client IP (and shared IPs e.g. office Wi‑Fi count as one).
  * Env:
  *   GROQ_API_KEY — AI suggestions (default provider when GEO_AUDIT_AI=auto)
- *   GROQ_GEO_MODEL — default meta-llama/llama-3.3-70b-versatile
+ *   GROQ_MODEL or GROQ_GEO_MODEL — default llama-3.3-70b-versatile (same id as other Groq tools)
  *   GEO_AI_MAX_SUGGESTIONS_PER_IP — successful AI summaries per IP per window (default 1)
  *   GEO_AI_LIMIT_WINDOW_MS — default 86400000 (24h)
  *   GEO_AI_MAX_ATTEMPTS_PER_IP — max AI API tries per IP per window (default 10)
@@ -191,7 +191,8 @@ async function openAiStyleChat(url, headers, body) {
 async function groqAnalysis(audit) {
   const key = getGroqKey();
   if (!key) return { narrative: null, source: 'skipped' };
-  const model = process.env.GROQ_GEO_MODEL || 'meta-llama/llama-3.3-70b-versatile';
+  const model =
+    process.env.GROQ_GEO_MODEL || process.env.GROQ_MODEL || 'llama-3.3-70b-versatile';
   const payload = compactAuditForPrompt(audit);
   try {
     const { res, text } = await openAiStyleChat(
