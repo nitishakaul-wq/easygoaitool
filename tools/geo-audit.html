@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Free GEO Audit – AI &amp; ChatGPT Readiness Checker | EasyGo AI</title>
+  <meta name="description" content="Free GEO (Generative Engine Optimization) audit: robots.txt AI crawlers, schema markup, HTML structure, llms.txt, optional AI recommendations. Check any public website.">
+  <meta name="keywords" content="GEO audit, generative engine optimization, ChatGPT crawler, GPTBot, llms.txt, AI SEO, schema markup audit">
+  <meta name="author" content="EasyGo AI">
+  <link rel="canonical" href="https://easygoaitool.online/tools/geo-audit.html">
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://easygoaitool.online/tools/geo-audit.html">
+  <meta property="og:title" content="Free GEO Audit – AI Readiness for Your Website">
+  <meta property="og:description" content="Check robots.txt, structured data, llms.txt, and more. Optional DeepSeek-powered tips.">
+  <meta property="og:locale" content="en_US">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0f0f12;
+      --surface: #1e1e24;
+      --surface-2: #26262c;
+      --border: rgba(255,255,255,0.08);
+      --text: #fafafa;
+      --text-muted: #a1a1aa;
+      --accent: #22d3ee;
+      --accent-2: #67e8f9;
+      --warn: #fbbf24;
+      --bad: #f87171;
+      --good: #4ade80;
+      --radius: 16px;
+      --radius-sm: 10px;
+      --radius-full: 9999px;
+      --space-md: 16px;
+      --space-lg: 24px;
+      --space-xl: 32px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      background-image: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(34, 211, 238, 0.07) 0%, transparent 50%);
+      color: var(--text);
+      line-height: 1.55;
+      min-height: 100vh;
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+      padding-left: env(safe-area-inset-left);
+      padding-right: env(safe-area-inset-right);
+    }
+    .top-bar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(15, 15, 18, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 12px max(var(--space-md), env(safe-area-inset-left));
+    }
+    .top-bar-inner { max-width: 920px; margin: 0 auto; }
+    .back-link {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-weight: 500;
+      padding: 8px 14px;
+      border-radius: var(--radius-full);
+    }
+    .back-link:hover { color: var(--accent-2); background: var(--surface); }
+
+    .container {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: var(--space-xl) var(--space-md) 56px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 6px 14px;
+      background: rgba(34, 211, 238, 0.12);
+      border: 1px solid rgba(34, 211, 238, 0.35);
+      border-radius: var(--radius-full);
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: var(--accent-2);
+      margin-bottom: var(--space-md);
+    }
+    h1 {
+      font-size: clamp(1.65rem, 4vw, 2.2rem);
+      font-weight: 700;
+      margin: 0 0 10px;
+      letter-spacing: -0.02em;
+    }
+    .subtitle { color: var(--text-muted); margin: 0 0 var(--space-xl); max-width: 640px; }
+
+    .form-row { margin-bottom: var(--space-lg); }
+    label { display: block; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); margin-bottom: 8px; }
+    input[type="url"] {
+      width: 100%;
+      padding: 14px 18px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--text);
+      font-size: 1rem;
+      font-family: inherit;
+      outline: none;
+    }
+    input:focus { border-color: var(--accent); box-shadow: 0 0 0 2px rgba(34, 211, 238, 0.2); }
+
+    .chk {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-top: 14px;
+      cursor: pointer;
+      color: var(--text-muted);
+      font-size: 0.9375rem;
+    }
+    .chk input { margin-top: 3px; accent-color: var(--accent); }
+
+    .btn-primary {
+      margin-top: var(--space-lg);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 14px 28px;
+      background: linear-gradient(135deg, #0891b2, var(--accent));
+      color: #0f172a;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-weight: 700;
+      font-size: 1rem;
+      font-family: inherit;
+      cursor: pointer;
+      min-height: 48px;
+    }
+    .btn-primary:disabled { opacity: 0.55; cursor: not-allowed; }
+    .spinner {
+      width: 20px; height: 20px;
+      border: 2px solid rgba(15,23,42,0.25);
+      border-top-color: #0f172a;
+      border-radius: 50%;
+      animation: spin 0.65s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    #results { margin-top: var(--space-xl); display: none; }
+    #results.visible { display: block; }
+
+    .score-card {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-lg);
+      padding: var(--space-lg);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      margin-bottom: var(--space-lg);
+    }
+    .score-num {
+      font-size: 3rem;
+      font-weight: 800;
+      line-height: 1;
+      color: var(--accent);
+    }
+    .score-band { font-size: 1.125rem; font-weight: 600; color: var(--text); }
+    .bullets { margin: 0; padding-left: 1.2rem; color: var(--text-muted); font-size: 0.9375rem; }
+    .bullets li { margin-bottom: 6px; }
+
+    .panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: var(--space-lg);
+      margin-bottom: var(--space-md);
+    }
+    .panel h2 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin: 0 0 var(--space-md);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+    th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+    th { color: var(--text-muted); font-weight: 600; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.04em; }
+
+    .tag { display: inline-block; padding: 4px 10px; border-radius: var(--radius-full); font-size: 0.75rem; font-weight: 600; }
+    .tag-ok { background: rgba(74, 222, 128, 0.15); color: var(--good); }
+    .tag-warn { background: rgba(251, 191, 36, 0.15); color: var(--warn); }
+    .tag-bad { background: rgba(248, 113, 113, 0.15); color: var(--bad); }
+    .tag-muted { background: var(--surface-2); color: var(--text-muted); }
+
+    pre.pre-block {
+      margin: 0;
+      padding: 14px;
+      background: var(--bg);
+      border-radius: var(--radius-sm);
+      font-size: 0.8125rem;
+      overflow: auto;
+      max-height: 280px;
+      white-space: pre-wrap;
+      word-break: break-word;
+      color: var(--text-muted);
+    }
+
+    .issue-list, .win-list { margin: 0; padding-left: 1.2rem; font-size: 0.9rem; }
+    .issue-list li { color: var(--bad); margin-bottom: 6px; }
+    .win-list li { color: var(--good); margin-bottom: 6px; }
+
+    .ai-box {
+      margin-top: var(--space-md);
+      padding: var(--space-lg);
+      background: linear-gradient(145deg, rgba(34, 211, 238, 0.06), var(--surface-2));
+      border: 1px solid rgba(34, 211, 238, 0.2);
+      border-radius: var(--radius);
+      font-size: 0.9375rem;
+      white-space: pre-wrap;
+    }
+    .ai-box h3 { margin: 0 0 12px; font-size: 1rem; }
+
+    .toolbar { display: flex; flex-wrap: wrap; gap: 10px; margin-top: var(--space-md); }
+    .btn-sec {
+      padding: 10px 18px;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--text);
+      font-weight: 600;
+      font-size: 0.875rem;
+      font-family: inherit;
+      cursor: pointer;
+    }
+    .btn-sec:hover { border-color: var(--accent); }
+
+    .disclaimer {
+      margin-top: var(--space-xl);
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+      padding: 14px 16px;
+      background: var(--surface);
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+    }
+
+    .err-box {
+      margin-top: var(--space-lg);
+      padding: 16px;
+      background: rgba(248, 113, 113, 0.1);
+      border: 1px solid rgba(248, 113, 113, 0.35);
+      border-radius: var(--radius-sm);
+      color: #fca5a5;
+    }
+
+    details summary { cursor: pointer; color: var(--accent-2); font-weight: 600; margin-top: 12px; }
+  </style>
+</head>
+<body>
+  <nav class="top-bar" aria-label="Navigation">
+    <div class="top-bar-inner">
+      <a href="/" class="back-link">← Back to tools</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <header>
+      <span class="badge">GEO · Generative Engine Optimization</span>
+      <h1>GEO website audit</h1>
+      <p class="subtitle">See how AI crawlers and answer engines may see your site: <strong>robots.txt</strong> rules for major AI bots, <strong>structured data</strong>, page structure, <strong>/llms.txt</strong>, and optional AI-written recommendations (when enabled on the server).</p>
+    </header>
+
+    <div class="form-row">
+      <label for="url">Website URL</label>
+      <input type="url" id="url" placeholder="https://example.com" autocomplete="url" inputmode="url">
+      <label class="chk">
+        <input type="checkbox" id="includeAi">
+        <span>Include AI-written recommendations (uses DeepSeek when <code style="font-size:0.85em">DEEPSEEK_API_KEY</code> is set on the server; otherwise skipped)</span>
+      </label>
+      <button type="button" class="btn-primary" id="btnRun" onclick="runAudit()">
+        <span id="btnLabel">Run GEO audit</span>
+      </button>
+    </div>
+
+    <div id="err" class="err-box" style="display:none;" role="alert"></div>
+
+    <div id="results" aria-live="polite">
+      <div class="score-card">
+        <div>
+          <div class="score-num" id="scoreVal">—</div>
+          <div class="score-band" id="scoreBand"></div>
+        </div>
+        <div style="flex:1; min-width:200px;">
+          <ul class="bullets" id="summaryBullets"></ul>
+        </div>
+      </div>
+
+      <div class="toolbar">
+        <button type="button" class="btn-sec" onclick="copyReport()">Copy report (text)</button>
+      </div>
+
+      <div class="panel">
+        <h2>🤖 AI crawlers &amp; robots.txt</h2>
+        <p style="margin:0 0 12px;font-size:0.875rem;color:var(--text-muted);">Heuristic check against common <code>User-agent</code> blocks. Always verify your live <a href="#" id="robotsLink" style="color:var(--accent-2)" target="_blank" rel="noopener">robots.txt</a>—rules vary by path and crawler behavior.</p>
+        <div style="overflow-x:auto;">
+          <table>
+            <thead><tr><th>Crawler</th><th>Status</th><th>Notes</th></tr></thead>
+            <tbody id="crawlerRows"></tbody>
+          </table>
+        </div>
+        <details>
+          <summary>Show robots.txt preview</summary>
+          <pre class="pre-block" id="robotsPreview"></pre>
+        </details>
+      </div>
+
+      <div class="panel">
+        <h2>📄 llms.txt &amp; ai.txt</h2>
+        <p id="llmsSummary" style="margin:0;font-size:0.9375rem;color:var(--text-muted);"></p>
+        <pre class="pre-block" id="llmsPreview" style="margin-top:12px;display:none;"></pre>
+      </div>
+
+      <div class="panel">
+        <h2>🏗️ HTML &amp; structured data</h2>
+        <p id="pageUrl" style="font-size:0.8125rem;color:var(--text-muted);word-break:break-all;"></p>
+        <div id="indexingFlags" style="margin:12px 0;font-size:0.875rem;"></div>
+        <p style="margin:12px 0 6px;font-weight:600;font-size:0.8125rem;color:var(--text-muted);">Strengths</p>
+        <ul class="win-list" id="wins"></ul>
+        <p style="margin:16px 0 6px;font-weight:600;font-size:0.8125rem;color:var(--text-muted);">Improvements</p>
+        <ul class="issue-list" id="issues"></ul>
+      </div>
+
+      <div class="panel" id="aiPanel" style="display:none;">
+        <h2>✨ AI recommendations</h2>
+        <div class="ai-box" id="aiNarrative"></div>
+      </div>
+    </div>
+
+    <p class="disclaimer">
+      <strong>Disclaimer:</strong> This tool fetches only the homepage, <code>/robots.txt</code>, <code>/llms.txt</code>, and optionally <code>/ai.txt</code> on standard ports. Results are indicative—not legal or SEO guarantees. Crawler behavior changes; confirm critical decisions with your team and official documentation.
+    </p>
+  </div>
+
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"WebApplication","name":"GEO Website Audit","url":"https://easygoaitool.online/tools/geo-audit.html","description":"Free GEO audit: robots.txt AI crawlers, schema, llms.txt, HTML structure.","applicationCategory":"UtilitiesApplication","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}
+  </script>
+  <script>
+    var apiUrl = (typeof window !== 'undefined' && window.location.pathname.indexOf('/tools/') !== -1)
+      ? '/api/geo-audit'
+      : (window.location.origin + '/api/geo-audit');
+    var lastReportText = '';
+
+    function tagClass(c) {
+      if (c.blocked || c.status === 'wildcard_blocked') return 'tag tag-bad';
+      if (c.status === 'not_listed' || c.status === 'unknown') return 'tag tag-muted';
+      if (c.status === 'allowed' || c.status === 'wildcard_allowed') return 'tag tag-ok';
+      return 'tag tag-warn';
+    }
+    function tagLabel(c) {
+      if (c.blocked) return 'Likely blocked /';
+      if (c.status === 'wildcard_blocked') return 'Blocked via *';
+      if (c.status === 'allowed') return 'Allowed (bot block)';
+      if (c.status === 'wildcard_allowed') return 'OK under *';
+      if (c.status === 'unknown') return 'Unknown';
+      return 'Not listed (see *)';
+    }
+
+    function runAudit() {
+      var url = document.getElementById('url').value.trim();
+      var btn = document.getElementById('btnRun');
+      var label = document.getElementById('btnLabel');
+      var err = document.getElementById('err');
+      var results = document.getElementById('results');
+      err.style.display = 'none';
+      results.classList.remove('visible');
+
+      if (!url) {
+        err.textContent = 'Enter a URL.';
+        err.style.display = 'block';
+        return;
+      }
+
+      btn.disabled = true;
+      label.innerHTML = '<span class="spinner" aria-hidden="true"></span> Auditing…';
+
+      fetch(apiUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          url: url,
+          includeAiAnalysis: document.getElementById('includeAi').checked
+        })
+      })
+        .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, status: r.status, j: j }; }); })
+        .then(function (x) {
+          btn.disabled = false;
+          label.textContent = 'Run GEO audit';
+          if (!x.ok && x.j && x.j.error) {
+            err.textContent = x.j.error;
+            err.style.display = 'block';
+            return;
+          }
+          if (!x.j.ok) {
+            err.textContent = (x.j.error || 'Request failed');
+            err.style.display = 'block';
+            return;
+          }
+          var a = x.j.audit;
+          results.classList.add('visible');
+
+          document.getElementById('scoreVal').textContent = a.scoring.score;
+          document.getElementById('scoreBand').textContent = a.scoring.band + ' · GEO readiness';
+
+          var ul = document.getElementById('summaryBullets');
+          ul.innerHTML = '';
+          (a.summaryBullets || []).forEach(function (b) {
+            var li = document.createElement('li');
+            li.textContent = b;
+            ul.appendChild(li);
+          });
+
+          document.getElementById('robotsLink').href = a.robots.url;
+          var tbody = document.getElementById('crawlerRows');
+          tbody.innerHTML = '';
+          (a.robots.crawlers || []).forEach(function (c) {
+            var tr = document.createElement('tr');
+            var td1 = document.createElement('td');
+            td1.textContent = c.label;
+            var td2 = document.createElement('td');
+            var span = document.createElement('span');
+            span.className = tagClass(c);
+            span.textContent = tagLabel(c);
+            td2.appendChild(span);
+            var td3 = document.createElement('td');
+            td3.style.color = 'var(--text-muted)';
+            td3.style.fontSize = '0.8125rem';
+            td3.textContent = c.detail;
+            tr.appendChild(td1);
+            tr.appendChild(td2);
+            tr.appendChild(td3);
+            tbody.appendChild(tr);
+          });
+          document.getElementById('robotsPreview').textContent = a.robots.rawPreview || '(empty or not fetched)';
+
+          var llm = a.llmsTxt;
+          var llmTxt = 'Checked: ' + llm.url + ' — HTTP ' + (llm.status != null ? llm.status : '—');
+          if (llm.present) {
+            llmTxt += '. Found ' + llm.lineCount + ' lines.';
+            document.getElementById('llmsPreview').style.display = 'block';
+            document.getElementById('llmsPreview').textContent = llm.preview || '';
+          } else {
+            document.getElementById('llmsPreview').style.display = 'none';
+            llmTxt += '. Not found—consider adding llms.txt for AI-friendly site guidance.';
+          }
+          if (a.aiTxt && a.aiTxt.present) llmTxt += ' /ai.txt returned 200.';
+          document.getElementById('llmsSummary').textContent = llmTxt;
+
+          var page = a.page;
+          document.getElementById('pageUrl').textContent = page && page.url ? 'Analyzed: ' + page.url : '';
+          var idx = document.getElementById('indexingFlags');
+          idx.innerHTML = '';
+          if (a.headers && a.headers.xRobotsNoIndex) {
+            var p = document.createElement('p');
+            p.style.color = 'var(--bad)';
+            p.textContent = 'X-Robots-Tag suggests noindex: ' + (a.headers.xRobotsDetail || '');
+            idx.appendChild(p);
+          }
+          if (page && page.metaRobotsNoIndex) {
+            var p2 = document.createElement('p');
+            p2.style.color = 'var(--bad)';
+            p2.textContent = 'HTML meta robots includes noindex.';
+            idx.appendChild(p2);
+          }
+          if (!page || page.error) {
+            document.getElementById('wins').innerHTML = '';
+            document.getElementById('issues').innerHTML = '';
+            var li = document.createElement('li');
+            li.textContent = page && page.error ? page.error : 'No HTML analysis.';
+            document.getElementById('issues').appendChild(li);
+          } else {
+            var w = document.getElementById('wins');
+            var iss = document.getElementById('issues');
+            w.innerHTML = '';
+            iss.innerHTML = '';
+            (page.wins || []).forEach(function (t) {
+              var li = document.createElement('li');
+              li.textContent = t;
+              w.appendChild(li);
+            });
+            (page.issues || []).forEach(function (t) {
+              var li = document.createElement('li');
+              li.textContent = t;
+              iss.appendChild(li);
+            });
+            if ((page.jsonLdTypes || []).length) {
+              var extra = document.createElement('p');
+              extra.style.fontSize = '0.875rem';
+              extra.style.color = 'var(--text-muted)';
+              extra.textContent = 'JSON-LD @types: ' + page.jsonLdTypes.join(', ');
+              idx.appendChild(extra);
+            }
+          }
+
+          var aiPanel = document.getElementById('aiPanel');
+          var aiBox = document.getElementById('aiNarrative');
+          if (x.j.aiAnalysis) {
+            aiPanel.style.display = 'block';
+            aiBox.textContent = x.j.aiAnalysis;
+          } else {
+            aiPanel.style.display = 'none';
+            if (document.getElementById('includeAi').checked && x.j.aiAnalysisSource === 'skipped') {
+              aiPanel.style.display = 'block';
+              aiBox.textContent = 'AI recommendations are not configured on this server (set DEEPSEEK_API_KEY), or analysis was skipped.';
+            } else if (x.j.aiAnalysisError) {
+              aiPanel.style.display = 'block';
+              aiBox.textContent = x.j.aiAnalysisError;
+            }
+          }
+
+          lastReportText = buildReportText(a, x.j);
+        })
+        .catch(function () {
+          btn.disabled = false;
+          label.textContent = 'Run GEO audit';
+          err.textContent = 'Network error. Try again.';
+          err.style.display = 'block';
+        });
+    }
+
+    function buildReportText(a, resp) {
+      var lines = [];
+      lines.push('GEO Audit — ' + (a.normalizedUrl || ''));
+      lines.push('Score: ' + a.scoring.score + '/100 (' + a.scoring.band + ')');
+      lines.push('');
+      (a.summaryBullets || []).forEach(function (b) { lines.push('• ' + b); });
+      lines.push('');
+      lines.push('AI crawlers (robots.txt heuristic):');
+      (a.robots.crawlers || []).forEach(function (c) {
+        lines.push('  - ' + c.label + ': ' + tagLabel(c) + ' — ' + c.detail);
+      });
+      lines.push('');
+      lines.push('llms.txt: ' + (a.llmsTxt.present ? 'present' : 'missing'));
+      if (resp.aiAnalysis) {
+        lines.push('');
+        lines.push('AI recommendations:');
+        lines.push(resp.aiAnalysis);
+      }
+      return lines.join('\n');
+    }
+
+    function copyReport() {
+      if (!lastReportText) return;
+      var btn = document.querySelector('.toolbar .btn-sec');
+      navigator.clipboard.writeText(lastReportText).then(function () {
+        if (btn) {
+          var t = btn.textContent;
+          btn.textContent = 'Copied!';
+          setTimeout(function () { btn.textContent = t; }, 2000);
+        }
+      });
+    }
+  </script>
+</body>
+</html>
