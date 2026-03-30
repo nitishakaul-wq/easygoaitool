@@ -14,17 +14,19 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #0f0f12;
-      --bg-soft: #18181c;
-      --surface: #1e1e24;
-      --surface-2: #26262c;
-      --border: rgba(255,255,255,0.08);
-      --text: #fafafa;
+      --bg: #0c0c10;
+      --bg-soft: #15151a;
+      --surface: #1a1a22;
+      --surface-2: #22222c;
+      --surface-input: #252530;
+      --border: rgba(255, 255, 255, 0.1);
+      --border-strong: rgba(255, 255, 255, 0.14);
+      --text: #f4f4f5;
       --text-muted: #a1a1aa;
       --accent: #a855f7;
-      --accent-2: #c084fc;
-      --pop: #22d3ee;
-      --success: #22c55e;
+      --accent-deep: #7c3aed;
+      --accent-2: #d8b4fe;
+      --accent-glow: rgba(168, 85, 247, 0.25);
       --radius: 16px;
       --radius-sm: 10px;
       --radius-full: 9999px;
@@ -39,6 +41,8 @@
       margin: 0;
       font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
       background: var(--bg);
+      background-image: radial-gradient(ellipse 90% 55% at 50% -15%, rgba(168, 85, 247, 0.14) 0%, transparent 52%),
+        radial-gradient(ellipse 50% 40% at 100% 50%, rgba(124, 58, 237, 0.06) 0%, transparent 50%);
       color: var(--text);
       line-height: 1.5;
       min-height: 100vh;
@@ -52,9 +56,10 @@
       position: sticky;
       top: 0;
       z-index: 50;
-      background: rgba(15, 15, 18, 0.9);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
+      background: rgba(12, 12, 16, 0.88);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(168, 85, 247, 0.12);
       padding: 12px max(var(--space-md), env(safe-area-inset-left)) 12px max(var(--space-md), env(safe-area-inset-right));
     }
     .top-bar-inner {
@@ -63,6 +68,14 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .top-bar-links {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
     }
     .back-link {
       color: var(--text-muted);
@@ -76,6 +89,32 @@
     .back-link:hover { color: var(--accent-2); background: var(--surface); }
     .back-link:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
+    .try-other-tools {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 9px 18px;
+      border-radius: var(--radius-full);
+      font-size: 0.9375rem;
+      font-weight: 600;
+      text-decoration: none;
+      color: #fff;
+      background: linear-gradient(135deg, var(--accent), var(--accent-deep));
+      border: 1px solid rgba(216, 180, 254, 0.35);
+      box-shadow: 0 2px 16px var(--accent-glow);
+      transition: transform 0.15s, box-shadow 0.2s, filter 0.2s;
+      white-space: nowrap;
+    }
+    .try-other-tools:hover {
+      filter: brightness(1.06);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 22px var(--accent-glow);
+    }
+    .try-other-tools:focus-visible {
+      outline: 2px solid var(--accent-2);
+      outline-offset: 3px;
+    }
+
     .container {
       max-width: 900px;
       margin: 0 auto;
@@ -84,57 +123,132 @@
       padding-right: max(var(--space-md), env(safe-area-inset-right));
     }
 
-    header { margin-bottom: var(--space-xl); text-align: center; }
+    header { margin-bottom: var(--space-lg); text-align: center; }
     .badge {
       display: inline-block;
       padding: 6px 14px;
-      background: linear-gradient(135deg, rgba(168, 85, 247, 0.2), rgba(34, 211, 238, 0.15));
-      border: 1px solid rgba(168, 85, 247, 0.3);
+      background: rgba(168, 85, 247, 0.12);
+      border: 1px solid rgba(168, 85, 247, 0.35);
       border-radius: var(--radius-full);
       font-size: 0.8125rem;
       font-weight: 600;
       color: var(--accent-2);
       margin-bottom: var(--space-md);
+      letter-spacing: 0.02em;
     }
     h1 {
-      font-size: clamp(1.75rem, 4vw, 2.25rem);
+      font-size: clamp(1.75rem, 4vw, 2.35rem);
       font-weight: 700;
       margin: 0 0 8px;
-      letter-spacing: -0.02em;
+      letter-spacing: -0.03em;
       color: var(--text);
+      background: linear-gradient(180deg, #fff 0%, #e4e4e7 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
-    .subtitle { color: var(--text-muted); font-size: 1.0625rem; margin: 0; }
+    @supports not (background-clip: text) {
+      h1 {
+        background: none;
+        -webkit-text-fill-color: unset;
+        color: var(--text);
+      }
+    }
+    .subtitle { color: var(--text-muted); font-size: 1.0625rem; margin: 0; max-width: 34rem; margin-left: auto; margin-right: auto; }
 
-    .tools-nav {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      gap: var(--space-md);
-      margin-bottom: var(--space-xl);
-    }
-    .tools-nav a {
-      display: block;
-      padding: 14px 18px;
-      background: var(--surface);
+    .tools-hub-wrap {
+      margin-bottom: var(--space-lg);
+      padding: var(--space-md);
+      background: rgba(26, 26, 34, 0.6);
       border: 1px solid var(--border);
-      border-radius: var(--radius-sm);
+      border-radius: var(--radius);
+      backdrop-filter: blur(8px);
+    }
+    .tools-hub {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: 10px;
+    }
+    @media (max-width: 900px) {
+      .tools-hub { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    }
+    @media (max-width: 520px) {
+      .tools-hub {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        overflow-y: hidden;
+        gap: 10px;
+        padding: 4px 2px 12px;
+        margin: 0 -4px;
+        -webkit-overflow-scrolling: touch;
+        scroll-snap-type: x proximity;
+        scrollbar-color: rgba(168, 85, 247, 0.4) transparent;
+      }
+      .tools-hub::-webkit-scrollbar { height: 6px; }
+      .tools-hub::-webkit-scrollbar-thumb {
+        background: rgba(168, 85, 247, 0.35);
+        border-radius: 999px;
+      }
+      .tools-hub a {
+        flex: 0 0 92px;
+        min-width: 92px;
+        scroll-snap-align: start;
+      }
+    }
+    .tools-hub a {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 100px;
+      padding: 14px 8px;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
       color: var(--text);
       text-decoration: none;
       font-weight: 600;
-      font-size: 0.9375rem;
+      font-size: 0.75rem;
+      line-height: 1.25;
       text-align: center;
-      transition: border-color 0.2s, background 0.2s;
+      transition: border-color 0.2s, background 0.2s, transform 0.15s, box-shadow 0.2s;
     }
-    .tools-nav a:hover { border-color: var(--accent); background: var(--surface-2); }
-    .tools-nav a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .tools-hub a:hover {
+      border-color: rgba(168, 85, 247, 0.45);
+      background: var(--surface);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+    }
+    .tools-hub a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .tools-hub .hub-ic {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      font-size: 1.35rem;
+      line-height: 1;
+      background: rgba(168, 85, 247, 0.14);
+      border: 1px solid rgba(168, 85, 247, 0.22);
+    }
+    @media (max-width: 480px) {
+      .tools-hub a { min-height: 96px; padding: 12px 6px; }
+    }
 
     .tool-section {
-      margin-top: var(--space-xl);
+      margin-top: var(--space-lg);
       padding: var(--space-lg);
       background: var(--surface);
-      border: 1px solid var(--border);
+      border: 1px solid var(--border-strong);
       border-radius: var(--radius);
-      scroll-margin-top: 80px;
+      scroll-margin-top: 88px;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
     }
+    .tools-hub-wrap + .tool-section { margin-top: var(--space-md); }
     .tool-section h2 {
       font-size: 1.25rem;
       font-weight: 600;
@@ -144,21 +258,22 @@
     .tool-section input,
     .tool-section textarea {
       width: 100%;
-      padding: 12px 16px;
-      background: var(--bg-soft);
-      border: 1px solid var(--border);
+      padding: 14px 16px;
+      background: var(--surface-input);
+      border: 1px solid var(--border-strong);
       border-radius: var(--radius-sm);
       color: var(--text);
       font-size: 0.9375rem;
       font-family: inherit;
       margin-bottom: 10px;
       outline: none;
-      transition: border-color 0.2s;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2);
     }
     .tool-section input:focus,
     .tool-section textarea:focus {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 2px rgba(168, 85, 247, 0.2);
+      border-color: rgba(168, 85, 247, 0.65);
+      box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.15), 0 0 0 3px var(--accent-glow);
     }
     .tool-section textarea { min-height: 100px; resize: vertical; }
     .tool-section textarea::placeholder,
@@ -183,7 +298,8 @@
     .tool-section .result {
       margin-top: 14px;
       padding: 12px 16px;
-      background: var(--bg-soft);
+      background: var(--surface-input);
+      border: 1px solid var(--border);
       border-radius: var(--radius-sm);
       font-size: 0.9375rem;
       color: var(--text);
@@ -197,91 +313,120 @@
       font-size: 0.875rem;
       color: var(--text-muted);
     }
+    footer.tools-footer > p { margin: 0; }
+    footer.tools-footer .footer-cta {
+      margin-top: var(--space-md);
+    }
+    footer.tools-footer .footer-cta a {
+      color: var(--accent-2);
+      font-weight: 600;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(192, 132, 252, 0.4);
+      transition: color 0.2s, border-color 0.2s;
+    }
+    footer.tools-footer .footer-cta a:hover {
+      color: #e9d5ff;
+      border-color: rgba(192, 132, 252, 0.65);
+    }
+    footer.tools-footer .footer-cta a:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 4px;
+      border-radius: 4px;
+    }
 
     @media (max-width: 600px) {
       .container { padding: 20px 16px 40px; }
       .tool-section { padding: var(--space-md); }
       .tool-section input, .tool-section textarea { font-size: 16px; }
+      .try-other-tools { width: 100%; justify-content: center; }
     }
   </style>
 </head>
 <body>
-  <nav class="top-bar" aria-label="Navigation">
+  <nav class="top-bar" aria-label="Site navigation">
     <div class="top-bar-inner">
-      <a href="/" class="back-link">← Back to tools</a>
+      <div class="top-bar-links">
+        <a href="/" class="back-link">← Home</a>
+      </div>
+      <a href="/#most-used" class="try-other-tools">Try other tools <span aria-hidden="true">→</span></a>
     </div>
   </nav>
 
-  <div class="container">
+  <main class="container" id="main-content">
     <header>
       <span class="badge">Free · No sign-up</span>
       <h1>Utility Tools</h1>
-      <p class="subtitle">Simple tools for everyday tasks. Word counter, QR generator, password generator and more. Part of EasyGo AI Tools.</p>
+      <p class="subtitle"><strong>Jump in below</strong>—each tile scrolls to that tool. Free, fast, no sign-up.</p>
     </header>
 
-    <nav class="tools-nav" aria-label="Popular tools">
-      <a href="#word">Word Counter</a>
-      <a href="#qr">QR Code Generator</a>
-      <a href="#password">Password Generator</a>
-      <a href="#age">Age Calculator</a>
-      <a href="#character">Character Counter</a>
-      <a href="#random">Random Number</a>
-      <a href="#case">Text Case Converter</a>
-    </nav>
+    <div class="tools-hub-wrap">
+      <nav class="tools-hub" aria-label="Pick a utility — seven tools on this page">
+        <a href="#word"><span class="hub-ic" aria-hidden="true">📝</span>Word counter</a>
+        <a href="#qr"><span class="hub-ic" aria-hidden="true">▦</span>QR code</a>
+        <a href="#password"><span class="hub-ic" aria-hidden="true">🔑</span>Password</a>
+        <a href="#age"><span class="hub-ic" aria-hidden="true">🎂</span>Age</a>
+        <a href="#character"><span class="hub-ic" aria-hidden="true">#</span>Characters</a>
+        <a href="#random"><span class="hub-ic" aria-hidden="true">🎲</span>Random #</a>
+        <a href="#case"><span class="hub-ic" aria-hidden="true">Aa</span>Case</a>
+      </nav>
+    </div>
 
     <div id="word" class="tool-section">
       <h2>Word Counter</h2>
       <textarea id="textInput" rows="5" placeholder="Paste text here"></textarea>
-      <button onclick="countWords()">Count</button>
-      <p id="wordResult" class="result"></p>
+      <button type="button" onclick="countWords()">Count</button>
+      <p id="wordResult" class="result" aria-live="polite"></p>
     </div>
 
     <div id="qr" class="tool-section">
       <h2>QR Code Generator</h2>
-      <input id="qrInput" type="url" placeholder="Enter URL">
-      <button onclick="generateQR()">Generate</button>
-      <div id="qrResult" class="result"></div>
+      <input id="qrInput" type="text" inputmode="url" autocomplete="off" placeholder="URL or any text (e.g. https://example.com)">
+      <button type="button" onclick="generateQR()">Generate</button>
+      <div id="qrResult" class="result" aria-live="polite"></div>
     </div>
 
     <div id="password" class="tool-section">
       <h2>Password Generator</h2>
       <input id="length" type="number" min="6" max="64" placeholder="Password length (e.g. 12)">
-      <button onclick="generatePassword()">Generate</button>
-      <p id="passwordResult" class="result"></p>
+      <button type="button" onclick="generatePassword()">Generate</button>
+      <p id="passwordResult" class="result" aria-live="polite"></p>
     </div>
 
     <div id="age" class="tool-section">
       <h2>Age Calculator</h2>
       <input type="date" id="birthdate">
-      <button onclick="calcAge()">Calculate</button>
-      <p id="ageResult" class="result"></p>
+      <button type="button" onclick="calcAge()">Calculate</button>
+      <p id="ageResult" class="result" aria-live="polite"></p>
     </div>
 
     <div id="character" class="tool-section">
       <h2>Character Counter</h2>
       <textarea id="charInput" placeholder="Paste or type text"></textarea>
-      <button onclick="countChars()">Count</button>
-      <p id="charResult" class="result"></p>
+      <button type="button" onclick="countChars()">Count</button>
+      <p id="charResult" class="result" aria-live="polite"></p>
     </div>
 
     <div id="random" class="tool-section">
       <h2>Random Number Generator</h2>
       <input id="min" type="number" placeholder="Min">
       <input id="max" type="number" placeholder="Max">
-      <button onclick="generateRandom()">Generate</button>
-      <p id="randomResult" class="result"></p>
+      <button type="button" onclick="generateRandom()">Generate</button>
+      <p id="randomResult" class="result" aria-live="polite"></p>
     </div>
 
     <div id="case" class="tool-section">
       <h2>Text Case Converter</h2>
       <textarea id="caseInput" placeholder="Enter text"></textarea>
-      <button onclick="toUpper()">UPPERCASE</button>
-      <button onclick="toLower()">lowercase</button>
-      <p id="caseResult" class="result"></p>
+      <button type="button" onclick="toUpper()">UPPERCASE</button>
+      <button type="button" onclick="toLower()">lowercase</button>
+      <p id="caseResult" class="result" aria-live="polite"></p>
     </div>
 
-    <footer class="tools-footer">Utility Tools · Part of EasyGo AI Tools</footer>
-  </div>
+    <footer class="tools-footer">
+      <p>Utility Tools · Part of EasyGo AI Tools</p>
+      <p class="footer-cta"><a href="/#most-used">Try other tools on EasyGo AI</a></p>
+    </footer>
+  </main>
 
   <script>
     function countWords() {
@@ -291,10 +436,14 @@
     }
 
     function generateQR() {
+      var el = document.getElementById('qrResult');
       var url = document.getElementById('qrInput').value.trim();
-      if (!url) { document.getElementById('qrResult').innerHTML = ''; return; }
+      if (!url) {
+        el.innerHTML = '';
+        return;
+      }
       var img = 'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=' + encodeURIComponent(url);
-      document.getElementById('qrResult').innerHTML = '<img src="' + img + '" alt="QR code" width="200" height="200">';
+      el.innerHTML = '<img src="' + img + '" alt="QR code for encoded content" width="200" height="200" loading="lazy" decoding="async">';
     }
 
     function generatePassword() {
@@ -302,21 +451,47 @@
       length = Math.min(64, Math.max(6, length));
       var chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
       var pass = '';
-      for (var i = 0; i < length; i++) {
-        pass += chars[Math.floor(Math.random() * chars.length)];
+      var i;
+      if (typeof crypto !== 'undefined' && crypto.getRandomValues) {
+        var buf = new Uint32Array(length);
+        crypto.getRandomValues(buf);
+        for (i = 0; i < length; i++) {
+          pass += chars[buf[i] % chars.length];
+        }
+      } else {
+        for (i = 0; i < length; i++) {
+          pass += chars[Math.floor(Math.random() * chars.length)];
+        }
       }
       document.getElementById('passwordResult').textContent = pass;
     }
 
     function calcAge() {
+      var out = document.getElementById('ageResult');
       var birthStr = document.getElementById('birthdate').value;
-      if (!birthStr) { document.getElementById('ageResult').textContent = ''; return; }
-      var birth = new Date(birthStr);
+      if (!birthStr) { out.textContent = ''; return; }
+      var parts = birthStr.split('-');
+      if (parts.length !== 3) { out.textContent = 'Please choose a valid date.'; return; }
+      var y = parseInt(parts[0], 10);
+      var mo = parseInt(parts[1], 10) - 1;
+      var d = parseInt(parts[2], 10);
+      if (isNaN(y) || isNaN(mo) || isNaN(d)) { out.textContent = 'Please choose a valid date.'; return; }
+      var birth = new Date(y, mo, d);
+      if (birth.getFullYear() !== y || birth.getMonth() !== mo || birth.getDate() !== d) {
+        out.textContent = 'Please choose a valid date.';
+        return;
+      }
       var today = new Date();
+      today.setHours(0, 0, 0, 0);
+      birth.setHours(0, 0, 0, 0);
+      if (birth > today) {
+        out.textContent = 'Birth date cannot be in the future.';
+        return;
+      }
       var age = today.getFullYear() - birth.getFullYear();
       var m = today.getMonth() - birth.getMonth();
       if (m < 0 || (m === 0 && today.getDate() < birth.getDate())) age--;
-      document.getElementById('ageResult').textContent = 'Age: ' + age + ' years';
+      out.textContent = 'Age: ' + age + ' years';
     }
 
     function countChars() {
